@@ -8,8 +8,10 @@ const pixCopied = ref(false)
 
 const whatsappContactLink = computed(() => {
   if (!order.value) return '#'
+  const rawPhone = (order.value.store?.contactWhatsapp || '11999998888').replace(/\D/g, '')
+  const phone = rawPhone.startsWith('55') ? rawPhone : `55${rawPhone}`
   const msg = `Olá! Gostaria de falar sobre o meu pedido *#${order.value.orderNumber}* no valor de *R$ ${Number(order.value.total).toFixed(2)}*.`
-  return `https://wa.me/5511999998888?text=${encodeURIComponent(msg)}`
+  return `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
 })
 
 const copyPix = () => {

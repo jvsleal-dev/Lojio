@@ -1,5 +1,5 @@
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -12,20 +12,20 @@ model Tenant {
   name             String
   subdomain        String    @unique
   customDomain     String?   @unique
-  logoUrl          String?
-  bannerUrl        String?
-  description      String?
+  logoUrl          String?   @db.Text
+  bannerUrl        String?   @db.Text
+  description      String?   @db.Text
   contactEmail     String?
   contactWhatsapp  String?
   primaryColor     String    @default("#0f172a")
   accentColor      String    @default("#2563eb")
-  announcementBar  String    @default("🎉 Bem-vindo(a) à nossa loja online! Frete grátis em compras acima de R$ 199.")
+  announcementBar  String    @default("🎉 Bem-vindo(a) à nossa loja online! Frete grátis em compras acima de R$ 199.") @db.Text
   showAnnouncement Boolean   @default(true)
   originZipcode    String    @default("01310-100")
   plan             String    @default("PRO") // STARTER, PRO, ENTERPRISE
-  mpAccessToken    String?
+  mpAccessToken    String?   @db.Text
   mpPublicKey      String?
-  melhorEnvioToken String?
+  melhorEnvioToken String?   @db.Text
   isActive         Boolean   @default(true)
   createdAt        DateTime  @default(now())
   updatedAt        DateTime  @updatedAt
@@ -72,7 +72,7 @@ model Product {
   categoryId     String?
   name           String
   slug           String
-  description    String?
+  description    String?          @db.Text
   price          Float
   compareAtPrice Float?
   costPrice      Float?
@@ -83,7 +83,7 @@ model Product {
   lengthCm       Int              @default(15)
   heightCm       Int              @default(5)
   widthCm        Int              @default(10)
-  images         String?          // JSON string of image URLs
+  images         String?          @db.Text // JSON string of image URLs
   hasVariants    Boolean          @default(false)
   isActive       Boolean          @default(true)
   isFeatured     Boolean          @default(false)
@@ -106,8 +106,8 @@ model ProductVariant {
   price          Float
   compareAtPrice Float?
   stockQuantity  Int         @default(0)
-  attributes     String?     // JSON string of attributes e.g. {"tamanho": "M", "cor": "Preto"}
-  imageUrl       String?
+  attributes     String?     @db.Text // JSON string of attributes e.g. {"tamanho": "M", "cor": "Preto"}
+  imageUrl       String?     @db.Text
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
 
@@ -123,7 +123,7 @@ model Order {
   customerEmail      String
   customerPhone      String
   customerDocument   String      // CPF
-  shippingAddress    String      // JSON string of address
+  shippingAddress    String      @db.Text // JSON string of address
   shippingService    String      @default("Padrão")
   shippingCost       Float       @default(0)
   subtotal           Float
@@ -134,9 +134,9 @@ model Order {
   orderStatus        String      @default("pending") // pending, processing, shipped, delivered, cancelled
   paymentGateway     String      @default("mercadopago")
   paymentGatewayId   String?
-  paymentMetadata    String?     // JSON string of PIX / Card response
+  paymentMetadata    String?     @db.Text // JSON string of PIX / Card response
   trackingCode       String?
-  notes              String?
+  notes              String?     @db.Text
   createdAt          DateTime    @default(now())
   updatedAt          DateTime    @updatedAt
 

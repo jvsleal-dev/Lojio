@@ -1,8 +1,15 @@
-import { prisma } from '../../../utils/prisma'
+import { prisma } from '~/server/utils/prisma'
 
 export default defineEventHandler(async (event) => {
   const tenant = event.context.tenant
   const orderNumber = getRouterParam(event, 'orderNumber')
+
+  if (!orderNumber) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Número do pedido não informado.',
+    })
+  }
 
   if (!tenant) {
     throw createError({
@@ -11,13 +18,25 @@ export default defineEventHandler(async (event) => {
     })
   }
 
+  // O número do pedido é globalmente único, mas a consulta deve permanecer
+  // restrita ao tenant resolvido pela requisição para evitar vazamento entre lojas.
   const order = await prisma.order.findFirst({
     where: {
-      tenantId: tenant.id,
       orderNumber,
+      tenantId: tenant.id,
     },
     include: {
       items: true,
+      tenant: {
+        select: {
+          id: true,
+          name: true,
+          subdomain: true,
+          contactWhatsapp: true,
+          primaryColor: true,
+          accentColor: true,
+        },
+      },
     },
   })
 
@@ -53,7 +72,7 @@ export default defineEventHandler(async (event) => {
       createdAt: order.createdAt,
       items: order.items,
       payment: paymentMetadata,
+      store: order.tenant,
     },
   }
 })
-
