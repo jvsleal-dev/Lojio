@@ -1,0 +1,183 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Tenant {
+  id               String    @id @default(uuid())
+  name             String
+  subdomain        String    @unique
+  customDomain     String?   @unique
+  logoUrl          String?
+  bannerUrl        String?
+  description      String?
+  contactEmail     String?
+  contactWhatsapp  String?
+  primaryColor     String    @default("#0f172a")
+  accentColor      String    @default("#2563eb")
+  announcementBar  String    @default("🎉 Bem-vindo(a) à nossa loja online! Frete grátis em compras acima de R$ 199.")
+  showAnnouncement Boolean   @default(true)
+  originZipcode    String    @default("01310-100")
+  plan             String    @default("PRO") // STARTER, PRO, ENTERPRISE
+  mpAccessToken    String?
+  mpPublicKey      String?
+  melhorEnvioToken String?
+  isActive         Boolean   @default(true)
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+
+  users            User[]
+  categories       Category[]
+  products         Product[]
+  orders           Order[]
+  coupons          Coupon[]
+}
+
+model User {
+  id        String   @id @default(uuid())
+  tenantId  String?
+  name      String
+  email     String   @unique
+  password  String
+  role      String   @default("MERCHANT") // MERCHANT, ADMIN
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tenant    Tenant?  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+model Category {
+  id        String    @id @default(uuid())
+  tenantId  String
+  name      String
+  slug      String
+  imageUrl  String?
+  isActive  Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  tenant    Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  products  Product[]
+
+  @@unique([tenantId, slug])
+}
+
+model Product {
+  id             String           @id @default(uuid())
+  tenantId       String
+  categoryId     String?
+  name           String
+  slug           String
+  description    String?
+  price          Float
+  compareAtPrice Float?
+  costPrice      Float?
+  sku            String?
+  stockQuantity  Int              @default(0)
+  manageStock    Boolean          @default(true)
+  weightGrams    Int              @default(300)
+  lengthCm       Int              @default(15)
+  heightCm       Int              @default(5)
+  widthCm        Int              @default(10)
+  images         String?          // JSON string of image URLs
+  hasVariants    Boolean          @default(false)
+  isActive       Boolean          @default(true)
+  isFeatured     Boolean          @default(false)
+  createdAt      DateTime         @default(now())
+  updatedAt      DateTime         @updatedAt
+
+  tenant         Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  category       Category?        @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  variants       ProductVariant[]
+  orderItems     OrderItem[]
+
+  @@unique([tenantId, slug])
+}
+
+model ProductVariant {
+  id             String      @id @default(uuid())
+  productId      String
+  name           String
+  sku            String?
+  price          Float
+  compareAtPrice Float?
+  stockQuantity  Int         @default(0)
+  attributes     String?     // JSON string of attributes e.g. {"tamanho": "M", "cor": "Preto"}
+  imageUrl       String?
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  product        Product     @relation(fields: [productId], references: [id], onDelete: Cascade)
+  orderItems     OrderItem[]
+}
+
+model Order {
+  id                 String      @id @default(uuid())
+  tenantId           String
+  orderNumber        String      @unique
+  customerName       String
+  customerEmail      String
+  customerPhone      String
+  customerDocument   String      // CPF
+  shippingAddress    String      // JSON string of address
+  shippingService    String      @default("Padrão")
+  shippingCost       Float       @default(0)
+  subtotal           Float
+  discount           Float       @default(0)
+  total              Float
+  paymentMethod      String      @default("pix") // pix, credit_card
+  paymentStatus      String      @default("pending") // pending, paid, failed, refunded
+  orderStatus        String      @default("pending") // pending, processing, shipped, delivered, cancelled
+  paymentGateway     String      @default("mercadopago")
+  paymentGatewayId   String?
+  paymentMetadata    String?     // JSON string of PIX / Card response
+  trackingCode       String?
+  notes              String?
+  createdAt          DateTime    @default(now())
+  updatedAt          DateTime    @updatedAt
+
+  tenant             Tenant      @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  items              OrderItem[]
+}
+
+model OrderItem {
+  id               String          @id @default(uuid())
+  orderId          String
+  productId        String?
+  productVariantId String?
+  productName      String
+  variantName      String?
+  unitPrice        Float
+  quantity         Int
+  total            Float
+  createdAt        DateTime        @default(now())
+
+  order            Order           @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product          Product?        @relation(fields: [productId], references: [id], onDelete: SetNull)
+  variant          ProductVariant? @relation(fields: [productVariantId], references: [id], onDelete: SetNull)
+}
+
+model Coupon {
+  id             String    @id @default(uuid())
+  tenantId       String
+  code           String
+  discountType   String    @default("PERCENTAGE") // PERCENTAGE, FIXED
+  discountValue  Float
+  minOrderValue  Float?    @default(0)
+  maxUses        Int?
+  usedCount      Int       @default(0)
+  isActive       Boolean   @default(true)
+  expiresAt      DateTime?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+
+  tenant         Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  @@unique([tenantId, code])
+}
+
+
