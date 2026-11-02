@@ -4,10 +4,10 @@ export default defineEventHandler(async (event) => {
   const tenant = event.context.tenant
 
   if (!tenant) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Loja não encontrada.',
-    })
+    return {
+      products: [],
+      total: 0,
+    }
   }
 
   const query = getQuery(event)

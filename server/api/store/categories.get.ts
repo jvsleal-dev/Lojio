@@ -4,10 +4,9 @@ export default defineEventHandler(async (event) => {
   const tenant = event.context.tenant
 
   if (!tenant) {
-    throw createError({
-      statusCode: 404,
-      statusMessage: 'Loja não encontrada.',
-    })
+    return {
+      categories: [],
+    }
   }
 
   const categories = await prisma.category.findMany({

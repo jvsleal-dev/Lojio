@@ -75,9 +75,10 @@ defineProps<{
         <div>
           <h5 class="text-xs font-bold text-slate-900 uppercase tracking-wider mb-4">Institucional</h5>
           <ul class="space-y-2 text-xs text-slate-600">
-            <li><NuxtLink to="/" class="hover:text-blue-600 transition-colors">Início</NuxtLink></li>
+            <li><NuxtLink :to="store?.subdomain ? `/?tenant=${store.subdomain}` : '/'" class="hover:text-blue-600 transition-colors">Catálogo da Loja</NuxtLink></li>
             <li><NuxtLink to="/checkout" class="hover:text-blue-600 transition-colors">Carrinho e Checkout</NuxtLink></li>
             <li><NuxtLink to="/admin" class="hover:text-blue-600 transition-colors">Área do Lojista</NuxtLink></li>
+            <li><NuxtLink to="/?tenant=none" class="font-bold text-blue-600 hover:text-blue-800 transition-colors">⚡ Plataforma Lojio (Criar Loja)</NuxtLink></li>
           </ul>
         </div>
 

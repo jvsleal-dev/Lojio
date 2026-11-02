@@ -32,7 +32,7 @@ const handleSearch = () => {
         </button>
 
         <!-- Store Logo / Brand -->
-        <NuxtLink to="/" class="flex items-center gap-3 group">
+        <NuxtLink :to="store?.subdomain ? `/?tenant=${store.subdomain}` : '/'" class="flex items-center gap-3 group">
           <div
             v-if="store?.logoUrl"
             class="h-10 w-10 rounded-xl overflow-hidden border border-slate-200"
@@ -71,6 +71,16 @@ const handleSearch = () => {
 
         <!-- Right Action Items -->
         <div class="flex items-center gap-3">
+          <!-- Back to SaaS Platform button -->
+          <NuxtLink
+            to="/?tenant=none"
+            class="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-xl border border-blue-200 transition-colors"
+            title="Voltar para a página inicial da plataforma Lojio"
+          >
+            <span>⚡</span>
+            <span>Plataforma Lojio</span>
+          </NuxtLink>
+
           <!-- Admin Portal Shortcut Button -->
           <NuxtLink
             to="/admin"

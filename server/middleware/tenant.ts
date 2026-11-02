@@ -19,7 +19,7 @@ export default defineEventHandler(async (event) => {
   let subdomain: string | null = null
 
   if (query.tenant) {
-    if (['none', 'saas', 'plataforma', 'home'].includes(String(query.tenant).toLowerCase())) {
+    if (['none', 'saas', 'plataforma', 'home', ''].includes(String(query.tenant).toLowerCase())) {
       deleteCookie(event, 'selected_tenant')
       event.context.tenant = null
       return
@@ -29,19 +29,35 @@ export default defineEventHandler(async (event) => {
   } else if (headerSubdomain) {
     subdomain = headerSubdomain.toLowerCase().trim()
   } else {
-    // Resolve from host (e.g. modaurbana.localhost:3000 or mycustomdomain.com)
-    const host = getRequestHost(event)
+    // Resolve from host
+    const host = getRequestHost(event).split(':')[0].toLowerCase()
     const hostParts = host.split('.')
-    if (hostParts.length > 1 && !['localhost', '127', 'www'].includes(hostParts[0])) {
-      subdomain = hostParts[0].toLowerCase()
-    }
-  }
 
-  // If no subdomain from host/query, check cookie
-  if (!subdomain) {
-    const cookieSubdomain = getCookie(event, 'selected_tenant')
-    if (cookieSubdomain) {
-      subdomain = cookieSubdomain.toLowerCase().trim()
+    // Recognise SaaS platform hosts that do NOT have a merchant subdomain
+    const isLocalhostRoot = host === 'localhost' || host === '127.0.0.1'
+    const isVercelRoot = host.endsWith('.vercel.app') && hostParts.length <= 3 // e.g. lojio-1agl.vercel.app
+    const isPlatformRoot = isLocalhostRoot || isVercelRoot || host === 'lojio.com.br' || host === 'www.lojio.com.br'
+
+    if (!isPlatformRoot) {
+      if (host.includes('localhost') && hostParts.length > 1) {
+        // e.g. modaurbana.localhost
+        subdomain = hostParts[0]
+      } else if (host.endsWith('.vercel.app') && hostParts.length > 3) {
+        // e.g. modaurbana.lojio-1agl.vercel.app
+        subdomain = hostParts[0]
+      } else if (hostParts.length > 2 && hostParts[0] !== 'www') {
+        // e.g. modaurbana.lojio.com.br
+        subdomain = hostParts[0]
+      } else {
+        // Could be a custom domain like www.modaurbana.com.br
+        const tenantByCustomDomain = await prisma.tenant.findFirst({
+          where: { customDomain: host, isActive: true },
+        })
+        if (tenantByCustomDomain) {
+          event.context.tenant = tenantByCustomDomain
+          return
+        }
+      }
     }
   }
 
@@ -57,12 +73,22 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // Fallback default store for storefront or store APIs if accessed directly
-  if (!tenant && (url.pathname.startsWith('/api/store') || url.pathname.startsWith('/produto/') || url.pathname.startsWith('/checkout') || url.pathname.startsWith('/pedido/'))) {
-    tenant = await prisma.tenant.findFirst({
-      where: { isActive: true },
-      orderBy: { createdAt: 'asc' },
-    })
+  // Only fallback for storefront product detail, order tracking or checkout
+  // NEVER fallback on root landing page or general info queries
+  if (!tenant && (url.pathname.startsWith('/produto/') || url.pathname.startsWith('/checkout') || url.pathname.startsWith('/pedido/'))) {
+    const cookieSubdomain = getCookie(event, 'selected_tenant')
+    if (cookieSubdomain) {
+      tenant = await prisma.tenant.findUnique({
+        where: { subdomain: cookieSubdomain },
+      })
+    }
+
+    if (!tenant) {
+      tenant = await prisma.tenant.findFirst({
+        where: { isActive: true },
+        orderBy: { createdAt: 'asc' },
+      })
+    }
   }
 
   if (tenant && !tenant.isActive) {

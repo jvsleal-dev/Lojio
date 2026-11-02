@@ -1,18 +1,18 @@
 <template>
-  <div class="landing min-h-screen bg-white text-slate-800 font-sans selection:bg-brand-600 selection:text-white">
-    <!-- Top Bar / Floating Capsule Navbar (Image 1 & 2 & 5) -->
+  <div class="landing min-h-screen bg-[#070b14] text-slate-100 font-sans selection:bg-blue-600 selection:text-white">
+    <!-- Top Bar / Floating Capsule Navbar (Image 1 & 2) -->
     <header class="fixed top-4 inset-x-0 z-50 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
-        <nav class="flex items-center justify-between px-5 py-3 rounded-full bg-slate-900/80 backdrop-blur-xl border border-slate-700/60 shadow-2xl shadow-black/40">
-          <!-- Logo Brand -->
-          <NuxtLink to="/" class="flex items-center space-x-2.5 group">
-            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">
+        <nav class="flex items-center justify-between px-5 py-3 rounded-full bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 shadow-2xl shadow-black/50">
+          <!-- Logo Brand (Nuvemshop style with cloud + spark) -->
+          <NuxtLink to="/?tenant=none" class="flex items-center space-x-2.5 group">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
               </svg>
             </div>
-            <span class="font-extrabold text-xl tracking-tight text-white flex items-center">
-              Loj<span class="text-brand-600">io</span>
+            <span class="font-extrabold text-2xl tracking-tight text-white flex items-center">
+              loj<span class="text-blue-500">io</span>
             </span>
           </NuxtLink>
 
@@ -25,7 +25,7 @@
             <a href="#faq" class="hover:text-white transition">FAQ</a>
           </div>
 
-          <!-- Right Action Buttons -->
+          <!-- Right Action Buttons (Nuvemshop Image 1 exact style) -->
           <div class="flex items-center space-x-3">
             <NuxtLink
               to="/master/login"
@@ -36,16 +36,17 @@
               <span>Painel Master</span>
             </NuxtLink>
 
+            <!-- White Pill Button: Acessar meu painel (Exact Nuvemshop Hero Image 1) -->
             <NuxtLink
               to="/admin/login"
-              class="px-4 py-2 rounded-full text-xs font-bold text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 transition"
+              class="px-5 py-2 rounded-full text-xs sm:text-sm font-extrabold text-[#002b66] bg-white hover:bg-slate-100 shadow-md transition hover:scale-105"
             >
               Acessar meu painel
             </NuxtLink>
 
             <button
               @click="openModal = true"
-              class="hidden md:inline-flex items-center px-4 py-2 rounded-full text-xs font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95 transition"
+              class="hidden md:inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95 transition"
             >
               Criar loja grátis
             </button>
@@ -55,10 +56,17 @@
     </header>
 
     <!-- Hero Section (Reference Image 1 & 5) -->
-    <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden">
-      <!-- Background Ambient Glow & Mesh -->
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[550px] bg-gradient-to-b from-blue-600/20 via-indigo-600/10 to-transparent blur-3xl pointer-events-none -z-10"></div>
-      <div class="absolute -top-40 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl pointer-events-none -z-10"></div>
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-[#030d22] via-[#051336] to-[#070b14]">
+      <!-- Background Ambient Glow & Photo Overlay (Nuvemshop style) -->
+      <div class="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
+        <img
+          src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&auto=format&fit=crop&q=80"
+          alt="E-commerce Lifestyle"
+          class="w-full h-full object-cover"
+        />
+      </div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-blue-600/25 via-indigo-600/15 to-transparent blur-3xl pointer-events-none -z-10"></div>
+      <div class="absolute -top-40 right-10 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

@@ -4,30 +4,44 @@ import { useCart } from '~/composables/useCart'
 const { addItem } = useCart()
 const route = useRoute()
 
-// Fetch public store data and categories
-const { data: storeData, error: storeError } = await useFetch('/api/store/info')
-const { data: catData } = await useFetch('/api/store/categories')
+// Active tenant query
+const tenantQuery = computed(() => (route.query.tenant as string) || '')
+
+// Fetch public store data and categories reactively
+const { data: storeData, error: storeError, refresh: refreshStore } = await useFetch('/api/store/info', {
+  query: computed(() => (tenantQuery.value ? { tenant: tenantQuery.value } : {})),
+})
+const { data: catData, refresh: refreshCategories } = await useFetch('/api/store/categories', {
+  query: computed(() => (tenantQuery.value ? { tenant: tenantQuery.value } : {})),
+})
 const { data: publicStoresData } = await useFetch('/api/public/stores')
 
 // Active filters
-const currentCategory = computed(() => route.query.category as string || '')
-const searchQuery = computed(() => route.query.q as string || '')
+const currentCategory = computed(() => (route.query.category as string) || '')
+const searchQuery = computed(() => (route.query.q as string) || '')
 
-// Fetch products based on category/search
+// Fetch products based on category/search/tenant
 const { data: productsData, refresh: refreshProducts } = await useFetch(() => {
   let url = '/api/store/products'
   const params: string[] = []
-  if (currentCategory.value) params.push(`category=${currentCategory.value}`)
+  if (tenantQuery.value) params.push(`tenant=${encodeURIComponent(tenantQuery.value)}`)
+  if (currentCategory.value) params.push(`category=${encodeURIComponent(currentCategory.value)}`)
   if (searchQuery.value) params.push(`q=${encodeURIComponent(searchQuery.value)}`)
   return params.length ? `${url}?${params.join('&')}` : url
 })
 
 watch(() => route.query, () => {
+  refreshStore()
+  refreshCategories()
   refreshProducts()
 })
 
 const store = computed(() => storeData.value?.store)
-const isPlatform = computed(() => !store.value || route.query.tenant === 'none' || route.query.tenant === 'saas')
+const isPlatform = computed(() => {
+  if (['none', 'saas', 'plataforma', 'home'].includes(tenantQuery.value.toLowerCase())) return true
+  if (!store.value) return true
+  return false
+})
 const categories = computed(() => catData.value?.categories || [])
 const products = computed(() => productsData.value?.products || [])
 const allStores = computed(() => publicStoresData.value?.stores || [])
