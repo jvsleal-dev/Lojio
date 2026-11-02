@@ -21,5 +21,17 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 404, statusMessage: 'Loja não encontrada.' })
   }
 
-  return { tenant }
+  let themeConfig: any = {}
+  if (tenant.melhorEnvioToken) {
+    try {
+      themeConfig = JSON.parse(tenant.melhorEnvioToken)
+    } catch {}
+  }
+
+  return {
+    tenant: {
+      ...tenant,
+      themeConfig,
+    },
+  }
 })

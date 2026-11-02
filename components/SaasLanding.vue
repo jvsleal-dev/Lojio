@@ -779,7 +779,7 @@
                 class="flex-1 px-4 py-2.5 rounded-l-xl bg-slate-800 border border-r-0 border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
               />
               <span class="px-3 py-2.5 bg-slate-800/80 border border-l-0 border-slate-700 rounded-r-xl text-slate-400 text-xs font-mono">
-                .localhost
+                .lojio.com.br
               </span>
             </div>
           </div>

@@ -93,10 +93,10 @@ export default defineEventHandler(async (event) => {
 
   if (tenant && !tenant.isActive) {
     event.context.tenantSuspended = true
-    if (url.pathname.startsWith('/api/store')) {
+    if (url.pathname.startsWith('/api/store/checkout')) {
       throw createError({
         statusCode: 403,
-        statusMessage: 'Esta loja está temporariamente suspensa pelo administrador da plataforma.',
+        statusMessage: 'Esta loja está temporariamente em modo rascunho/manutenção e não está aceitando pedidos no momento.',
       })
     }
   }

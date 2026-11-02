@@ -31,6 +31,8 @@ export default defineEventHandler(async (event) => {
       originZipcode: body.originZipcode,
       mpAccessToken: body.mpAccessToken,
       mpPublicKey: body.mpPublicKey,
+      melhorEnvioToken: body.themeConfig ? JSON.stringify(body.themeConfig) : (body.melhorEnvioToken !== undefined ? body.melhorEnvioToken : undefined),
+      isActive: body.isActive !== undefined ? body.isActive : undefined,
     },
   })
 

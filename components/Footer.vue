@@ -94,9 +94,11 @@ defineProps<{
 
       <div class="mt-12 pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between text-xs text-slate-400 gap-4">
         <p>© {{ new Date().getFullYear() }} {{ store?.name }}. Todos os direitos reservados.</p>
-        <p class="flex items-center gap-1">
-          <span>Criado com</span>
-          <span class="font-bold text-slate-700">Nuxt 3 & Prisma</span>
+        <p class="flex items-center gap-1.5">
+          <span>Tecnologia por</span>
+          <NuxtLink to="/?tenant=none" class="font-extrabold text-slate-900 hover:text-blue-600 transition flex items-center">
+            loj<span class="text-blue-600">io</span>
+          </NuxtLink>
         </p>
       </div>
     </div>

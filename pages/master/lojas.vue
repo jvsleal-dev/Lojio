@@ -1,18 +1,18 @@
 <template>
-  <div class="min-h-screen bg-slate-950 flex text-slate-100">
+  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-indigo-600 selection:text-white">
     <MasterSidebar />
 
-    <main class="flex-1 overflow-y-auto p-8">
+    <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
       <!-- Header -->
-      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-800 gap-4">
+      <div class="flex flex-col md:flex-row md:items-center justify-between pb-6 border-b border-slate-200 gap-4">
         <div>
-          <h1 class="text-2xl font-black text-white">Gestão de Lojas de Clientes</h1>
-          <p class="text-slate-400 text-sm">Administre todos os lojistas, planos, suspensões e acessos à plataforma.</p>
+          <h1 class="text-2xl font-black text-slate-900">Gestão de Lojas de Clientes</h1>
+          <p class="text-slate-500 text-sm">Administre todos os lojistas, planos, suspensões e acessos à plataforma.</p>
         </div>
 
         <button
           @click="openCreateModal = true"
-          class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 flex items-center space-x-2 transition self-start md:self-auto"
+          class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md shadow-indigo-600/20 flex items-center space-x-2 transition self-start md:self-auto hover:scale-105 active:scale-95"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -22,16 +22,16 @@
       </div>
 
       <!-- Filters & Search Bar -->
-      <div class="mt-6 flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-900 p-4 rounded-2xl border border-slate-800">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-4 bg-white p-4 rounded-2xl border border-slate-200/90 shadow-sm">
         <div class="relative w-full md:w-96">
           <input
             v-model="search"
             @input="debounceFetch"
             type="text"
             placeholder="Buscar por loja, subdomínio ou e-mail..."
-            class="w-full pl-10 pr-4 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-sm text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
           />
-          <svg class="w-4 h-4 text-slate-500 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
           </svg>
         </div>
@@ -41,7 +41,7 @@
           <select
             v-model="statusFilter"
             @change="fetchTenants"
-            class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-sm text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
           >
             <option value="">Todos os Status</option>
             <option value="active">Apenas Ativas</option>
@@ -52,7 +52,7 @@
           <select
             v-model="planFilter"
             @change="fetchTenants"
-            class="px-3 py-2 rounded-xl bg-slate-800/80 border border-slate-700 text-sm text-slate-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            class="px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-xs font-semibold text-slate-700 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
           >
             <option value="">Todos os Planos</option>
             <option value="STARTER">Starter</option>
@@ -63,23 +63,23 @@
       </div>
 
       <!-- Notification Toast -->
-      <div v-if="toastMessage" class="mt-4 p-3.5 rounded-xl bg-indigo-500/20 border border-indigo-500/40 text-indigo-300 text-xs font-semibold flex items-center justify-between">
+      <div v-if="toastMessage" class="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-800 text-xs font-bold flex items-center justify-between shadow-sm">
         <span>{{ toastMessage }}</span>
-        <button @click="toastMessage = ''" class="text-indigo-400 hover:text-white">&times;</button>
+        <button @click="toastMessage = ''" class="text-indigo-600 hover:text-indigo-900 text-base">&times;</button>
       </div>
 
       <!-- Loading State -->
       <div v-if="loading" class="py-20 text-center">
-        <div class="inline-block animate-spin w-8 h-8 border-4 border-indigo-500 border-t-transparent rounded-full mb-3"></div>
-        <p class="text-slate-400 text-sm">Carregando lojas de clientes...</p>
+        <div class="inline-block animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full mb-3"></div>
+        <p class="text-slate-500 text-sm">Carregando lojas de clientes...</p>
       </div>
 
       <!-- Stores Table -->
-      <div v-else class="mt-6 bg-slate-900 rounded-2xl border border-slate-800 shadow-xl overflow-hidden">
+      <div v-else class="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden">
         <div class="overflow-x-auto">
           <table class="w-full text-left border-collapse">
             <thead>
-              <tr class="border-b border-slate-800 bg-slate-950/40 text-xs font-bold uppercase tracking-wider text-slate-400">
+              <tr class="border-b border-slate-100 bg-slate-50/70 text-xs font-bold uppercase tracking-wider text-slate-500">
                 <th class="py-4 px-6">Loja & Subdomínio</th>
                 <th class="py-4 px-6">Lojista Responsável</th>
                 <th class="py-4 px-6">Plano</th>
@@ -89,22 +89,22 @@
                 <th class="py-4 px-6 text-right">Ações</th>
               </tr>
             </thead>
-            <tbody class="divide-y divide-slate-800/60 text-sm">
-              <tr v-for="store in tenants" :key="store.id" class="hover:bg-slate-800/30 transition">
+            <tbody class="divide-y divide-slate-100 text-sm font-medium">
+              <tr v-for="store in tenants" :key="store.id" class="hover:bg-slate-50/80 transition">
                 <!-- Loja & Subdomain -->
                 <td class="py-4 px-6">
                   <div class="flex items-center space-x-3">
                     <div
-                      class="w-10 h-10 rounded-xl flex items-center justify-center font-black text-white shrink-0 shadow"
-                      :style="{ backgroundColor: '#1f7a52' }"
+                      class="w-10 h-10 rounded-2xl flex items-center justify-center font-black text-white shrink-0 shadow-xs"
+                      :style="{ backgroundColor: store.accentColor || '#1f7a52' }"
                     >
                       {{ store.name.slice(0, 2).toUpperCase() }}
                     </div>
                     <div>
-                      <p class="font-bold text-white leading-tight">{{ store.name }}</p>
+                      <p class="font-bold text-slate-900 leading-tight">{{ store.name }}</p>
                       <div class="flex items-center space-x-1 mt-0.5">
-                        <span class="text-xs text-indigo-400 font-mono">{{ store.subdomain }}</span>
-                        <span class="text-[11px] text-slate-500">.localhost</span>
+                        <span class="text-xs text-indigo-600 font-mono">{{ store.subdomain }}</span>
+                        <span class="text-[11px] text-slate-400">.lojio.com.br</span>
                       </div>
                     </div>
                   </div>
@@ -112,8 +112,8 @@
 
                 <!-- Lojista -->
                 <td class="py-4 px-6">
-                  <p class="font-semibold text-slate-200">{{ store.owner?.name || 'Não vinculado' }}</p>
-                  <p class="text-xs text-slate-400">{{ store.owner?.email || store.contactEmail || '-' }}</p>
+                  <p class="font-semibold text-slate-800">{{ store.owner?.name || 'Não vinculado' }}</p>
+                  <p class="text-xs text-slate-500">{{ store.owner?.email || store.contactEmail || '-' }}</p>
                 </td>
 
                 <!-- Plano -->
@@ -121,9 +121,9 @@
                   <span
                     class="px-2.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider"
                     :class="{
-                      'bg-slate-800 text-slate-300 border border-slate-700': store.plan === 'STARTER',
-                      'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30': store.plan === 'PRO',
-                      'bg-purple-500/20 text-purple-400 border border-purple-500/30': store.plan === 'ENTERPRISE',
+                      'bg-slate-100 text-slate-700 border border-slate-200': store.plan === 'STARTER',
+                      'bg-indigo-50 text-indigo-700 border border-indigo-200': store.plan === 'PRO',
+                      'bg-purple-50 text-purple-700 border border-purple-200': store.plan === 'ENTERPRISE',
                     }"
                   >
                     {{ store.plan }}
@@ -133,15 +133,15 @@
                 <!-- Catálogo & Pedidos -->
                 <td class="py-4 px-6">
                   <div class="text-xs space-y-0.5">
-                    <p class="text-slate-300"><strong class="text-white">{{ store.productsCount }}</strong> produtos</p>
+                    <p class="text-slate-700"><strong class="text-slate-900">{{ store.productsCount }}</strong> produtos</p>
                     <p class="text-slate-400">{{ store.ordersCount }} pedidos realizados</p>
                   </div>
                 </td>
 
                 <!-- GMV -->
                 <td class="py-4 px-6">
-                  <p class="font-bold text-emerald-400">{{ formatCurrency(store.totalSales) }}</p>
-                  <p class="text-[11px] text-slate-500">{{ formatCurrency(store.paidSales) }} pagos</p>
+                  <p class="font-bold text-emerald-600">{{ formatCurrency(store.totalSales) }}</p>
+                  <p class="text-[11px] text-slate-400">{{ formatCurrency(store.paidSales) }} pagos</p>
                 </td>
 
                 <!-- Status -->
@@ -151,10 +151,10 @@
                     :disabled="togglingId === store.id"
                     class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full text-xs font-bold transition"
                     :class="store.isActive
-                      ? 'bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30'
-                      : 'bg-rose-500/20 text-rose-400 hover:bg-rose-500/30'"
+                      ? 'bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100'
+                      : 'bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100'"
                   >
-                    <span class="w-2 h-2 rounded-full" :class="store.isActive ? 'bg-emerald-400' : 'bg-rose-400'"></span>
+                    <span class="w-2 h-2 rounded-full" :class="store.isActive ? 'bg-emerald-500' : 'bg-rose-500'"></span>
                     <span>{{ store.isActive ? 'Ativa' : 'Suspensa' }}</span>
                   </button>
                 </td>
@@ -166,7 +166,7 @@
                     :href="`/?tenant=${store.subdomain}`"
                     target="_blank"
                     title="Abrir vitrine da loja como cliente"
-                    class="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition"
+                    class="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-bold bg-slate-100 hover:bg-slate-200 text-slate-700 border border-slate-200 transition"
                   >
                     <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -179,7 +179,7 @@
                   <button
                     @click="impersonateStore(store)"
                     title="Acessar o painel administrativo deste lojista"
-                    class="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/30 transition"
+                    class="inline-flex items-center px-2.5 py-1.5 rounded-lg text-xs font-bold bg-indigo-50 hover:bg-indigo-100 text-indigo-700 border border-indigo-200 transition"
                   >
                     <svg class="w-3.5 h-3.5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
@@ -200,53 +200,53 @@
       </div>
 
       <!-- Modal Criar Nova Loja -->
-      <div v-if="openCreateModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-lg w-full p-6 shadow-2xl">
-          <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-5">
+      <div v-if="openCreateModal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 flex items-center justify-center p-4">
+        <div class="bg-white border border-slate-200 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl text-slate-900">
+          <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
             <div>
-              <h2 class="text-lg font-bold text-white">Criar Nova Loja de Cliente</h2>
-              <p class="text-xs text-slate-400">Cadastre um novo lojista e crie a loja na hora</p>
+              <h2 class="text-lg font-black text-slate-900">Criar Nova Loja de Cliente</h2>
+              <p class="text-xs text-slate-500">Cadastre um novo lojista e crie a loja na hora</p>
             </div>
-            <button @click="openCreateModal = false" class="text-slate-400 hover:text-white">&times;</button>
+            <button @click="openCreateModal = false" class="text-slate-400 hover:text-slate-700 text-2xl leading-none">&times;</button>
           </div>
 
           <form @submit.prevent="handleCreateStore" class="space-y-4">
-            <div v-if="createError" class="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold">
+            <div v-if="createError" class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-700 text-xs font-bold">
               {{ createError }}
             </div>
 
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1">Nome da Loja *</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nome da Loja *</label>
               <input
                 v-model="newStore.name"
                 @input="autoGenerateSubdomain"
                 required
                 placeholder="Ex: Bella Calçados"
-                class="w-full px-3.5 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
               />
             </div>
 
             <div>
-              <label class="block text-xs font-bold text-slate-300 mb-1">Subdomínio (Link da Loja) *</label>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Subdomínio (Link da Loja) *</label>
               <div class="flex items-center">
                 <input
                   v-model="newStore.subdomain"
                   required
                   placeholder="bellacalcados"
-                  class="flex-1 px-3.5 py-2 rounded-l-xl bg-slate-800 border border-r-0 border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 font-mono"
+                  class="flex-1 px-4 py-2.5 rounded-l-xl bg-slate-50 border border-r-0 border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 font-mono transition"
                 />
-                <span class="px-3 py-2 bg-slate-800/60 border border-l-0 border-slate-700 rounded-r-xl text-slate-400 text-xs font-mono">
-                  .localhost
+                <span class="px-3 py-2.5 bg-slate-100 border border-l-0 border-slate-200 rounded-r-xl text-slate-500 text-xs font-mono">
+                  .lojio.com.br
                 </span>
               </div>
             </div>
 
             <div class="grid grid-cols-2 gap-3">
               <div>
-                <label class="block text-xs font-bold text-slate-300 mb-1">Plano SaaS *</label>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Plano SaaS *</label>
                 <select
                   v-model="newStore.plan"
-                  class="w-full px-3 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                 >
                   <option value="STARTER">Starter (R$ 99/mês)</option>
                   <option value="PRO">Pro (R$ 249/mês)</option>
@@ -255,65 +255,65 @@
               </div>
 
               <div>
-                <label class="block text-xs font-bold text-slate-300 mb-1">Cor Destaque</label>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Cor Destaque</label>
                 <input
                   v-model="newStore.accentColor"
                   type="color"
-                  class="w-full h-10 rounded-xl bg-slate-800 border border-slate-700 p-1 cursor-pointer"
+                  class="w-full h-10 rounded-xl bg-white border border-slate-200 p-1 cursor-pointer"
                 />
               </div>
             </div>
 
-            <div class="pt-2 border-t border-slate-800">
-              <p class="text-xs font-bold uppercase text-indigo-400 mb-2">Dados do Lojista (Admin da Loja)</p>
+            <div class="pt-3 border-t border-slate-100">
+              <p class="text-xs font-bold uppercase text-indigo-700 mb-3">Dados do Lojista (Admin da Loja)</p>
 
               <div class="space-y-3">
                 <div>
-                  <label class="block text-xs font-bold text-slate-300 mb-1">Nome do Proprietário *</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Nome do Proprietário *</label>
                   <input
                     v-model="newStore.ownerName"
                     required
                     placeholder="Ex: Ana Maria"
-                    class="w-full px-3.5 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-xs font-bold text-slate-300 mb-1">E-mail do Lojista (Login) *</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">E-mail do Lojista (Login) *</label>
                   <input
                     v-model="newStore.ownerEmail"
                     type="email"
                     required
                     placeholder="ana@bellacalcados.com"
-                    class="w-full px-3.5 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-xs font-bold text-slate-300 mb-1">Senha Inicial *</label>
+                  <label class="block text-xs font-bold text-slate-700 mb-1">Senha Inicial *</label>
                   <input
                     v-model="newStore.ownerPassword"
                     type="password"
                     required
                     placeholder="••••••••"
-                    class="w-full px-3.5 py-2 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 transition"
                   />
                 </div>
               </div>
             </div>
 
-            <div class="pt-4 flex justify-end space-x-3">
+            <div class="pt-4 flex justify-end space-x-3 border-t border-slate-100">
               <button
                 type="button"
                 @click="openCreateModal = false"
-                class="px-4 py-2 rounded-xl text-slate-400 hover:text-white text-sm font-semibold transition"
+                class="px-4 py-2 rounded-xl text-slate-500 hover:text-slate-900 text-sm font-semibold transition"
               >
                 Cancelar
               </button>
               <button
                 type="submit"
                 :disabled="creating"
-                class="px-5 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-lg shadow-indigo-600/30 transition disabled:opacity-50"
+                class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md shadow-indigo-600/20 transition disabled:opacity-50"
               >
                 {{ creating ? 'Criando Loja...' : 'Cadastrar Loja Cliente' }}
               </button>
@@ -422,7 +422,6 @@ const impersonateStore = async (store: any) => {
         Authorization: `Bearer ${token.value}`
       }
     })
-    // Set merchant session and redirect to admin
     setSession(res.token, res.user, res.tenant)
     window.open('/admin', '_blank')
   } catch (err: any) {
@@ -445,7 +444,6 @@ const handleCreateStore = async () => {
 
     toastMessage.value = `Loja "${res.tenant.name}" criada com sucesso!`
     openCreateModal.value = false
-    // Reset form
     newStore.name = ''
     newStore.subdomain = ''
     newStore.ownerName = ''

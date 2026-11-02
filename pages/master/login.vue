@@ -1,41 +1,51 @@
 <template>
-  <div class="min-h-screen bg-slate-950 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-100 selection:bg-indigo-500 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-900 selection:bg-indigo-600 selection:text-white">
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
-      <div class="inline-flex w-14 h-14 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-600 items-center justify-center shadow-xl shadow-indigo-500/20 text-white font-black text-2xl mb-4">
-        ⚡
-      </div>
-      <h2 class="text-3xl font-extrabold text-white tracking-tight">
-        Master Admin
+      <NuxtLink to="/?tenant=none" class="inline-flex items-center space-x-2.5 mb-6 group">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-xl shadow-indigo-500/25 group-hover:scale-105 transition-transform">
+          <span class="text-xl">👑</span>
+        </div>
+        <span class="font-extrabold text-3xl tracking-tight text-slate-900 flex items-center">
+          loj<span class="text-indigo-600">io</span>
+          <span class="text-xs bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded-full ml-2 border border-indigo-200">Master</span>
+        </span>
+      </NuxtLink>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+        Master Admin Console
       </h2>
-      <p class="mt-2 text-sm text-slate-400">
-        Painel de Controle e Gestão Global de Clientes SaaS
+      <p class="mt-2 text-sm text-slate-500 max-w-sm mx-auto">
+        Painel de Controle e Gestão Global de Lojas SaaS
       </p>
     </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="bg-slate-900/90 backdrop-blur-md py-8 px-6 shadow-2xl rounded-2xl border border-slate-800 sm:px-10">
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
+      <div class="bg-white py-8 px-6 sm:px-10 shadow-xl shadow-slate-900/5 rounded-3xl border border-slate-200/80">
         <!-- Quick Fill Helper -->
-        <div class="mb-6 p-3.5 rounded-xl bg-indigo-950/60 border border-indigo-500/30 text-xs">
-          <div class="flex items-center justify-between mb-1">
-            <span class="font-bold text-indigo-300">⚡ Acesso Rápido de Demonstração</span>
+        <div class="mb-6 p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-xs">
+          <div class="flex items-center justify-between mb-1.5">
+            <span class="font-bold text-indigo-900 flex items-center gap-1.5">
+              <span>⚡</span> Acesso Rápido Master
+            </span>
             <button
               type="button"
               @click="quickFill"
-              class="text-[11px] bg-indigo-600 hover:bg-indigo-500 text-white font-semibold px-2 py-0.5 rounded transition"
+              class="text-[11px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-2.5 py-1 rounded-lg transition shadow-xs"
             >
               Preencher
             </button>
           </div>
-          <p class="text-slate-400">admin@saas.com &bull; admin123</p>
+          <p class="text-slate-500 font-mono text-[11px]">admin@saas.com &bull; admin123</p>
         </div>
 
-        <form class="space-y-5" @submit.prevent="handleLogin">
-          <div v-if="errorMessage" class="p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold">
-            {{ errorMessage }}
+        <form class="space-y-4" @submit.prevent="handleLogin">
+          <div v-if="errorMessage" class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold flex items-center gap-2">
+            <span>⚠️</span>
+            <span>{{ errorMessage }}</span>
           </div>
 
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
               E-mail do Administrador
             </label>
             <input
@@ -43,12 +53,12 @@
               type="email"
               required
               placeholder="admin@saas.com"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition"
             />
           </div>
 
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-300 mb-1.5">
+            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
               Senha Master
             </label>
             <input
@@ -56,25 +66,25 @@
               type="password"
               required
               placeholder="••••••••"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition"
+              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition"
             />
           </div>
 
           <button
             type="submit"
             :disabled="loading"
-            class="w-full py-3 px-4 rounded-xl text-white font-bold text-sm bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 shadow-lg shadow-indigo-600/30 transition disabled:opacity-50"
+            class="w-full py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 shadow-lg shadow-indigo-600/30 transition hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
           >
-            {{ loading ? 'Autenticando Master...' : 'Entrar no Painel Master' }}
+            {{ loading ? 'Autenticando Master...' : 'Entrar no Console Master' }}
           </button>
         </form>
 
-        <div class="mt-6 pt-5 border-t border-slate-800 flex justify-between items-center text-xs text-slate-500">
-          <NuxtLink to="/admin/login" class="hover:text-indigo-400 transition">
-            &larr; Painel do Lojista
+        <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center text-xs font-semibold text-slate-500">
+          <NuxtLink to="/admin/login" class="hover:text-blue-600 transition flex items-center gap-1">
+            <span>← Painel do Lojista</span>
           </NuxtLink>
-          <NuxtLink to="/" class="hover:text-indigo-400 transition">
-            Ver Lojas &rarr;
+          <NuxtLink to="/?tenant=none" class="hover:text-indigo-600 transition flex items-center gap-1">
+            <span>Início Lojio &rarr;</span>
           </NuxtLink>
         </div>
       </div>
@@ -83,13 +93,13 @@
 </template>
 
 <script setup lang="ts">
+const { setAuth } = useAuth()
+const router = useRouter()
+
 const email = ref('admin@saas.com')
 const password = ref('admin123')
 const loading = ref(false)
 const errorMessage = ref('')
-
-const { setSession } = useAuth()
-const router = useRouter()
 
 const quickFill = () => {
   email.value = 'admin@saas.com'
@@ -101,26 +111,24 @@ const handleLogin = async () => {
   errorMessage.value = ''
 
   try {
-    const res: any = await $fetch('/api/auth/login', {
+    const res: any = await $fetch('/api/master/login', {
       method: 'POST',
       body: {
         email: email.value,
         password: password.value,
-      }
+      },
     })
 
-    if (res.user.role !== 'SUPERADMIN' && res.user.role !== 'MASTER') {
-      errorMessage.value = 'Acesso negado: Este usuário não possui privilégios de SuperAdmin.'
-      return
+    if (res.user && res.token) {
+      setAuth(res.user, res.token)
+      router.push('/master')
+    } else {
+      errorMessage.value = 'Credenciais master inválidas.'
     }
-
-    setSession(res.token, res.user, res.tenant)
-    router.push('/master')
   } catch (err: any) {
-    errorMessage.value = err.data?.statusMessage || 'Falha ao autenticar. Verifique e-mail e senha.'
+    errorMessage.value = err.data?.statusMessage || 'Erro ao conectar ao painel master.'
   } finally {
     loading.value = false
   }
 }
 </script>
-

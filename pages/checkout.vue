@@ -738,7 +738,8 @@ const copyPix = () => {
               @click="submitOrder"
               :disabled="loading"
               class="w-full disabled:opacity-50 text-white font-bold py-4 px-6 rounded-2xl text-sm transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
-              :class="form.paymentMethod === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#20bd5a] shadow-emerald-500/25' : 'bg-blue-600 hover:bg-blue-700 shadow-blue-600/30'"
+              :style="form.paymentMethod !== 'whatsapp' ? { backgroundColor: store?.accentColor || '#2563eb' } : {}"
+              :class="form.paymentMethod === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#20bd5a] shadow-emerald-500/25' : 'hover:opacity-90 shadow-blue-600/30'"
             >
               <span v-if="loading">Processando Pedido...</span>
               <span v-else-if="form.paymentMethod === 'whatsapp'">Finalizar Pedido no WhatsApp</span>
@@ -748,6 +749,22 @@ const copyPix = () => {
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
+
+            <!-- Trust Badges Configurados no Editor de Tema -->
+            <div class="pt-4 border-t border-slate-100 text-[11px] text-slate-600 space-y-2">
+              <div class="flex items-center gap-2 font-medium">
+                <span class="text-emerald-600 font-bold">🔒</span>
+                <span>{{ store?.themeConfig?.checkoutBadge1 || 'Compra 100% Segura & Criptografada SSL' }}</span>
+              </div>
+              <div class="flex items-center gap-2 font-medium">
+                <span class="text-blue-600 font-bold">🛡️</span>
+                <span>{{ store?.themeConfig?.checkoutBadge2 || 'Garantia de 7 dias para troca ou devolução' }}</span>
+              </div>
+              <div class="flex items-center gap-2 font-medium">
+                <span class="text-indigo-600 font-bold">📦</span>
+                <span>{{ store?.themeConfig?.checkoutBadge3 || 'Envio Rápido e Rastreável pelos Correios' }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

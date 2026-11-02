@@ -8,6 +8,13 @@ export default defineEventHandler((event) => {
     }
   }
 
+  let themeConfig: any = {}
+  if (tenant.melhorEnvioToken) {
+    try {
+      themeConfig = JSON.parse(tenant.melhorEnvioToken)
+    } catch {}
+  }
+
   return {
     isPlatform: false,
     store: {
@@ -24,6 +31,9 @@ export default defineEventHandler((event) => {
       accentColor: tenant.accentColor || '#2563eb',
       announcementBar: tenant.announcementBar,
       showAnnouncement: tenant.showAnnouncement,
+      isActive: tenant.isActive ?? true,
+      isPublished: tenant.isActive ?? true,
+      themeConfig,
     },
   }
 })

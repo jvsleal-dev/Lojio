@@ -43,15 +43,33 @@ export const useAuth = () => {
     }
   }
 
-  const setAuth = (newToken: string, newUser: User, newTenant: Tenant) => {
+  const setAuth = (arg1: any, arg2?: any, arg3?: any) => {
+    let newToken = ''
+    let newUser: any = null
+    let newTenant: any = null
+
+    if (typeof arg1 === 'string') {
+      newToken = arg1
+      newUser = arg2 || null
+      newTenant = arg3 || (newUser?.tenant || null)
+    } else if (arg1 && typeof arg2 === 'string') {
+      newUser = arg1
+      newToken = arg2
+      newTenant = arg3 || (newUser?.tenant || null)
+    } else if (arg1 && arg1.token) {
+      newToken = arg1.token
+      newUser = arg1.user || null
+      newTenant = arg1.tenant || (newUser?.tenant || null)
+    }
+
     token.value = newToken
     user.value = newUser
     tenant.value = newTenant
 
     if (import.meta.client) {
-      localStorage.setItem('auth_token', newToken)
-      localStorage.setItem('auth_user', JSON.stringify(newUser))
-      localStorage.setItem('auth_tenant', JSON.stringify(newTenant))
+      if (newToken) localStorage.setItem('auth_token', newToken)
+      if (newUser) localStorage.setItem('auth_user', JSON.stringify(newUser))
+      if (newTenant) localStorage.setItem('auth_tenant', JSON.stringify(newTenant))
     }
   }
 
