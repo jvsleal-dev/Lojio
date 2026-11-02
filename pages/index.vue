@@ -4,36 +4,27 @@ import { useCart } from '~/composables/useCart'
 const { addItem } = useCart()
 const route = useRoute()
 
-// Active tenant query
+// Active tenant and filter queries
 const tenantQuery = computed(() => (route.query.tenant as string) || '')
-
-// Fetch public store data and categories reactively
-const { data: storeData, error: storeError, refresh: refreshStore } = await useFetch('/api/store/info', {
-  query: computed(() => (tenantQuery.value ? { tenant: tenantQuery.value } : {})),
-})
-const { data: catData, refresh: refreshCategories } = await useFetch('/api/store/categories', {
-  query: computed(() => (tenantQuery.value ? { tenant: tenantQuery.value } : {})),
-})
-const { data: publicStoresData } = await useFetch('/api/public/stores')
-
-// Active filters
 const currentCategory = computed(() => (route.query.category as string) || '')
 const searchQuery = computed(() => (route.query.q as string) || '')
 
-// Fetch products based on category/search/tenant
-const { data: productsData, refresh: refreshProducts } = await useFetch(() => {
-  let url = '/api/store/products'
-  const params: string[] = []
-  if (tenantQuery.value) params.push(`tenant=${encodeURIComponent(tenantQuery.value)}`)
-  if (currentCategory.value) params.push(`category=${encodeURIComponent(currentCategory.value)}`)
-  if (searchQuery.value) params.push(`q=${encodeURIComponent(searchQuery.value)}`)
-  return params.length ? `${url}?${params.join('&')}` : url
+// Fetch public store data and categories reactively with Nuxt 3 query binding
+const { data: storeData, error: storeError } = await useFetch('/api/store/info', {
+  query: { tenant: tenantQuery },
 })
 
-watch(() => route.query, () => {
-  refreshStore()
-  refreshCategories()
-  refreshProducts()
+const { data: catData } = await useFetch('/api/store/categories', {
+  query: { tenant: tenantQuery },
+})
+
+// Fetch products based on category/search/tenant reactively
+const { data: productsData } = await useFetch('/api/store/products', {
+  query: {
+    tenant: tenantQuery,
+    category: currentCategory,
+    q: searchQuery,
+  },
 })
 
 const store = computed(() => storeData.value?.store)
@@ -44,15 +35,30 @@ const isPlatform = computed(() => {
 })
 const categories = computed(() => catData.value?.categories || [])
 const products = computed(() => productsData.value?.products || [])
-const allStores = computed(() => publicStoresData.value?.stores || [])
 const isSuspended = computed(() => storeError.value?.statusCode === 403)
 
-useHead({
-  title: computed(() => store.value ? `${store.value.name} | Loja Oficial` : 'Lojio - Crie sua Loja Virtual Profissional'),
+useHead(() => ({
+  title: store.value ? `${store.value.name} | Loja Oficial` : 'Lojio - Crie sua Loja Virtual Profissional',
   meta: [
-    { name: 'description', content: computed(() => store.value?.description || 'Crie sua loja virtual com a Lojio, a base para sua marca vender mais no site e no WhatsApp.') }
-  ]
-})
+    {
+      name: 'description',
+      content: store.value?.description || 'Crie sua loja virtual com a Lojio, a base para sua marca vender mais no site e no WhatsApp.',
+    },
+  ],
+}))
+
+const quickAddToCart = (product: any) => {
+  addItem({
+    productId: product.id,
+    variantId: product.variants?.[0]?.id || null,
+    name: product.name,
+    variantName: product.variants?.[0]?.name || null,
+    price: product.price,
+    quantity: 1,
+    imageUrl: product.coverImage,
+  })
+}
+</script>
 
 const quickAddToCart = (product: any) => {
   addItem({
@@ -97,20 +103,20 @@ const quickAddToCart = (product: any) => {
           class="relative rounded-3xl overflow-hidden bg-slate-900 text-white min-h-[380px] md:min-h-[460px] flex items-center shadow-xl shadow-slate-900/10"
         >
           <img
-            :src="store.bannerUrl || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&auto=format&fit=crop&q=80'"
-            :alt="store.name"
+            :src="store?.bannerUrl || 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1600&auto=format&fit=crop&q=80'"
+            :alt="store?.name || 'Loja'"
             class="absolute inset-0 w-full h-full object-cover object-center opacity-40 mix-blend-overlay"
           />
           <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent" />
           <div class="relative z-10 max-w-2xl p-8 sm:p-12 md:p-16 space-y-6">
             <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full">
-              <span>✨ Loja Oficial &bull; {{ store.name }}</span>
+              <span>✨ Loja Oficial &bull; {{ store?.name }}</span>
             </div>
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1]">
-              {{ store.name }}
+              {{ store?.name }}
             </h1>
             <p class="text-sm sm:text-base text-slate-300 max-w-lg leading-relaxed">
-              {{ store.description || 'Produtos de alta qualidade, compra 100% segura e envio com rastreamento para todo o Brasil.' }}
+              {{ store?.description || 'Produtos de alta qualidade, compra 100% segura e envio com rastreamento para todo o Brasil.' }}
             </p>
             <div class="pt-2 flex flex-wrap items-center gap-4">
               <a
