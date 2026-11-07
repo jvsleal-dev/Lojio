@@ -27,7 +27,13 @@
               : 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-emerald-600/20 animate-pulse'"
             :title="data?.tenant?.isActive !== false ? 'Clique para pausar e colocar em modo rascunho' : 'Clique para publicar a loja na internet'"
           >
-            <span>{{ data?.tenant?.isActive !== false ? '✓ Loja Publicada' : '🚀 Publicar Loja' }}</span>
+            <svg v-if="data?.tenant?.isActive !== false" class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <svg v-else class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.58-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.458 14.96 14.96 0 01.06-.312m-2.24 7.99a4.5 4.5 0 01-1.414-1.414m3.654 3.654l-1.06-1.06m-2.594-2.594l-1.06-1.06" />
+            </svg>
+            <span>{{ data?.tenant?.isActive !== false ? 'Loja Publicada' : 'Publicar Loja' }}</span>
           </button>
 
           <!-- Copy Store Link Pill -->
@@ -36,10 +42,13 @@
             class="px-3.5 py-2 rounded-xl bg-white border border-slate-200 hover:border-slate-300 text-slate-700 hover:text-slate-900 text-xs font-semibold flex items-center space-x-2 transition shadow-xs"
             title="Copiar link da vitrine"
           >
-            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg v-if="copied" class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+            </svg>
+            <svg v-else class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
             </svg>
-            <span>{{ copied ? 'Link Copiado! ✓' : 'Copiar Link da Loja' }}</span>
+            <span>{{ copied ? 'Link Copiado!' : 'Copiar Link da Loja' }}</span>
           </button>
 
           <!-- Ver Loja Online -->
@@ -49,7 +58,9 @@
             class="px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs flex items-center space-x-1.5 transition border border-slate-200"
           >
             <span>Abrir Vitrine</span>
-            <span>↗</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
           </a>
 
           <!-- Novo Produto -->
@@ -65,8 +76,10 @@
       <!-- Banner de Alerta se Loja estiver em Rascunho -->
       <div v-if="data?.tenant && data?.tenant?.isActive === false" class="p-5 rounded-2xl bg-amber-50 border border-amber-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-xs">
         <div class="flex items-center space-x-3.5">
-          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center font-bold text-xl shrink-0">
-            🚧
+          <div class="w-10 h-10 rounded-xl bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+            <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+            </svg>
           </div>
           <div>
             <h3 class="text-sm font-bold text-amber-900">Sua loja está em Modo Rascunho (Privada)</h3>
@@ -80,7 +93,10 @@
           :disabled="publishing"
           class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition hover:scale-105 active:scale-95 disabled:opacity-50 shrink-0 flex items-center space-x-2"
         >
-          <span>🚀 Publicar Minha Loja Agora</span>
+          <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.58-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.458 14.96 14.96 0 01.06-.312m-2.24 7.99a4.5 4.5 0 01-1.414-1.414m3.654 3.654l-1.06-1.06m-2.594-2.594l-1.06-1.06" />
+          </svg>
+          <span>Publicar Minha Loja Agora</span>
         </button>
       </div>
 
@@ -166,11 +182,17 @@
               {{ data?.metrics?.totalProducts || 0 }} produtos
             </p>
             <div class="mt-2 text-xs">
-              <span v-if="data?.metrics?.lowStockCount > 0" class="text-amber-600 font-bold">
-                ⚠️ {{ data?.metrics?.lowStockCount }} com estoque crítico
+              <span v-if="data?.metrics?.lowStockCount > 0" class="text-amber-600 font-bold flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <span>{{ data?.metrics?.lowStockCount }} com estoque crítico</span>
               </span>
-              <span v-else class="text-emerald-600 font-semibold">
-                ✓ Todos os estoques saudáveis
+              <span v-else class="text-emerald-600 font-semibold flex items-center gap-1.5">
+                <svg class="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Todos os estoques saudáveis</span>
               </span>
             </div>
           </div>
@@ -222,7 +244,9 @@
             <div class="space-y-1.5">
               <div class="flex items-center space-x-2">
                 <span class="w-7 h-7 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-sm shadow-xs">
-                  ✨
+                  <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
                 </span>
                 <span class="text-xs font-bold uppercase tracking-wider text-blue-700">Lumi IA &bull; Assistente da Loja</span>
               </div>
@@ -369,8 +393,11 @@
                 </div>
               </div>
 
-              <div v-if="!data?.lowStockProducts?.length" class="py-6 text-center text-slate-400 text-xs">
-                ✓ Todos os produtos com estoque saudável acima de 10 unidades.
+              <div v-if="!data?.lowStockProducts?.length" class="py-6 text-center text-slate-400 text-xs flex items-center justify-center gap-1.5">
+                <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Todos os produtos com estoque saudável acima de 10 unidades.</span>
               </div>
             </div>
           </div>
@@ -381,6 +408,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'admin',
+})
+
 const { token, isAuthenticated, initAuth, fetchWithAuth } = useAuth()
 const router = useRouter()
 

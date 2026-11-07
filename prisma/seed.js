@@ -4,7 +4,7 @@ import bcrypt from 'bcryptjs'
 const prisma = new PrismaClient()
 
 async function main() {
-  console.log('🌱 Iniciando seed completo do banco de dados...')
+  console.log('[Seed] Iniciando seed completo do banco de dados...')
 
   // Limpar dados existentes
   await prisma.coupon.deleteMany()
@@ -28,7 +28,7 @@ async function main() {
       role: 'SUPERADMIN',
     }
   })
-  console.log(`👑 SuperAdmin criado: ${superAdmin.email} (senha: admin123)`)
+  console.log(`[Master] SuperAdmin criado: ${superAdmin.email} (senha: admin123)`)
 
   // 2. Loja Cliente 1: Moda Urbana (Streetwear)
   const tenant1 = await prisma.tenant.create({
@@ -40,7 +40,7 @@ async function main() {
       contactWhatsapp: '11999998888',
       primaryColor: '#0f172a',
       accentColor: '#2563eb',
-      announcementBar: '🎉 Frete grátis em compras acima de R$ 199 com o cupom BEMVINDO',
+      announcementBar: 'Frete grátis em compras acima de R$ 199 com o cupom BEMVINDO',
       showAnnouncement: true,
       originZipcode: '01310-100',
       plan: 'ENTERPRISE',
@@ -206,7 +206,7 @@ async function main() {
       contactWhatsapp: '11977776666',
       primaryColor: '#09090b',
       accentColor: '#7c3aed', // Purple neon
-      announcementBar: '⚡ Mega Semana Gamer: Até 40% OFF em periféricos mecânicos e fones Hi-Fi!',
+      announcementBar: 'Mega Semana Gamer: Até 40% OFF em periféricos mecânicos e fones Hi-Fi!',
       showAnnouncement: true,
       originZipcode: '04543-000',
       plan: 'PRO',
@@ -359,7 +359,7 @@ async function main() {
       contactWhatsapp: '35988881111',
       primaryColor: '#3d1d0e',
       accentColor: '#d97706', // Amber gold
-      announcementBar: '☕ Assine o clube do café ou compre avulso com torra fresca semanal!',
+      announcementBar: 'Assine o clube do café ou compre avulso com torra fresca semanal!',
       showAnnouncement: true,
       originZipcode: '37500-000',
       plan: 'STARTER',
@@ -471,12 +471,12 @@ async function main() {
     }
   })
 
-  console.log('✅ Seed finalizado com sucesso!')
+  console.log('[Seed] Finalizado com sucesso!')
   console.log('---')
-  console.log('👑 SUPERADMIN PLATAFORMA: admin@saas.com / admin123 (Painel: /master)')
-  console.log('🏪 LOJA 1: modaurbana.localhost:3000 ou ?tenant=modaurbana (Lojista: lojista@demo.com / senha123)')
-  console.log('🏪 LOJA 2: techzone.localhost:3000 ou ?tenant=techzone (Lojista: tech@demo.com / senha123)')
-  console.log('🏪 LOJA 3: cafegourmet.localhost:3000 ou ?tenant=cafegourmet (Lojista: cafe@demo.com / senha123)')
+  console.log('[Auth] SUPERADMIN PLATAFORMA: admin@saas.com / admin123 (Painel: /master)')
+  console.log('[Auth] LOJA 1: modaurbana.localhost:3000 ou ?tenant=modaurbana (Lojista: lojista@demo.com / senha123)')
+  console.log('[Auth] LOJA 2: techzone.localhost:3000 ou ?tenant=techzone (Lojista: tech@demo.com / senha123)')
+  console.log('[Auth] LOJA 3: cafegourmet.localhost:3000 ou ?tenant=cafegourmet (Lojista: cafe@demo.com / senha123)')
 }
 
 main()

@@ -19,10 +19,11 @@ model Tenant {
   contactWhatsapp  String?
   primaryColor     String    @default("#0f172a")
   accentColor      String    @default("#2563eb")
-  announcementBar  String    @default("🎉 Bem-vindo(a) à nossa loja online! Frete grátis em compras acima de R$ 199.") @db.Text
+  announcementBar  String    @default("Bem-vindo(a) à nossa loja online! Aproveite nossos lançamentos.") @db.Text
   showAnnouncement Boolean   @default(true)
   originZipcode    String    @default("01310-100")
   plan             String    @default("PRO") // STARTER, PRO, ENTERPRISE
+  themeConfig      String?   @db.Text
   mpAccessToken    String?   @db.Text
   mpPublicKey      String?
   melhorEnvioToken String?   @db.Text

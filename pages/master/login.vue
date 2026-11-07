@@ -3,7 +3,9 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
       <NuxtLink to="/?tenant=none" class="inline-flex items-center space-x-2.5 mb-6 group">
         <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-xl shadow-indigo-500/25 group-hover:scale-105 transition-transform">
-          <span class="text-xl">👑</span>
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
         </div>
         <span class="font-extrabold text-3xl tracking-tight text-slate-900 flex items-center">
           loj<span class="text-indigo-600">io</span>
@@ -25,7 +27,10 @@
         <div class="mb-6 p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-xs">
           <div class="flex items-center justify-between mb-1.5">
             <span class="font-bold text-indigo-900 flex items-center gap-1.5">
-              <span>⚡</span> Acesso Rápido Master
+              <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+              <span>Acesso Rápido Master</span>
             </span>
             <button
               type="button"
@@ -40,7 +45,9 @@
 
         <form class="space-y-4" @submit.prevent="handleLogin">
           <div v-if="errorMessage" class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold flex items-center gap-2">
-            <span>⚠️</span>
+            <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
             <span>{{ errorMessage }}</span>
           </div>
 
@@ -93,13 +100,20 @@
 </template>
 
 <script setup lang="ts">
-const { setAuth } = useAuth()
+const { setAuth, user, isAuthenticated, initAuth } = useAuth()
 const router = useRouter()
 
 const email = ref('admin@saas.com')
 const password = ref('admin123')
 const loading = ref(false)
 const errorMessage = ref('')
+
+onMounted(() => {
+  initAuth()
+  if (isAuthenticated.value && (user.value?.role === 'SUPERADMIN' || user.value?.role === 'MASTER')) {
+    router.push('/master')
+  }
+})
 
 const quickFill = () => {
   email.value = 'admin@saas.com'
@@ -120,7 +134,7 @@ const handleLogin = async () => {
     })
 
     if (res.user && res.token) {
-      setAuth(res.user, res.token)
+      setAuth(res.token, res.user)
       router.push('/master')
     } else {
       errorMessage.value = 'Credenciais master inválidas.'

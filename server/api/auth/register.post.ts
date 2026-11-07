@@ -52,7 +52,7 @@ export default defineEventHandler(async (event) => {
         contactEmail: body.email,
         primaryColor: '#0f172a',
         accentColor: '#2563eb',
-        announcementBar: '🎉 Bem-vindo(a) à nossa loja online!',
+        announcementBar: 'Bem-vindo(a) à nossa loja online! Aproveite nossos lançamentos.',
         showAnnouncement: true,
       },
     })

@@ -1,11 +1,9 @@
 import { prisma } from '~/server/utils/prisma'
-import { requireAuth } from '~/server/utils/auth'
+import { requireAuth, resolveTenantId } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
-  if (!user.tenantId) {
-    throw createError({ statusCode: 400, statusMessage: 'Nenhuma loja associada.' })
-  }
+  const tenantId = await resolveTenantId(event, user)
 
   const query = getQuery(event)
   const range = (query.range as string) || '30days'
@@ -23,7 +21,7 @@ export default defineEventHandler(async (event) => {
 
   const orders = await prisma.order.findMany({
     where: {
-      tenantId: user.tenantId,
+      tenantId,
       createdAt: { gte: dateFilter },
     },
     include: {

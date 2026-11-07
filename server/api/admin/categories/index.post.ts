@@ -1,11 +1,9 @@
 import { prisma } from '../../../utils/prisma'
-import { getAuthenticatedUser } from '../../../utils/auth'
+import { getAuthenticatedUser, resolveTenantId } from '../../../utils/auth'
 
 export default defineEventHandler(async (event) => {
   const user = getAuthenticatedUser(event)
-  if (!user.tenantId) {
-    throw createError({ statusCode: 400, statusMessage: 'Nenhuma loja associada.' })
-  }
+  const tenantId = await resolveTenantId(event, user)
 
   const body = await readBody(event)
   if (!body.name) {
@@ -15,14 +13,14 @@ export default defineEventHandler(async (event) => {
   const baseSlug = body.name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
   let slug = baseSlug
   let count = 1
-  while (await prisma.category.findFirst({ where: { tenantId: user.tenantId, slug } })) {
+  while (await prisma.category.findFirst({ where: { tenantId, slug } })) {
     slug = `${baseSlug}-${count}`
     count++
   }
 
   const category = await prisma.category.create({
     data: {
-      tenantId: user.tenantId,
+      tenantId,
       name: body.name,
       slug,
       imageUrl: body.imageUrl || null,

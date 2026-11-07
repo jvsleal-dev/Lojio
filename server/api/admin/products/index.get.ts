@@ -1,16 +1,14 @@
 import { prisma } from '~/server/utils/prisma'
-import { getAuthenticatedUser } from '~/server/utils/auth'
+import { getAuthenticatedUser, resolveTenantId } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
   const user = getAuthenticatedUser(event)
-  if (!user.tenantId) {
-    throw createError({ statusCode: 400, statusMessage: 'Nenhuma loja associada.' })
-  }
+  const tenantId = await resolveTenantId(event, user)
 
   const query = getQuery(event)
   const search = query.search ? String(query.search) : undefined
 
-  const where: any = { tenantId: user.tenantId }
+  const where: any = { tenantId }
   if (search) {
     where.OR = [
       { name: { contains: search } },

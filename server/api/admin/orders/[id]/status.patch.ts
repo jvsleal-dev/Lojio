@@ -1,11 +1,9 @@
 import { prisma } from '~/server/utils/prisma'
-import { requireAuth } from '~/server/utils/auth'
+import { requireAuth, resolveTenantId } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
-  if (!user.tenantId) {
-    throw createError({ statusCode: 400, statusMessage: 'Nenhuma loja associada.' })
-  }
+  const tenantId = await resolveTenantId(event, user)
 
   const id = getRouterParam(event, 'id')
   if (!id) {
@@ -15,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const existingOrder = await prisma.order.findFirst({
     where: {
       id,
-      tenantId: user.tenantId,
+      tenantId,
     },
   })
 

@@ -98,17 +98,27 @@
                   <p class="font-black text-emerald-600 text-sm">{{ formatCurrency(order.total) }}</p>
                   <div class="flex flex-wrap gap-1 mt-1">
                     <span
-                      class="inline-block px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase"
+                      class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase"
                       :class="{
                         'bg-emerald-50 text-emerald-700 border border-emerald-200': order.paymentMethod === 'whatsapp' || order.paymentStatus === 'paid',
                         'bg-blue-50 text-blue-700 border border-blue-200': order.paymentMethod === 'credit_card',
                         'bg-amber-50 text-amber-700 border border-amber-200': order.paymentMethod === 'pix' && order.paymentStatus === 'pending',
                       }"
                     >
-                      <span v-if="order.paymentMethod === 'whatsapp'">💬 WhatsApp</span>
-                      <span v-else-if="order.paymentMethod === 'credit_card'">💳 Cartão (Pago)</span>
-                      <span v-else-if="order.paymentStatus === 'paid'">⚡ PIX (Pago)</span>
-                      <span v-else>⚡ PIX (Pendente)</span>
+                      <svg v-if="order.paymentMethod === 'whatsapp'" class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                      </svg>
+                      <svg v-else-if="order.paymentMethod === 'credit_card'" class="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                      </svg>
+                      <svg v-else class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+
+                      <span v-if="order.paymentMethod === 'whatsapp'">WhatsApp</span>
+                      <span v-else-if="order.paymentMethod === 'credit_card'">Cartão (Pago)</span>
+                      <span v-else-if="order.paymentStatus === 'paid'">PIX (Pago)</span>
+                      <span v-else>PIX (Pendente)</span>
                     </span>
                   </div>
                 </td>
@@ -127,7 +137,9 @@
                     {{ formatOrderStatus(order.orderStatus) }}
                   </span>
                   <div v-if="order.trackingCode" class="mt-1 text-[11px] text-blue-600 font-mono flex items-center space-x-1">
-                    <span>📦</span>
+                    <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
                     <span>{{ order.trackingCode }}</span>
                   </div>
                 </td>
@@ -138,10 +150,13 @@
                   <a
                     :href="getWhatsAppLink(order)"
                     target="_blank"
-                    class="inline-flex items-center px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition"
                     title="Avisar cliente pelo WhatsApp"
                   >
-                    <span>💬 WhatsApp</span>
+                    <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                    </svg>
+                    <span>WhatsApp</span>
                   </a>
 
                   <!-- Manage Button -->
@@ -261,6 +276,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'admin',
+})
+
 const { fetchWithAuth, isAuthenticated, initAuth } = useAuth()
 const router = useRouter()
 
@@ -279,9 +298,9 @@ const updating = ref(false)
 
 const filterTabs = [
   { label: 'Todos', value: 'all' },
-  { label: '⚡ Pix', value: 'pix' },
-  { label: '💳 Cartão', value: 'credit_card' },
-  { label: '💬 WhatsApp', value: 'whatsapp' },
+  { label: 'PIX', value: 'pix' },
+  { label: 'Cartão', value: 'credit_card' },
+  { label: 'WhatsApp', value: 'whatsapp' },
   { label: 'Pagos', value: 'paid' },
   { label: 'Enviados', value: 'shipped' },
 ]

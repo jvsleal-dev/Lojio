@@ -6,13 +6,29 @@ const props = defineProps<{
   categories?: any[]
 }>()
 
+const route = useRoute()
 const { count, isOpen } = useCart()
 const mobileMenuOpen = ref(false)
 const searchQuery = ref('')
 
+const activeTenant = computed(() => {
+  return (route.query.tenant as string) || props.store?.subdomain || ''
+})
+
+const getCategoryLink = (catSlug?: string) => {
+  const params = new URLSearchParams()
+  if (activeTenant.value) params.set('tenant', activeTenant.value)
+  if (catSlug) params.set('category', catSlug)
+  const qs = params.toString()
+  return qs ? `/?${qs}` : '/'
+}
+
 const handleSearch = () => {
   if (searchQuery.value.trim()) {
-    navigateTo(`/?q=${encodeURIComponent(searchQuery.value.trim())}`)
+    const params = new URLSearchParams()
+    if (activeTenant.value) params.set('tenant', activeTenant.value)
+    params.set('q', searchQuery.value.trim())
+    navigateTo(`/?${params.toString()}`)
   }
 }
 </script>
@@ -58,8 +74,8 @@ const handleSearch = () => {
             <input
               v-model="searchQuery"
               type="text"
-              placeholder="Buscar produtos, camisetas, tênis..."
-            class="w-full bg-white text-sm text-slate-800 placeholder-slate-400 pl-11 pr-4 py-2.5 border border-slate-300 outline-none transition-colors"
+              placeholder="Buscar produtos, coleções, novidades..."
+              class="w-full bg-slate-50 hover:bg-white focus:bg-white text-sm text-slate-800 placeholder-slate-400 pl-11 pr-4 py-2.5 rounded-full border border-slate-200 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20 transition-all shadow-xs"
             />
             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -77,7 +93,9 @@ const handleSearch = () => {
             class="hidden md:inline-flex items-center gap-1.5 text-xs font-bold text-blue-600 hover:text-blue-700 bg-blue-50 hover:bg-blue-100 px-3 py-1.5 rounded-xl border border-blue-200 transition-colors"
             title="Voltar para a página inicial da plataforma Lojio"
           >
-            <span>⚡</span>
+            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
             <span>Plataforma Lojio</span>
           </NuxtLink>
 
@@ -117,7 +135,7 @@ const handleSearch = () => {
       <!-- Categories Bar -->
       <nav v-if="categories && categories.length > 0" class="hidden lg:flex items-center gap-8 py-3 border-t border-slate-100 overflow-x-auto text-sm">
         <NuxtLink
-          to="/"
+          :to="getCategoryLink()"
           class="font-semibold text-slate-700 hover:text-blue-600 transition-colors whitespace-nowrap"
         >
           Todos os Produtos
@@ -125,7 +143,7 @@ const handleSearch = () => {
         <NuxtLink
           v-for="cat in categories"
           :key="cat.id"
-          :to="`/?category=${cat.slug}`"
+          :to="getCategoryLink(cat.slug)"
           class="font-medium text-slate-600 hover:text-blue-600 transition-colors whitespace-nowrap"
         >
           {{ cat.name }}
@@ -148,7 +166,7 @@ const handleSearch = () => {
       </div>
       <div class="space-y-1">
         <NuxtLink
-          to="/"
+          :to="getCategoryLink()"
           @click="mobileMenuOpen = false"
           class="block py-2 text-sm font-semibold text-slate-800"
         >
@@ -157,7 +175,7 @@ const handleSearch = () => {
         <NuxtLink
           v-for="cat in categories"
           :key="cat.id"
-          :to="`/?category=${cat.slug}`"
+          :to="getCategoryLink(cat.slug)"
           @click="mobileMenuOpen = false"
           class="block py-2 text-sm font-medium text-slate-600"
         >
@@ -167,9 +185,12 @@ const handleSearch = () => {
           <NuxtLink
             to="/admin"
             @click="mobileMenuOpen = false"
-            class="block py-2 text-sm font-medium text-blue-600"
+            class="flex items-center gap-2 py-2 text-sm font-medium text-blue-600"
           >
-            ⚙️ Acessar Painel do Lojista
+            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+            </svg>
+            <span>Acessar Painel do Lojista</span>
           </NuxtLink>
         </div>
       </div>

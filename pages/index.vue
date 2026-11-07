@@ -10,16 +10,16 @@ const currentCategory = computed(() => (route.query.category as string) || '')
 const searchQuery = computed(() => (route.query.q as string) || '')
 
 // Fetch public store data and categories reactively with Nuxt 3 query binding
-const { data: storeData, error: storeError } = await useFetch('/api/store/info', {
+const { data: storeData, error: storeError } = await useFetch<any>('/api/store/info', {
   query: { tenant: tenantQuery },
 })
 
-const { data: catData } = await useFetch('/api/store/categories', {
+const { data: catData } = await useFetch<any>('/api/store/categories', {
   query: { tenant: tenantQuery },
 })
 
 // Fetch products based on category/search/tenant reactively
-const { data: productsData } = await useFetch('/api/store/products', {
+const { data: productsData } = await useFetch<any>('/api/store/products', {
   query: {
     tenant: tenantQuery,
     category: currentCategory,
@@ -27,15 +27,15 @@ const { data: productsData } = await useFetch('/api/store/products', {
   },
 })
 
-const store = computed(() => storeData.value?.store)
+const store = computed<any>(() => storeData.value?.store)
 const isPlatform = computed(() => {
   if (['none', 'saas', 'plataforma', 'home'].includes(tenantQuery.value.toLowerCase())) return true
   if (!store.value) return true
   return false
 })
-const categories = computed(() => catData.value?.categories || [])
-const products = computed(() => productsData.value?.products || [])
-const isSuspended = computed(() => storeError.value?.statusCode === 403)
+const categories = computed<any[]>(() => (catData.value as any)?.categories || [])
+const products = computed<any[]>(() => (productsData.value as any)?.products || [])
+const isSuspended = computed(() => (storeError.value as any)?.statusCode === 403)
 
 const { user, tenant, isAuthenticated, initAuth } = useAuth()
 onMounted(() => initAuth())
@@ -43,10 +43,16 @@ onMounted(() => initAuth())
 const isOwner = computed(() => {
   if (!isAuthenticated.value) return false
   if (user.value?.role === 'SUPERADMIN' || user.value?.role === 'MASTER') return true
-  return tenant.value?.id === store.value?.id || tenant.value?.subdomain === store.value?.subdomain
+  return (tenant.value as any)?.id === store.value?.id || (tenant.value as any)?.subdomain === store.value?.subdomain
 })
 
 const selectedFont = computed(() => store.value?.themeConfig?.fontFamily || 'Inter')
+
+const currentCategoryName = computed(() => {
+  if (!currentCategory.value) return 'Catálogo de Produtos'
+  const found = categories.value.find((c: any) => c?.slug === currentCategory.value)
+  return found?.name || 'Catálogo de Produtos'
+})
 
 useHead(() => ({
   title: store.value ? `${store.value.name} | Loja Oficial` : 'Lojio - Crie sua Loja Virtual Profissional',
@@ -70,7 +76,7 @@ const quickAddToCart = (product: any) => {
     variantId: product.variants?.[0]?.id || null,
     name: product.name,
     variantName: product.variants?.[0]?.name || null,
-    price: product.price,
+    price: Number(product.price) || 0,
     quantity: 1,
     imageUrl: product.coverImage,
   })
@@ -87,21 +93,30 @@ const quickAddToCart = (product: any) => {
       v-else
       class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white"
       :style="{
-        fontFamily: store?.themeConfig?.fontFamily ? `'${store.themeConfig.fontFamily}', sans-serif` : 'inherit',
+        fontFamily: store?.themeConfig?.fontFamily ? `'${store?.themeConfig?.fontFamily}', sans-serif` : 'inherit',
         backgroundColor: store?.themeConfig?.bgColor || '#f8fafc'
       }"
     >
       <!-- Store Suspended Alert -->
       <div v-if="isSuspended" class="bg-rose-500 text-white text-xs font-bold py-3 px-4 text-center flex items-center justify-center space-x-2 shadow-md">
-        <span>⚠️ Esta loja está temporariamente suspensa pelo administrador da plataforma SaaS.</span>
+        <svg class="w-4 h-4 text-white shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+        </svg>
+        <span>Esta loja está temporariamente suspensa pelo administrador da plataforma SaaS.</span>
         <NuxtLink to="/master" class="underline hover:text-rose-100">Acessar Painel Master</NuxtLink>
       </div>
 
       <!-- Store Unpublished Draft Bar (If owner is logged in) -->
       <div v-if="store && store.isActive === false && isOwner" class="bg-gradient-to-r from-amber-600 to-amber-700 text-white text-xs font-bold py-2.5 px-4 text-center flex flex-wrap items-center justify-center gap-2 shadow-md">
-        <span>🚧 Modo Rascunho / Pré-visualização: Apenas você pode ver esta loja. Os clientes externos não têm acesso.</span>
-        <NuxtLink to="/admin" class="px-3 py-1 bg-white text-amber-900 rounded-lg font-black hover:bg-amber-50 transition shadow">
-          🚀 Publicar Loja no Painel
+        <svg class="w-4 h-4 text-amber-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+        </svg>
+        <span>Modo Rascunho / Pré-visualização: Apenas você pode ver esta loja. Os clientes externos não têm acesso.</span>
+        <NuxtLink to="/admin" class="px-3 py-1 bg-white text-amber-900 rounded-lg font-black hover:bg-amber-50 transition shadow inline-flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5 text-amber-800" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.59 14.37a6 6 0 01-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 006.16-12.12A14.98 14.98 0 009.631 8.41m5.96 5.96a14.926 14.926 0 01-5.841 2.58m-.119-8.54a6 6 0 00-7.381 5.84h4.8m2.58-5.84a14.927 14.927 0 00-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 01-2.448-2.458 14.96 14.96 0 01.06-.312m-2.24 7.99a4.5 4.5 0 01-1.414-1.414m3.654 3.654l-1.06-1.06m-2.594-2.594l-1.06-1.06" />
+          </svg>
+          <span>Publicar Loja no Painel</span>
         </NuxtLink>
       </div>
 
@@ -110,8 +125,10 @@ const quickAddToCart = (product: any) => {
 
       <!-- If Store is Unpublished & Visitor is NOT owner: Show Coming Soon -->
       <div v-if="store && store.isActive === false && !isOwner" class="flex-1 flex flex-col items-center justify-center p-8 text-center max-w-lg mx-auto py-24 space-y-6">
-        <div class="w-20 h-20 rounded-3xl bg-amber-500/10 text-amber-500 border border-amber-500/20 flex items-center justify-center text-4xl shadow-lg">
-          🚧
+        <div class="w-20 h-20 rounded-3xl bg-amber-500/10 text-amber-600 border border-amber-500/20 flex items-center justify-center shadow-lg">
+          <svg class="w-10 h-10 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+          </svg>
         </div>
         <div class="space-y-2">
           <h2 class="text-3xl font-extrabold text-slate-900">{{ store?.name }}</h2>
@@ -123,11 +140,14 @@ const quickAddToCart = (product: any) => {
 
         <div v-if="store?.contactWhatsapp" class="pt-2">
           <a
-            :href="`https://wa.me/55${store.contactWhatsapp.replace(/\D/g, '')}`"
+            :href="`https://wa.me/55${String(store.contactWhatsapp).replace(/\D/g, '')}`"
             target="_blank"
             class="inline-flex items-center space-x-2 px-6 py-3 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-extrabold text-xs shadow-lg shadow-emerald-600/20 transition"
           >
-            <span>💬 Falar com a Loja no WhatsApp</span>
+            <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+            </svg>
+            <span>Falar com a Loja no WhatsApp</span>
           </a>
         </div>
 
@@ -144,7 +164,7 @@ const quickAddToCart = (product: any) => {
         <!-- Announcement Bar -->
         <AnnouncementBar
           v-if="store?.showAnnouncement && !isSuspended"
-          :text="store?.announcementBar"
+          :text="store?.announcementBar || ''"
           :bg="store?.primaryColor || '#0f172a'"
         />
 
@@ -162,7 +182,10 @@ const quickAddToCart = (product: any) => {
           <div class="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-900/80 to-transparent" />
           <div class="relative z-10 max-w-2xl p-8 sm:p-12 md:p-16 space-y-6">
             <div class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full">
-              <span>✨ Loja Oficial &bull; {{ store?.name }}</span>
+              <svg class="w-3.5 h-3.5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              <span>Loja Oficial &bull; {{ store?.name }}</span>
             </div>
             <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.1]">
               {{ store?.name }}
@@ -184,6 +207,54 @@ const quickAddToCart = (product: any) => {
                 </svg>
                 Parcelamento e PIX com Aprovação Imediata
               </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Trust Bar / Diferenciais da Loja -->
+        <section class="grid grid-cols-2 md:grid-cols-4 gap-3 py-3 border-y border-slate-200/80 bg-white/70 backdrop-blur-xs rounded-2xl px-4 text-xs text-slate-700 shadow-2xs">
+          <div class="flex items-center gap-2.5 py-1">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-bold text-slate-900 leading-tight">Pix com Desconto</p>
+              <p class="text-[10px] text-slate-500">Aprovação imediata</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5 py-1">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-bold text-slate-900 leading-tight">Em até 12x no Cartão</p>
+              <p class="text-[10px] text-slate-500">Com parcelamento seguro</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5 py-1">
+            <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-bold text-slate-900 leading-tight">Envio Rastreável</p>
+              <p class="text-[10px] text-slate-500">Entrega garantida</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2.5 py-1">
+            <div class="w-8 h-8 rounded-lg bg-purple-50 text-purple-600 flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <div>
+              <p class="font-bold text-slate-900 leading-tight">Troca Fácil em 7 Dias</p>
+              <p class="text-[10px] text-slate-500">Satisfação 100% garantida</p>
             </div>
           </div>
         </section>
@@ -222,7 +293,7 @@ const quickAddToCart = (product: any) => {
           class="relative rounded-3xl overflow-hidden min-h-[220px] flex items-center shadow-lg my-6"
         >
           <img
-            :src="store.themeConfig.secondaryBannerUrl"
+            :src="store?.themeConfig?.secondaryBannerUrl"
             alt="Promoção"
             class="absolute inset-0 w-full h-full object-cover"
           />
@@ -232,10 +303,10 @@ const quickAddToCart = (product: any) => {
               Destaque Especial
             </span>
             <h3 class="text-2xl sm:text-3xl font-black">
-              {{ store.themeConfig.secondaryBannerTitle || 'Condições Especiais da Semana' }}
+              {{ store?.themeConfig?.secondaryBannerTitle || 'Condições Especiais da Semana' }}
             </h3>
             <a
-              :href="store.themeConfig.secondaryBannerLink || '#catalogo'"
+              :href="store?.themeConfig?.secondaryBannerLink || '#catalogo'"
               class="inline-flex items-center px-5 py-2.5 rounded-full text-xs font-extrabold text-white shadow-md transition hover:scale-105"
               :style="{ backgroundColor: store?.accentColor || '#2563eb' }"
             >
@@ -259,7 +330,7 @@ const quickAddToCart = (product: any) => {
           <div class="flex items-center justify-between">
             <div>
               <h3 class="text-xl font-extrabold text-slate-900 tracking-tight">
-                {{ currentCategory ? categories.find(c => c.slug === currentCategory)?.name : 'Catálogo de Produtos' }}
+                {{ currentCategoryName }}
               </h3>
               <p class="text-xs text-slate-500 mt-0.5">
                 {{ products.length }} {{ products.length === 1 ? 'item disponível' : 'itens disponíveis' }}
@@ -298,14 +369,20 @@ const quickAddToCart = (product: any) => {
                   loading="lazy"
                 />
                 <span
-                  v-if="store?.themeConfig?.showDiscountBadge !== false && prod.compareAtPrice && prod.compareAtPrice > prod.price"
-                  class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full shadow-sm"
+                  v-if="store?.themeConfig?.showDiscountBadge !== false && prod.compareAtPrice && Number(prod.compareAtPrice) > Number(prod.price)"
+                  class="absolute top-3 left-3 bg-rose-600 text-white text-[10px] font-black uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm"
                 >
-                  {{ Math.round(((prod.compareAtPrice - prod.price) / prod.compareAtPrice) * 100) }}% OFF
+                  {{ Math.round(((Number(prod.compareAtPrice) - Number(prod.price)) / Number(prod.compareAtPrice)) * 100) }}% OFF
+                </span>
+                <span
+                  v-if="Number(prod.price || 0) >= 150"
+                  class="absolute bottom-3 left-3 bg-emerald-600 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-xs backdrop-blur-xs flex items-center gap-1"
+                >
+                  <span>Frete Grátis</span>
                 </span>
                 <span
                   v-if="prod.isFeatured"
-                  class="absolute top-3 right-3 bg-slate-900/80 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-md"
+                  class="absolute top-3 right-3 bg-slate-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-md"
                 >
                   Destaque
                 </span>
@@ -314,34 +391,42 @@ const quickAddToCart = (product: any) => {
               <!-- Product Details -->
               <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
                 <div>
-                  <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
-                    {{ prod.category?.name || 'Geral' }}
-                  </span>
-                  <NuxtLink :to="`/produto/${prod.slug}`" class="font-bold text-xs sm:text-sm text-slate-900 hover:text-blue-600 transition-colors line-clamp-2 mt-1">
+                  <div class="flex items-center justify-between text-[10px] text-slate-400 font-bold mb-1">
+                    <span class="uppercase tracking-wider">
+                      {{ prod.category?.name || 'Geral' }}
+                    </span>
+                    <span class="text-amber-500 font-semibold flex items-center gap-0.5">
+                      <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                      </svg>
+                      <span>4.9</span>
+                    </span>
+                  </div>
+                  <NuxtLink :to="`/produto/${prod.slug}`" class="font-extrabold text-xs sm:text-sm text-slate-900 hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
                     {{ prod.name }}
                   </NuxtLink>
                 </div>
 
                 <div>
                   <div class="flex items-baseline gap-2">
-                    <span class="font-extrabold text-base sm:text-lg text-slate-900">
-                      R$ {{ prod.price.toFixed(2).replace('.', ',') }}
+                    <span class="font-black text-base sm:text-lg text-slate-900 tracking-tight">
+                      R$ {{ Number(prod.price || 0).toFixed(2).replace('.', ',') }}
                     </span>
                     <span
-                      v-if="prod.compareAtPrice && prod.compareAtPrice > prod.price"
-                      class="text-xs text-slate-400 line-through"
+                      v-if="prod.compareAtPrice && Number(prod.compareAtPrice) > Number(prod.price)"
+                      class="text-xs text-slate-400 line-through font-medium"
                     >
-                      R$ {{ prod.compareAtPrice.toFixed(2).replace('.', ',') }}
+                      R$ {{ Number(prod.compareAtPrice).toFixed(2).replace('.', ',') }}
                     </span>
                   </div>
-                  <p v-if="store?.themeConfig?.showInstallments !== false" class="text-[11px] text-emerald-600 font-semibold mt-0.5">
-                    ou até 3x de R$ {{ (prod.price / 3).toFixed(2).replace('.', ',') }} sem juros
+                  <p v-if="store?.themeConfig?.showInstallments !== false" class="text-[11px] text-emerald-700 font-semibold mt-0.5">
+                    ou até 12x de R$ {{ (Number(prod.price || 0) / 12).toFixed(2).replace('.', ',') }}
                   </p>
 
                   <button
                     @click="quickAddToCart(prod)"
                     :style="{ backgroundColor: store?.accentColor || '#0f172a' }"
-                    class="mt-3 w-full text-white font-bold py-2.5 px-3 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm hover:opacity-90 active:scale-95"
+                    class="mt-3 w-full text-white font-bold py-2.5 px-3 rounded-xl text-xs transition-all flex items-center justify-center gap-1.5 shadow-sm hover:opacity-90 active:scale-95 cursor-pointer"
                   >
                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
@@ -355,8 +440,7 @@ const quickAddToCart = (product: any) => {
         </section>
       </main>
 
-      <!-- Global Cart Drawer & Footer -->
-      <CartDrawer />
+      <!-- Storefront Footer -->
       <Footer :store="store" />
       </template>
     </div>

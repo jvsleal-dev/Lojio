@@ -6,8 +6,12 @@
       <!-- Header -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
         <div>
-          <div class="flex items-center space-x-2">
-            <span class="text-xl">🎨</span>
+          <div class="flex items-center space-x-2.5">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 5 5 0 015-5h1a1 1 0 001-1V9a4 4 0 018 0v2a1 1 0 001 1h1a5 5 0 015 5 4 4 0 01-4 4H7z" />
+              </svg>
+            </div>
             <h1 class="text-2xl font-black text-slate-900">Editor de Tema & Personalização</h1>
           </div>
           <p class="text-slate-500 text-sm mt-0.5">
@@ -22,7 +26,9 @@
             class="px-4 py-2.5 rounded-xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-xs flex items-center space-x-1.5 transition border border-slate-200 shadow-xs"
           >
             <span>Ver Vitrine Ao Vivo</span>
-            <span>↗</span>
+            <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
           </a>
 
           <button
@@ -30,7 +36,9 @@
             :disabled="saving"
             class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md shadow-blue-600/20 transition hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center space-x-1.5"
           >
-            <span>💾</span>
+            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+            </svg>
             <span>{{ saving ? 'Salvando...' : 'Salvar Alterações' }}</span>
           </button>
         </div>
@@ -39,10 +47,16 @@
       <!-- Toast Feedback -->
       <div v-if="successMsg" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-between shadow-sm">
         <span class="flex items-center gap-2">
-          <span>✓</span>
+          <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+          </svg>
           <span>{{ successMsg }}</span>
         </span>
-        <button @click="successMsg = ''" class="text-emerald-600 hover:text-emerald-900 text-base">&times;</button>
+        <button @click="successMsg = ''" class="text-emerald-600 hover:text-emerald-900 p-1">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
 
       <!-- Main Layout: 2 Columns (Editor Controls 7 cols + Live Preview 5 cols) -->
@@ -59,7 +73,18 @@
               class="px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center space-x-2"
               :class="activeTab === tab.id ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'"
             >
-              <span>{{ tab.icon }}</span>
+              <svg v-if="tab.id === 'colors'" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 5 5 0 015-5h1a1 1 0 001-1V9a4 4 0 018 0v2a1 1 0 001 1h1a5 5 0 015 5 4 4 0 01-4 4H7z" />
+              </svg>
+              <svg v-else-if="tab.id === 'banners'" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <svg v-else-if="tab.id === 'cards'" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              <svg v-else class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
               <span>{{ tab.name }}</span>
             </button>
           </div>
@@ -181,7 +206,11 @@
                   >
                     <p class="font-bold text-sm text-slate-900" :style="{ fontFamily: font.id }">{{ font.name }}</p>
                     <p class="text-[10px] text-slate-500 mt-0.5">{{ font.style }}</p>
-                    <span v-if="form.themeConfig.fontFamily === font.id" class="absolute top-2 right-2 text-blue-600 text-xs font-bold">✓</span>
+                    <span v-if="form.themeConfig.fontFamily === font.id" class="absolute top-2 right-2 text-blue-600">
+                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
                   </button>
                 </div>
               </div>
@@ -201,7 +230,7 @@
                   <input
                     v-model="form.announcementBar"
                     type="text"
-                    placeholder="🎉 Frete Grátis acima de R$ 199 para todo o Brasil | Cupom: BEMVINDO10"
+                    placeholder="Frete Grátis acima de R$ 199 para todo o Brasil | Cupom: BEMVINDO10"
                     class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
                   />
                 </div>
@@ -440,7 +469,7 @@
                     <input
                       v-model="form.themeConfig.checkoutBadge1"
                       type="text"
-                      placeholder="🔒 Compra 100% Segura & Criptografada SSL"
+                      placeholder="Compra 100% Segura & Criptografada SSL"
                       class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
                     />
                   </div>
@@ -450,7 +479,7 @@
                     <input
                       v-model="form.themeConfig.checkoutBadge2"
                       type="text"
-                      placeholder="🛡️ Garantia de 7 dias para troca ou devolução"
+                      placeholder="Garantia de 7 dias para troca ou devolução"
                       class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
                     />
                   </div>
@@ -460,7 +489,7 @@
                     <input
                       v-model="form.themeConfig.checkoutBadge3"
                       type="text"
-                      placeholder="📦 Envio Rápido com Rastreamento em Tempo Real"
+                      placeholder="Envio Rápido com Rastreamento em Tempo Real"
                       class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
                     />
                   </div>
@@ -502,7 +531,10 @@
                 :disabled="saving"
                 class="px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md shadow-blue-600/20 transition hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center space-x-2"
               >
-                <span>💾 Salvar Todas as Configurações da Loja</span>
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
+                </svg>
+                <span>Salvar Todas as Configurações da Loja</span>
               </button>
             </div>
           </form>
@@ -521,18 +553,24 @@
               <button
                 type="button"
                 @click="previewDevice = 'desktop'"
-                class="px-2.5 py-1 rounded-lg font-bold transition"
+                class="px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1.5"
                 :class="previewDevice === 'desktop' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-700'"
               >
-                💻 Desktop
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+                <span>Desktop</span>
               </button>
               <button
                 type="button"
                 @click="previewDevice = 'mobile'"
-                class="px-2.5 py-1 rounded-lg font-bold transition"
+                class="px-2.5 py-1 rounded-lg font-bold transition flex items-center gap-1.5"
                 :class="previewDevice === 'mobile' ? 'bg-slate-100 text-slate-900' : 'text-slate-400 hover:text-slate-700'"
               >
-                📱 Mobile
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                <span>Mobile</span>
               </button>
             </div>
           </div>
@@ -668,17 +706,23 @@
               <!-- Simulated Checkout Badges -->
               <div class="p-3 bg-white rounded-2xl border border-slate-200 space-y-1.5 mt-3 shadow-xs">
                 <p class="text-[9px] font-bold uppercase tracking-wider text-slate-400 text-center">Garantias do Checkout</p>
-                <div class="text-[10px] text-slate-600 space-y-1">
+                <div class="text-[10px] text-slate-600 space-y-1.5">
                   <p class="flex items-center gap-1.5">
-                    <span>🔒</span>
+                    <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
                     <span class="truncate">{{ form.themeConfig.checkoutBadge1 || 'Compra 100% Segura & Criptografada' }}</span>
                   </p>
                   <p class="flex items-center gap-1.5">
-                    <span>🛡️</span>
+                    <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
                     <span class="truncate">{{ form.themeConfig.checkoutBadge2 || 'Garantia de 7 dias para troca ou devolução' }}</span>
                   </p>
                   <p class="flex items-center gap-1.5">
-                    <span>📦</span>
+                    <svg class="w-3.5 h-3.5 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                    </svg>
                     <span class="truncate">{{ form.themeConfig.checkoutBadge3 || 'Envio Rápido e Rastreável pelos Correios' }}</span>
                   </p>
                 </div>
@@ -692,6 +736,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'admin',
+})
+
 const { fetchWithAuth, isAuthenticated, initAuth } = useAuth()
 const router = useRouter()
 
@@ -702,10 +750,10 @@ const saving = ref(false)
 const successMsg = ref('')
 
 const tabs = [
-  { id: 'colors', name: 'Cores & Fontes', icon: '🎨' },
-  { id: 'banners', name: 'Logo & Banners', icon: '🖼️' },
-  { id: 'cards', name: 'Cards de Produto', icon: '🛍️' },
-  { id: 'checkout', name: 'Checkout & Confiança', icon: '🔒' },
+  { id: 'colors', name: 'Cores & Fontes' },
+  { id: 'banners', name: 'Logo & Banners' },
+  { id: 'cards', name: 'Cards de Produto' },
+  { id: 'checkout', name: 'Checkout & Confiança' },
 ]
 
 const colorPresets = [
@@ -755,9 +803,9 @@ const form = reactive({
     cardButtonText: 'Adicionar à Sacola',
     showDiscountBadge: true,
     showInstallments: true,
-    checkoutBadge1: '🔒 Compra 100% Segura & Criptografada SSL',
-    checkoutBadge2: '🛡️ Garantia de 7 dias para troca ou devolução',
-    checkoutBadge3: '📦 Envio Rápido e Rastreável pelos Correios',
+    checkoutBadge1: 'Compra 100% Segura & Criptografada SSL',
+    checkoutBadge2: 'Garantia de 7 dias para troca ou devolução',
+    checkoutBadge3: 'Envio Rápido e Rastreável pelos Correios',
   },
 })
 

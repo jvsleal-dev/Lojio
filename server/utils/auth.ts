@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcryptjs'
 import type { H3Event } from 'h3'
+import { prisma } from './prisma'
 
 const JWT_SECRET = process.env.JWT_SECRET || 'super-secret-e-commerce-saas-key-2026'
 
@@ -65,5 +66,34 @@ export function getMasterAdminUser(event: H3Event): AuthUser {
     })
   }
   return user
+}
+
+export async function resolveTenantId(event: H3Event, user: AuthUser): Promise<string> {
+  let tenantId = user.tenantId
+  if (!tenantId && (user.role === 'SUPERADMIN' || user.role === 'MASTER')) {
+    const query = getQuery(event)
+    const headerTenant = getHeader(event, 'x-tenant-id')
+    const requestedTenantId = ((query.tenantId as string) || headerTenant)?.trim()
+
+    if (requestedTenantId) {
+      const match = await prisma.tenant.findUnique({ where: { id: requestedTenantId } })
+      if (match) return match.id
+    }
+
+    const firstTenant = await prisma.tenant.findFirst({
+      where: { isActive: true },
+      orderBy: { createdAt: 'asc' },
+    })
+    tenantId = firstTenant?.id || null
+  }
+
+  if (!tenantId) {
+    throw createError({
+      statusCode: 400,
+      statusMessage: 'Nenhuma loja associada a esta conta.',
+    })
+  }
+
+  return tenantId
 }
 

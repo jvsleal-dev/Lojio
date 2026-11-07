@@ -6,8 +6,10 @@
       <!-- Top Breadcrumb & Header -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
         <div>
-          <NuxtLink to="/admin/produtos" class="text-xs font-bold text-blue-600 hover:text-blue-700 transition mb-1.5 inline-flex items-center gap-1">
-            <span>&larr;</span>
+          <NuxtLink to="/admin/produtos" class="text-xs font-bold text-blue-600 hover:text-blue-700 transition mb-1.5 inline-flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
             <span>Voltar para catálogo de produtos</span>
           </NuxtLink>
           <h1 class="text-2xl font-black text-slate-900">Cadastrar Novo Produto</h1>
@@ -72,7 +74,9 @@
                   class="inline-flex items-center space-x-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-[11px] font-bold shadow-sm transition disabled:opacity-50"
                   title="Gera uma descrição persuasiva com base no título do produto"
                 >
-                  <span>✨</span>
+                  <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
                   <span>{{ aiGenerating ? 'Lumi IA gerando...' : 'Lumi IA Gerar Descrição' }}</span>
                 </button>
               </div>
@@ -186,6 +190,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'admin',
+})
+
 const { fetchWithAuth, isAuthenticated, initAuth } = useAuth()
 const router = useRouter()
 
@@ -215,7 +223,7 @@ const generateAiDescription = () => {
   aiGenerating.value = true
   setTimeout(() => {
     const pName = form.name
-    form.description = `🔥 **${pName}** - Exclusividade e Qualidade Premium\n\nProjetado para quem valoriza estilo, durabilidade e autenticidade. Cada detalhe foi desenvolvido com materiais de alta performance, garantindo conforto inigualável e um caimento impecável para todas as ocasiões.\n\n✨ **Destaques do Produto:**\n• Acabamento de alto padrão com costura reforçada\n• Conforto térmico e toque macio ao longo de todo o dia\n• Modelagem anatômica que valoriza a silhueta\n• Peça versátil: ideal do casual ao evento sofisticado\n\n📦 **Envio Seguro:** Pronta entrega com rastreamento detalhado e garantia de satisfação ou seu dinheiro de volta.`
+    form.description = `**${pName}** - Exclusividade e Qualidade Premium\n\nProjetado para quem valoriza estilo, durabilidade e autenticidade. Cada detalhe foi desenvolvido com materiais de alta performance, garantindo conforto inigualável e um caimento impecável para todas as ocasiões.\n\n**Destaques do Produto:**\n• Acabamento de alto padrão com costura reforçada\n• Conforto térmico e toque macio ao longo de todo o dia\n• Modelagem anatômica que valoriza a silhueta\n• Peça versátil: ideal do casual ao evento sofisticado\n\n**Envio Seguro:** Pronta entrega com rastreamento detalhado e garantia de satisfação ou seu dinheiro de volta.`
     aiGenerating.value = false
   }, 450)
 }

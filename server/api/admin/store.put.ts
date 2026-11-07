@@ -29,9 +29,10 @@ export default defineEventHandler(async (event) => {
       announcementBar: body.announcementBar,
       showAnnouncement: body.showAnnouncement,
       originZipcode: body.originZipcode,
+      themeConfig: body.themeConfig ? JSON.stringify(body.themeConfig) : undefined,
       mpAccessToken: body.mpAccessToken,
       mpPublicKey: body.mpPublicKey,
-      melhorEnvioToken: body.themeConfig ? JSON.stringify(body.themeConfig) : (body.melhorEnvioToken !== undefined ? body.melhorEnvioToken : undefined),
+      melhorEnvioToken: body.melhorEnvioToken !== undefined ? body.melhorEnvioToken : undefined,
       isActive: body.isActive !== undefined ? body.isActive : undefined,
     },
   })

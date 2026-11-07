@@ -101,7 +101,9 @@
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Canal WhatsApp</span>
               <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center font-bold text-sm">
-                💬
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
               </div>
             </div>
             <p class="text-2xl font-black text-slate-900">
@@ -122,7 +124,9 @@
             <div class="p-5 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 shadow-xs">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-xs font-bold text-emerald-700 flex items-center space-x-1.5">
-                  <span>⚡</span>
+                  <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
                   <span>PIX Instantâneo</span>
                 </span>
                 <span class="text-xs font-bold text-slate-500">{{ data?.metrics?.byPayment?.pix?.count || 0 }} pedidos</span>
@@ -137,7 +141,9 @@
             <div class="p-5 rounded-2xl bg-blue-50/50 border border-blue-200/80 shadow-xs">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-xs font-bold text-blue-700 flex items-center space-x-1.5">
-                  <span>💳</span>
+                  <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                  </svg>
                   <span>Cartão de Crédito</span>
                 </span>
                 <span class="text-xs font-bold text-slate-500">{{ data?.metrics?.byPayment?.creditCard?.count || 0 }} pedidos</span>
@@ -152,7 +158,9 @@
             <div class="p-5 rounded-2xl bg-teal-50/50 border border-teal-200/80 shadow-xs">
               <div class="flex items-center justify-between mb-2">
                 <span class="text-xs font-bold text-teal-700 flex items-center space-x-1.5">
-                  <span>💬</span>
+                  <svg class="w-3.5 h-3.5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
                   <span>WhatsApp Checkout</span>
                 </span>
                 <span class="text-xs font-bold text-slate-500">{{ data?.metrics?.byPayment?.whatsapp?.count || 0 }} pedidos</span>
@@ -218,6 +226,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'admin',
+})
+
 const { fetchWithAuth, isAuthenticated, initAuth } = useAuth()
 const router = useRouter()
 

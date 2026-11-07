@@ -1,11 +1,9 @@
 import { prisma } from '~/server/utils/prisma'
-import { getAuthenticatedUser } from '~/server/utils/auth'
+import { getAuthenticatedUser, resolveTenantId } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
   const user = getAuthenticatedUser(event)
-  if (!user.tenantId) {
-    throw createError({ statusCode: 400, statusMessage: 'Nenhuma loja associada.' })
-  }
+  const tenantId = await resolveTenantId(event, user)
 
   const body = await readBody(event)
   if (!body.name || body.price === undefined || body.price === null) {
@@ -15,7 +13,7 @@ export default defineEventHandler(async (event) => {
   const baseSlug = body.name.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
   let slug = baseSlug
   let count = 1
-  while (await prisma.product.findFirst({ where: { tenantId: user.tenantId, slug } })) {
+  while (await prisma.product.findFirst({ where: { tenantId, slug } })) {
     slug = `${baseSlug}-${count}`
     count++
   }
@@ -23,7 +21,7 @@ export default defineEventHandler(async (event) => {
   const product = await prisma.$transaction(async (tx) => {
     const newProduct = await tx.product.create({
       data: {
-        tenantId: user.tenantId!,
+        tenantId,
         categoryId: body.categoryId || null,
         name: body.name,
         slug,

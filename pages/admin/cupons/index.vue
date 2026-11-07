@@ -6,8 +6,12 @@
       <!-- Top Bar -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
-          <div class="flex items-center space-x-2">
-            <span class="text-xl">🏷️</span>
+          <div class="flex items-center space-x-2.5">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+              </svg>
+            </div>
             <h1 class="text-2xl font-black text-slate-900">Cupons de Desconto</h1>
           </div>
           <p class="text-slate-500 text-sm mt-1">
@@ -59,8 +63,10 @@
 
       <!-- Empty State -->
       <div v-else-if="coupons.length === 0" class="p-12 text-center rounded-2xl bg-white border border-slate-200 shadow-sm">
-        <div class="w-16 h-16 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4 text-3xl">
-          🏷️
+        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+          </svg>
         </div>
         <h3 class="text-lg font-bold text-slate-900 mb-2">Nenhum cupom cadastrado</h3>
         <p class="text-slate-500 text-sm max-w-md mx-auto mb-6">
@@ -295,7 +301,7 @@
 
 <script setup>
 definePageMeta({
-  middleware: 'auth',
+  middleware: 'admin',
 })
 
 const { token } = useAuth()

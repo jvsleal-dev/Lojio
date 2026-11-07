@@ -27,7 +27,9 @@
         <div class="mb-6 p-4 rounded-2xl bg-blue-50/70 border border-blue-100 text-xs space-y-2.5">
           <div class="flex items-center justify-between text-blue-900 font-bold">
             <span class="flex items-center gap-1.5">
-              <span>⚡</span>
+              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
               <span>Acesso Rápido para Teste</span>
             </span>
             <span class="text-[10px] text-blue-600 font-semibold uppercase tracking-wider">Demo</span>
@@ -37,17 +39,21 @@
             <button
               type="button"
               @click="quickLogin('lojista@demo.com', 'senha123')"
-              class="py-2.5 px-3 rounded-xl bg-white hover:bg-blue-600 text-slate-700 hover:text-white font-bold text-xs border border-blue-200/60 shadow-sm transition flex items-center justify-center gap-1.5"
+              class="py-2.5 px-3 rounded-xl bg-white hover:bg-blue-600 text-slate-700 hover:text-white font-bold text-xs border border-blue-200/60 shadow-sm transition flex items-center justify-center gap-1.5 group"
             >
-              <span>👕</span>
+              <svg class="w-4 h-4 text-blue-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
               <span>Moda Urbana</span>
             </button>
             <button
               type="button"
               @click="quickLogin('tech@demo.com', 'senha123')"
-              class="py-2.5 px-3 rounded-xl bg-white hover:bg-purple-600 text-slate-700 hover:text-white font-bold text-xs border border-blue-200/60 shadow-sm transition flex items-center justify-center gap-1.5"
+              class="py-2.5 px-3 rounded-xl bg-white hover:bg-purple-600 text-slate-700 hover:text-white font-bold text-xs border border-blue-200/60 shadow-sm transition flex items-center justify-center gap-1.5 group"
             >
-              <span>⚡</span>
+              <svg class="w-4 h-4 text-purple-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
               <span>TechZone</span>
             </button>
           </div>
@@ -55,7 +61,9 @@
 
         <form class="space-y-4" @submit.prevent="handleLogin">
           <div v-if="errorMsg" class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold flex items-center gap-2">
-            <span>⚠️</span>
+            <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            </svg>
             <span>{{ errorMsg }}</span>
           </div>
 
@@ -104,12 +112,14 @@
         </form>
 
         <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center text-xs font-semibold text-slate-500">
-          <NuxtLink to="/master/login" class="hover:text-indigo-600 transition flex items-center gap-1">
-            <span>👑</span>
+          <NuxtLink to="/master/login" class="hover:text-indigo-600 transition flex items-center gap-1.5">
+            <svg class="w-4 h-4 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
             <span>Painel Master</span>
           </NuxtLink>
           <NuxtLink to="/?tenant=none" class="hover:text-blue-600 transition flex items-center gap-1">
-            <span>← Início da Plataforma</span>
+            <span>&larr; Início da Plataforma</span>
           </NuxtLink>
         </div>
       </div>
@@ -126,7 +136,7 @@
 </template>
 
 <script setup lang="ts">
-const { setAuth, isAuthenticated } = useAuth()
+const { setAuth, isAuthenticated, initAuth } = useAuth()
 const router = useRouter()
 
 const email = ref('lojista@demo.com')
@@ -135,6 +145,7 @@ const loading = ref(false)
 const errorMsg = ref('')
 
 onMounted(() => {
+  initAuth()
   if (isAuthenticated.value) {
     router.push('/admin')
   }
@@ -164,7 +175,7 @@ const handleLogin = async () => {
     })
 
     if (res.user && res.token) {
-      setAuth(res.user, res.token)
+      setAuth(res.token, res.user, res.tenant)
       router.push('/admin')
     } else {
       errorMsg.value = 'Credenciais inválidas.'

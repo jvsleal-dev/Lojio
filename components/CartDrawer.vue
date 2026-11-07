@@ -1,9 +1,14 @@
 <script setup lang="ts">
 import { useCart } from '~/composables/useCart'
 
+const route = useRoute()
+const tenantQuery = computed(() => (route.query.tenant as string) || '')
+
 const { items, isOpen, subtotal, count, updateQuantity, removeItem, clearCart } = useCart()
 
-const { data: storeData } = await useFetch('/api/store/info')
+const { data: storeData } = await useFetch('/api/store/info', {
+  query: { tenant: tenantQuery },
+})
 const store = computed(() => storeData.value?.store)
 
 const close = () => {
@@ -12,7 +17,8 @@ const close = () => {
 
 const goToCheckout = () => {
   close()
-  navigateTo('/checkout')
+  const tenantParam = tenantQuery.value ? `?tenant=${encodeURIComponent(tenantQuery.value)}` : ''
+  navigateTo(`/checkout${tenantParam}`)
 }
 
 const checkoutViaWhatsapp = () => {
@@ -21,7 +27,7 @@ const checkoutViaWhatsapp = () => {
     .map(i => `• ${i.quantity}x ${i.name}${i.variantName ? ` (${i.variantName})` : ''} - R$ ${(i.price * i.quantity).toFixed(2).replace('.', ',')}`)
     .join('\n')
   const storeName = store.value?.name || 'sua loja'
-  const msg = `👋 Olá, ${storeName}!\n\nGostaria de fechar o pedido com os seguintes itens da minha sacola:\n\n${listText}\n\n💰 *Total Estimado: R$ ${subtotal.value.toFixed(2).replace('.', ',')}*\n\nComo posso combinar o pagamento e o envio com você?`
+  const msg = `Olá, ${storeName}!\n\nGostaria de fechar o pedido com os seguintes itens da minha sacola:\n\n${listText}\n\n*Total Estimado: R$ ${subtotal.value.toFixed(2).replace('.', ',')}*\n\nComo posso combinar o pagamento e o envio com você?`
   const cleanPhone = (store.value?.contactWhatsapp || '11999998888').replace(/\D/g, '')
   const fullPhone = cleanPhone.startsWith('55') ? cleanPhone : `55${cleanPhone}`
   window.open(`https://wa.me/${fullPhone}?text=${encodeURIComponent(msg)}`, '_blank')
@@ -119,10 +125,12 @@ const checkoutViaWhatsapp = () => {
                     <h4 class="text-xs font-bold text-slate-900 truncate">{{ item.name }}</h4>
                     <button
                       @click="removeItem(item.productId, item.variantId)"
-                      class="text-slate-400 hover:text-red-500 text-xs p-1"
-                      title="Remover"
+                      class="text-slate-400 hover:text-rose-500 p-1 rounded-md hover:bg-rose-50 transition-colors"
+                      title="Remover produto"
                     >
-                      ✕
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
                     </button>
                   </div>
                   <p v-if="item.variantName" class="text-[11px] text-slate-500 mt-0.5">

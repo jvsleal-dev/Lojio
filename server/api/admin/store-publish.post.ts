@@ -37,7 +37,7 @@ export default defineEventHandler(async (event) => {
     isPublished: updatedTenant.isActive,
     tenant: updatedTenant,
     message: updatedTenant.isActive
-      ? '🎉 Loja publicada com sucesso! Sua vitrine está online para clientes.'
+      ? 'Loja publicada com sucesso! Sua vitrine está online para clientes.'
       : 'Loja pausada. Ela está agora em modo rascunho (privada).',
   }
 })

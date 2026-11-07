@@ -237,6 +237,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  middleware: 'master',
+})
+
 const { user, token } = useAuth()
 const router = useRouter()
 

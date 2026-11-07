@@ -64,7 +64,7 @@ export default defineEventHandler(async (event) => {
         plan: body.plan || 'PRO',
         primaryColor: body.primaryColor || '#0f172a',
         accentColor: body.accentColor || '#2563eb',
-        announcementBar: `🎉 Bem-vindo(a) à nossa loja online! Aproveite nossos lançamentos.`,
+        announcementBar: `Bem-vindo(a) à nossa loja online! Aproveite nossos lançamentos.`,
         isActive: true,
       }
     })

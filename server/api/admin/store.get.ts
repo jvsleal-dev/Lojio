@@ -22,9 +22,10 @@ export default defineEventHandler(async (event) => {
   }
 
   let themeConfig: any = {}
-  if (tenant.melhorEnvioToken) {
+  const rawTheme = tenant.themeConfig || tenant.melhorEnvioToken
+  if (rawTheme) {
     try {
-      themeConfig = JSON.parse(tenant.melhorEnvioToken)
+      themeConfig = JSON.parse(rawTheme)
     } catch {}
   }
 

@@ -1,11 +1,9 @@
 import { prisma } from '~/server/utils/prisma'
-import { requireAuth } from '~/server/utils/auth'
+import { requireAuth, resolveTenantId } from '~/server/utils/auth'
 
 export default defineEventHandler(async (event) => {
   const user = await requireAuth(event)
-  if (!user.tenantId && user.role !== 'SUPERADMIN') {
-    throw createError({ statusCode: 403, message: 'Acesso negado' })
-  }
+  const tenantId = await resolveTenantId(event, user)
 
   const body = await readBody(event)
   const { code, discountType, discountValue, minOrderValue, maxUses, expiresAt } = body
@@ -19,7 +17,7 @@ export default defineEventHandler(async (event) => {
   // Verificar duplicidade de cupom para o tenant
   const existing = await prisma.coupon.findFirst({
     where: {
-      tenantId: user.tenantId!,
+      tenantId,
       code: normalizedCode
     }
   })
@@ -30,7 +28,7 @@ export default defineEventHandler(async (event) => {
 
   const coupon = await prisma.coupon.create({
     data: {
-      tenantId: user.tenantId!,
+      tenantId,
       code: normalizedCode,
       discountType: discountType === 'FIXED' ? 'FIXED' : 'PERCENTAGE',
       discountValue: Number(discountValue),
