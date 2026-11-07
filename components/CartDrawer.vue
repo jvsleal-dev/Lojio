@@ -89,7 +89,7 @@ const goToCheckout = () => {
               </p>
               <button
                 @click="close"
-                class="mt-6 text-xs font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 px-5 py-2.5 rounded-full transition-colors"
+                class="mt-6 text-xs font-bold text-emerald-600 bg-emerald-50 hover:bg-emerald-100 px-5 py-2.5 rounded-full transition-colors"
               >
                 Continuar comprando
               </button>
@@ -171,7 +171,7 @@ const goToCheckout = () => {
 
             <button
               @click="goToCheckout"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
+              class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
             >
               <span>Finalizar Compra</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

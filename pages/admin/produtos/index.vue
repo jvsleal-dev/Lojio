@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-emerald-600 selection:text-white">
     <AdminSidebar />
 
     <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
@@ -12,7 +12,7 @@
 
         <NuxtLink
           to="/admin/produtos/novo"
-          class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 flex items-center space-x-2 transition self-start sm:self-auto hover:scale-105 active:scale-95"
+          class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 flex items-center space-x-2 transition self-start sm:self-auto hover:scale-105 active:scale-95"
         >
           <span>+ Cadastrar Novo Produto</span>
         </NuxtLink>
@@ -25,7 +25,7 @@
             v-model="search"
             type="text"
             placeholder="Buscar por nome do produto ou SKU..."
-            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
           />
           <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -49,7 +49,7 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="py-20 text-center">
-        <div class="inline-block animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mb-3"></div>
+        <div class="inline-block animate-spin w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full mb-3"></div>
         <p class="text-slate-500 text-sm">Carregando catálogo de produtos...</p>
       </div>
 
@@ -80,7 +80,7 @@
                     <div>
                       <p class="font-bold text-slate-900 text-sm line-clamp-1">{{ p.name }}</p>
                       <p v-if="p.sku" class="text-[11px] text-slate-400 font-mono mt-0.5">SKU: {{ p.sku }}</p>
-                      <span v-if="p.hasVariants && p.variants" class="text-[10px] text-blue-600 font-semibold">
+                      <span v-if="p.hasVariants && p.variants" class="text-[10px] text-emerald-700 font-semibold">
                         {{ p.variants.length }} variações
                       </span>
                     </div>
@@ -129,10 +129,10 @@
                   <!-- Editar Produto -->
                   <button
                     @click="openEditModal(p)"
-                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 transition"
+                    class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 transition"
                     title="Editar dados e preço do produto"
                   >
-                    <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                     </svg>
                     <span>Editar</span>
@@ -194,7 +194,7 @@
                 v-model="editForm.name"
                 type="text"
                 required
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               />
             </div>
 
@@ -206,7 +206,7 @@
                   type="number"
                   step="0.01"
                   required
-                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
                 />
               </div>
 
@@ -217,7 +217,7 @@
                   type="number"
                   step="0.01"
                   placeholder="Ex: 199.90"
-                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
                 />
               </div>
             </div>
@@ -229,7 +229,7 @@
                   v-model.number="editForm.stockQuantity"
                   type="number"
                   required
-                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
                 />
               </div>
 
@@ -239,7 +239,7 @@
                   v-model="editForm.sku"
                   type="text"
                   placeholder="Ex: CAM-001"
-                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs uppercase font-mono focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs uppercase font-mono focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
                 />
               </div>
             </div>
@@ -248,7 +248,7 @@
               <label class="block text-xs font-bold text-slate-700 mb-1">Categoria</label>
               <select
                 v-model="editForm.categoryId"
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               >
                 <option :value="null">Sem categoria (Geral)</option>
                 <option v-for="cat in categories" :key="cat.id" :value="cat.id">
@@ -263,7 +263,7 @@
                 v-model="editForm.imageInput"
                 type="url"
                 placeholder="https://images.unsplash.com/..."
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               />
             </div>
 
@@ -272,18 +272,18 @@
               <textarea
                 v-model="editForm.description"
                 rows="3"
-                class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full p-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               ></textarea>
             </div>
 
             <div class="flex items-center space-x-6 pt-2">
               <label class="flex items-center space-x-2 text-xs font-bold text-slate-700 cursor-pointer">
-                <input type="checkbox" v-model="editForm.isActive" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                <input type="checkbox" v-model="editForm.isActive" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500" />
                 <span>Ativo para venda</span>
               </label>
 
               <label class="flex items-center space-x-2 text-xs font-bold text-slate-700 cursor-pointer">
-                <input type="checkbox" v-model="editForm.isFeatured" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                <input type="checkbox" v-model="editForm.isFeatured" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500" />
                 <span>Destacar na vitrine inicial</span>
               </label>
             </div>
@@ -299,7 +299,7 @@
               <button
                 type="submit"
                 :disabled="savingEdit"
-                class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition disabled:opacity-50"
+                class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition disabled:opacity-50"
               >
                 {{ savingEdit ? 'Salvando...' : 'Salvar Alterações' }}
               </button>

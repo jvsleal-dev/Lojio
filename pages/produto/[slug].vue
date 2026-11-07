@@ -129,7 +129,7 @@ const addToCart = (redirectCheckout = false) => {
               :key="img"
               @click="selectedImage = img"
               class="w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all flex-shrink-0"
-              :class="selectedImage === img ? 'border-blue-600 ring-2 ring-blue-100' : 'border-slate-200 hover:border-slate-300'"
+              :class="selectedImage === img ? 'border-emerald-600 ring-2 ring-blue-100' : 'border-slate-200 hover:border-slate-300'"
             >
               <img :src="img" :alt="product.name" class="w-full h-full object-cover" />
             </button>
@@ -139,7 +139,7 @@ const addToCart = (redirectCheckout = false) => {
         <!-- Product Purchase Column -->
         <div class="space-y-6">
           <div>
-            <span class="text-xs font-bold text-blue-600 uppercase tracking-wider block">
+            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block">
               {{ product.category?.name || 'Catálogo Oficial' }}
             </span>
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
@@ -235,7 +235,7 @@ const addToCart = (redirectCheckout = false) => {
 
             <button
               @click="addToCart(true)"
-              class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-6 rounded-2xl text-sm transition-all shadow-lg shadow-blue-600/25 flex items-center justify-center gap-2"
+              class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 px-6 rounded-2xl text-sm transition-all shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2"
             >
               <span>Comprar Agora</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -252,7 +252,7 @@ const addToCart = (redirectCheckout = false) => {
                 <span>Compra Segura</span>
               </div>
               <div class="p-2.5 rounded-xl bg-slate-100/70 border border-slate-200/60 flex flex-col items-center gap-1">
-                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span>Troca em 7 dias</span>
@@ -269,7 +269,7 @@ const addToCart = (redirectCheckout = false) => {
           <!-- Shipping Simulator -->
           <div class="pt-6 border-t border-slate-200 space-y-3">
             <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-              <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
               </svg>
               <span>Calcular Prazo e Frete</span>
@@ -280,7 +280,7 @@ const addToCart = (redirectCheckout = false) => {
                 type="text"
                 placeholder="Digite seu CEP (ex: 01310-100)"
                 maxlength="9"
-                class="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-medium placeholder-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                class="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-medium placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
               />
               <button
                 @click="handleCalculateShipping"

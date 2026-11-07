@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-emerald-600 selection:text-white">
     <AdminSidebar />
 
     <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
@@ -7,8 +7,8 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
         <div>
           <div class="flex items-center space-x-2.5">
-            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 5 5 0 015-5h1a1 1 0 001-1V9a4 4 0 018 0v2a1 1 0 001 1h1a5 5 0 015 5 4 4 0 01-4 4H7z" />
               </svg>
             </div>
@@ -34,7 +34,7 @@
           <button
             @click="saveSettings"
             :disabled="saving"
-            class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md shadow-blue-600/20 transition hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center space-x-1.5"
+            class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center space-x-1.5"
           >
             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
@@ -43,6 +43,52 @@
           </button>
         </div>
       </div>
+
+      <!-- Theme library -->
+      <section class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+          <div>
+            <h2 class="text-sm font-extrabold text-slate-900">Escolha um tema base</h2>
+            <p class="text-xs text-slate-500 mt-1">Comece com uma estrutura pronta e personalize cores, textos e imagens depois.</p>
+          </div>
+          <span class="text-[11px] font-semibold text-emerald-700">{{ getStoreTheme(form.themeConfig.themeId).name }}</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button
+            v-for="theme in STORE_THEMES"
+            :key="theme.id"
+            type="button"
+            @click="applyTheme(theme)"
+            class="text-left p-3 rounded-2xl border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+            :class="form.themeConfig.themeId === theme.id ? 'border-emerald-600 bg-emerald-50/60' : 'border-slate-200 bg-slate-50 hover:border-slate-300'"
+          >
+            <div class="h-20 rounded-xl overflow-hidden border border-black/5 flex" :style="{ backgroundColor: theme.bgColor }">
+              <div class="w-1/3 p-2" :style="{ backgroundColor: theme.primaryColor }">
+                <div class="h-1.5 w-10 rounded-full bg-white/80"></div>
+                <div class="mt-3 h-1 w-8 rounded-full bg-white/45"></div>
+                <div class="mt-1 h-1 w-6 rounded-full bg-white/30"></div>
+              </div>
+              <div class="flex-1 p-2">
+                <div class="flex justify-end gap-1">
+                  <span class="h-2 w-2 rounded-full" :style="{ backgroundColor: theme.accentColor }"></span>
+                  <span class="h-2 w-2 rounded-full bg-black/10"></span>
+                </div>
+                <div class="mt-4 grid grid-cols-3 gap-1">
+                  <span v-for="item in 3" :key="item" class="h-7 bg-white/80 border border-black/5" :style="{ borderRadius: theme.cardRadius }"></span>
+                </div>
+              </div>
+            </div>
+            <div class="mt-3 flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs font-bold text-slate-900">{{ theme.name }}</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">{{ theme.description }}</p>
+              </div>
+              <span v-if="form.themeConfig.themeId === theme.id" class="text-[10px] font-bold text-emerald-700">Ativo</span>
+            </div>
+          </button>
+        </div>
+      </section>
 
       <!-- Toast Feedback -->
       <div v-if="successMsg" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-between shadow-sm">
@@ -71,7 +117,7 @@
               type="button"
               @click="activeTab = tab.id"
               class="px-4 py-2.5 rounded-xl text-xs font-bold transition whitespace-nowrap flex items-center space-x-2"
-              :class="activeTab === tab.id ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'"
+              :class="activeTab === tab.id ? 'bg-emerald-600 text-white shadow-sm' : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'"
             >
               <svg v-if="tab.id === 'colors'" class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 21a4 4 0 01-4-4 5 5 0 015-5h1a1 1 0 001-1V9a4 4 0 018 0v2a1 1 0 001 1h1a5 5 0 015 5 4 4 0 01-4 4H7z" />
@@ -95,7 +141,7 @@
               <!-- Presets Rápidos -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
                 <div class="flex items-center justify-between">
-                  <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Paletas Prontas (1 Clique)</h2>
+                  <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Paletas Prontas (1 Clique)</h2>
                   <span class="text-[11px] text-slate-400">Estilos pré-configurados</span>
                 </div>
 
@@ -111,14 +157,14 @@
                       <span class="w-4 h-4 rounded-full border border-slate-300 shadow-xs" :style="{ backgroundColor: preset.primary }"></span>
                       <span class="w-4 h-4 rounded-full border border-slate-300 shadow-xs" :style="{ backgroundColor: preset.accent }"></span>
                     </div>
-                    <p class="text-xs font-bold text-slate-800 group-hover:text-blue-600 transition">{{ preset.name }}</p>
+                    <p class="text-xs font-bold text-slate-800 group-hover:text-emerald-600 transition">{{ preset.name }}</p>
                   </button>
                 </div>
               </div>
 
               <!-- Cores Customizadas -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-5">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Cores Personalizadas</h2>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Cores Personalizadas</h2>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -132,7 +178,7 @@
                       <input
                         v-model="form.primaryColor"
                         type="text"
-                        class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                        class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                       />
                     </div>
                   </div>
@@ -148,7 +194,7 @@
                       <input
                         v-model="form.accentColor"
                         type="text"
-                        class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                        class="flex-1 px-3 py-2 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                       />
                     </div>
                   </div>
@@ -161,7 +207,7 @@
                       type="button"
                       @click="form.themeConfig.bgColor = '#ffffff'"
                       class="py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 transition"
-                      :class="form.themeConfig.bgColor === '#ffffff' ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-600'"
+                      :class="form.themeConfig.bgColor === '#ffffff' ? 'border-emerald-600 bg-emerald-50 text-emerald-700 shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-600'"
                     >
                       <span class="w-3 h-3 rounded-full bg-white border border-slate-300"></span>
                       <span>Branco Puro</span>
@@ -170,7 +216,7 @@
                       type="button"
                       @click="form.themeConfig.bgColor = '#f8fafc'"
                       class="py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 transition"
-                      :class="form.themeConfig.bgColor === '#f8fafc' ? 'border-blue-600 bg-blue-50 text-blue-700 shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-600'"
+                      :class="form.themeConfig.bgColor === '#f8fafc' ? 'border-emerald-600 bg-emerald-50 text-emerald-700 shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-600'"
                     >
                       <span class="w-3 h-3 rounded-full bg-slate-200"></span>
                       <span>Cinza Suave</span>
@@ -179,7 +225,7 @@
                       type="button"
                       @click="form.themeConfig.bgColor = '#0f172a'"
                       class="py-2.5 px-3 rounded-xl border text-xs font-bold flex items-center justify-center space-x-2 transition"
-                      :class="form.themeConfig.bgColor === '#0f172a' ? 'border-blue-600 bg-slate-900 text-white shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-600'"
+                      :class="form.themeConfig.bgColor === '#0f172a' ? 'border-emerald-600 bg-slate-900 text-white shadow-xs' : 'border-slate-200 bg-slate-50 text-slate-600'"
                     >
                       <span class="w-3 h-3 rounded-full bg-slate-900"></span>
                       <span>Dark Modern</span>
@@ -191,8 +237,8 @@
               <!-- Tipografia / Fontes -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
                 <div class="flex items-center justify-between">
-                  <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Tipografia da Loja (Google Fonts)</h2>
-                  <span class="text-[11px] text-blue-600 font-semibold">{{ form.themeConfig.fontFamily }}</span>
+                  <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Tipografia da Loja (Google Fonts)</h2>
+                  <span class="text-[11px] text-emerald-600 font-semibold">{{ form.themeConfig.fontFamily }}</span>
                 </div>
 
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -202,11 +248,11 @@
                     type="button"
                     @click="form.themeConfig.fontFamily = font.id"
                     class="p-3.5 rounded-2xl border text-left transition relative overflow-hidden"
-                    :class="form.themeConfig.fontFamily === font.id ? 'bg-blue-50 border-blue-600 text-blue-900' : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'"
+                    :class="form.themeConfig.fontFamily === font.id ? 'bg-emerald-50 border-emerald-600 text-emerald-900' : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'"
                   >
                     <p class="font-bold text-sm text-slate-900" :style="{ fontFamily: font.id }">{{ font.name }}</p>
                     <p class="text-[10px] text-slate-500 mt-0.5">{{ font.style }}</p>
-                    <span v-if="form.themeConfig.fontFamily === font.id" class="absolute top-2 right-2 text-blue-600">
+                    <span v-if="form.themeConfig.fontFamily === font.id" class="absolute top-2 right-2 text-emerald-600">
                       <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                       </svg>
@@ -218,9 +264,9 @@
               <!-- Barra de Avisos no Topo -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
                 <div class="flex items-center justify-between">
-                  <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Barra de Avisos do Topo</h2>
+                  <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Barra de Avisos do Topo</h2>
                   <label class="flex items-center space-x-2 cursor-pointer text-xs font-bold text-slate-700">
-                    <input type="checkbox" v-model="form.showAnnouncement" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                    <input type="checkbox" v-model="form.showAnnouncement" class="rounded border-slate-300 text-emerald-600 focus:ring-blue-500" />
                     <span>Exibir na Loja</span>
                   </label>
                 </div>
@@ -231,7 +277,7 @@
                     v-model="form.announcementBar"
                     type="text"
                     placeholder="Frete Grátis acima de R$ 199 para todo o Brasil | Cupom: BEMVINDO10"
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                   />
                 </div>
               </div>
@@ -241,7 +287,7 @@
             <div v-if="activeTab === 'banners'" class="space-y-6">
               <!-- Logo e Identidade -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Identidade & Logotipo</h2>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Identidade & Logotipo</h2>
 
                 <div>
                   <label class="block text-xs font-bold text-slate-700 mb-1.5">Nome da Loja *</label>
@@ -249,7 +295,7 @@
                     v-model="form.name"
                     type="text"
                     required
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                   />
                 </div>
 
@@ -259,7 +305,7 @@
                     v-model="form.themeConfig.tagline"
                     type="text"
                     placeholder="Ex: O melhor do streetwear e moda urbana com envio rápido"
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                   />
                 </div>
 
@@ -269,7 +315,7 @@
                     v-model="form.logoUrl"
                     type="url"
                     placeholder="https://.../logo.png"
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                   />
                   <p class="text-[11px] text-slate-400 mt-1">Recomendado: imagem retangular ou quadrada de 400x100px.</p>
                 </div>
@@ -277,7 +323,7 @@
 
               <!-- Banner Hero Principal -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Banner Principal (Hero da Vitrine)</h2>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Banner Principal (Hero da Vitrine)</h2>
 
                 <div>
                   <label class="block text-xs font-bold text-slate-700 mb-1.5">URL da Imagem de Fundo *</label>
@@ -285,7 +331,7 @@
                     v-model="form.bannerUrl"
                     type="url"
                     placeholder="https://images.unsplash.com/photo-1441986300917-..."
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                   />
                 </div>
 
@@ -295,7 +341,7 @@
                     v-model="form.description"
                     type="text"
                     placeholder="Ex: Nova Coleção Drop Exclusivo &bull; Verão 2026"
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                   />
                 </div>
 
@@ -306,7 +352,7 @@
                       v-model="form.themeConfig.bannerButtonText"
                       type="text"
                       placeholder="Explorar Produtos"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
                   <div>
@@ -315,7 +361,7 @@
                       v-model="form.themeConfig.bannerButtonLink"
                       type="text"
                       placeholder="#produtos"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
                 </div>
@@ -324,7 +370,7 @@
               <!-- Banner Secundário (Intermediário) -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
                 <div class="flex items-center justify-between">
-                  <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Banner Promocional Intermediário</h2>
+                  <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Banner Promocional Intermediário</h2>
                   <span class="text-[11px] text-slate-400">Exibido no meio da vitrine</span>
                 </div>
 
@@ -334,7 +380,7 @@
                     v-model="form.themeConfig.secondaryBannerUrl"
                     type="url"
                     placeholder="https://images.unsplash.com/..."
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                   />
                 </div>
 
@@ -345,7 +391,7 @@
                       v-model="form.themeConfig.secondaryBannerTitle"
                       type="text"
                       placeholder="Ofertas Especiais da Semana"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
                   <div>
@@ -354,7 +400,7 @@
                       v-model="form.themeConfig.secondaryBannerLink"
                       type="text"
                       placeholder="#produtos"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
                 </div>
@@ -364,7 +410,7 @@
             <!-- TAB 3: CARDS DE PRODUTO -->
             <div v-if="activeTab === 'cards'" class="space-y-6">
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-5">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Estilo & Geometria dos Cards</h2>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Estilo & Geometria dos Cards</h2>
 
                 <!-- Arredondamento -->
                 <div>
@@ -374,7 +420,7 @@
                       type="button"
                       @click="form.themeConfig.cardRadius = 'rounded-xl'"
                       class="p-3 border text-center rounded-xl transition"
-                      :class="form.themeConfig.cardRadius === 'rounded-xl' ? 'border-blue-600 bg-blue-50 text-blue-900 font-bold' : 'border-slate-200 bg-slate-50 text-slate-600'"
+                      :class="form.themeConfig.cardRadius === 'rounded-xl' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-bold' : 'border-slate-200 bg-slate-50 text-slate-600'"
                     >
                       <div class="w-8 h-8 mx-auto mb-1.5 rounded-lg border border-slate-300"></div>
                       <span class="text-xs">Sutil (12px)</span>
@@ -383,7 +429,7 @@
                       type="button"
                       @click="form.themeConfig.cardRadius = 'rounded-2xl'"
                       class="p-3 border text-center rounded-2xl transition"
-                      :class="form.themeConfig.cardRadius === 'rounded-2xl' ? 'border-blue-600 bg-blue-50 text-blue-900 font-bold' : 'border-slate-200 bg-slate-50 text-slate-600'"
+                      :class="form.themeConfig.cardRadius === 'rounded-2xl' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-bold' : 'border-slate-200 bg-slate-50 text-slate-600'"
                     >
                       <div class="w-8 h-8 mx-auto mb-1.5 rounded-2xl border border-slate-300"></div>
                       <span class="text-xs">Moderno (16px)</span>
@@ -392,7 +438,7 @@
                       type="button"
                       @click="form.themeConfig.cardRadius = 'rounded-3xl'"
                       class="p-3 border text-center rounded-3xl transition"
-                      :class="form.themeConfig.cardRadius === 'rounded-3xl' ? 'border-blue-600 bg-blue-50 text-blue-900 font-bold' : 'border-slate-200 bg-slate-50 text-slate-600'"
+                      :class="form.themeConfig.cardRadius === 'rounded-3xl' ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-bold' : 'border-slate-200 bg-slate-50 text-slate-600'"
                     >
                       <div class="w-8 h-8 mx-auto mb-1.5 rounded-3xl border border-slate-300"></div>
                       <span class="text-xs">Nuvem (24px)</span>
@@ -407,7 +453,7 @@
                     v-model="form.themeConfig.cardButtonText"
                     type="text"
                     placeholder="Adicionar à Sacola"
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                   />
                   <div class="flex flex-wrap gap-2 mt-2">
                     <button
@@ -441,7 +487,7 @@
                       <p class="text-xs font-bold text-slate-900">Exibir Selo de Desconto (% OFF)</p>
                       <p class="text-[11px] text-slate-500">Mostra a tag vermelha de porcentagem economizada quando houver preço comparativo.</p>
                     </div>
-                    <input type="checkbox" v-model="form.themeConfig.showDiscountBadge" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                    <input type="checkbox" v-model="form.themeConfig.showDiscountBadge" class="rounded border-slate-300 text-emerald-600 focus:ring-blue-500" />
                   </label>
 
                   <label class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200 cursor-pointer">
@@ -449,7 +495,7 @@
                       <p class="text-xs font-bold text-slate-900">Exibir Parcelamento sem Juros</p>
                       <p class="text-[11px] text-slate-500">Exibe "ou até 3x de R$ ... sem juros" logo abaixo do preço à vista.</p>
                     </div>
-                    <input type="checkbox" v-model="form.themeConfig.showInstallments" class="rounded border-slate-300 text-blue-600 focus:ring-blue-500" />
+                    <input type="checkbox" v-model="form.themeConfig.showInstallments" class="rounded border-slate-300 text-emerald-600 focus:ring-blue-500" />
                   </label>
                 </div>
               </div>
@@ -458,7 +504,7 @@
             <!-- TAB 4: CHECKOUT & CONFIANÇA -->
             <div v-if="activeTab === 'checkout'" class="space-y-6">
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Selos de Garantia & Confiança (Checkout)</h2>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Selos de Garantia & Confiança (Checkout)</h2>
                 <p class="text-xs text-slate-500">
                   Esses selos aumentam em até 28% a taxa de conversão durante a finalização do pedido.
                 </p>
@@ -470,7 +516,7 @@
                       v-model="form.themeConfig.checkoutBadge1"
                       type="text"
                       placeholder="Compra 100% Segura & Criptografada SSL"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
 
@@ -480,7 +526,7 @@
                       v-model="form.themeConfig.checkoutBadge2"
                       type="text"
                       placeholder="Garantia de 7 dias para troca ou devolução"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
 
@@ -490,7 +536,7 @@
                       v-model="form.themeConfig.checkoutBadge3"
                       type="text"
                       placeholder="Envio Rápido com Rastreamento em Tempo Real"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
                 </div>
@@ -498,7 +544,7 @@
 
               <!-- Contato & Suporte -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
-                <h2 class="text-xs font-bold uppercase tracking-wider text-blue-600">Atendimento ao Cliente</h2>
+                <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Atendimento ao Cliente</h2>
 
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
@@ -507,7 +553,7 @@
                       v-model="form.contactWhatsapp"
                       type="text"
                       placeholder="11999998888"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
 
@@ -517,7 +563,7 @@
                       v-model="form.contactEmail"
                       type="email"
                       placeholder="contato@minhaloja.com.br"
-                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-blue-600 outline-none transition"
+                      class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
                     />
                   </div>
                 </div>
@@ -529,7 +575,7 @@
               <button
                 type="submit"
                 :disabled="saving"
-                class="px-8 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-black text-xs shadow-md shadow-blue-600/20 transition hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center space-x-2"
+                class="px-8 py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-black text-xs shadow-md shadow-emerald-600/20 transition hover:scale-105 active:scale-95 disabled:opacity-50 flex items-center space-x-2"
               >
                 <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" />
@@ -714,7 +760,7 @@
                     <span class="truncate">{{ form.themeConfig.checkoutBadge1 || 'Compra 100% Segura & Criptografada' }}</span>
                   </p>
                   <p class="flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                     </svg>
                     <span class="truncate">{{ form.themeConfig.checkoutBadge2 || 'Garantia de 7 dias para troca ou devolução' }}</span>
@@ -736,6 +782,8 @@
 </template>
 
 <script setup lang="ts">
+import { STORE_THEMES, getStoreTheme, type StoreTheme } from '~/lib/store-themes'
+
 definePageMeta({
   middleware: 'admin',
 })
@@ -791,6 +839,7 @@ const form = reactive({
   mpPublicKey: '',
   isActive: true,
   themeConfig: {
+    themeId: 'classic',
     fontFamily: 'Inter',
     bgColor: '#f8fafc',
     tagline: '',
@@ -813,6 +862,15 @@ const applyPreset = (preset: any) => {
   form.primaryColor = preset.primary
   form.accentColor = preset.accent
   form.themeConfig.bgColor = preset.bg
+}
+
+const applyTheme = (theme: StoreTheme) => {
+  form.themeConfig.themeId = theme.id
+  form.primaryColor = theme.primaryColor
+  form.accentColor = theme.accentColor
+  form.themeConfig.bgColor = theme.bgColor
+  form.themeConfig.fontFamily = theme.fontFamily
+  form.themeConfig.cardRadius = theme.cardRadius === '4px' ? 'rounded' : 'rounded-xl'
 }
 
 const loadStore = async () => {

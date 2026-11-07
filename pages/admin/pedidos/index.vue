@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-emerald-600 selection:text-white">
     <AdminSidebar />
 
     <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
@@ -7,13 +7,13 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 border-b border-slate-200 gap-4">
         <div>
           <h1 class="text-2xl font-black text-slate-900">Gestão de Pedidos & Vendas</h1>
-          <p class="text-slate-500 text-sm">Monitore pagamentos PIX/Cartão, emita códigos de rastreio e avise clientes pelo WhatsApp.</p>
+          <p class="text-slate-500 text-sm">Monitore pagamentos PIX/Cartão e emita códigos de rastreio dos Correios.</p>
         </div>
 
         <div class="flex items-center space-x-3 text-xs">
           <button
             @click="exportCsv"
-            class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center space-x-1.5 shadow-sm transition hover:scale-105 active:scale-95"
+            class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold flex items-center space-x-1.5 shadow-sm shadow-emerald-600/20 transition hover:scale-105 active:scale-95"
             title="Exportar pedidos para planilha"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@
             v-model="search"
             type="text"
             placeholder="Buscar por cliente, nº do pedido ou rastreio..."
-            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
           />
           <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
@@ -50,7 +50,7 @@
             @click="activeTab = tab.value"
             class="px-3.5 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap"
             :class="activeTab === tab.value
-              ? 'bg-blue-600 text-white shadow-sm'
+              ? 'bg-emerald-600 text-white shadow-sm shadow-emerald-600/25'
               : 'bg-slate-100 text-slate-600 hover:text-slate-900 hover:bg-slate-200'"
           >
             {{ tab.label }}
@@ -60,7 +60,7 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="py-20 text-center">
-        <div class="inline-block animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mb-3"></div>
+        <div class="inline-block animate-spin w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full mb-3"></div>
         <p class="text-slate-500 text-sm">Carregando pedidos...</p>
       </div>
 
@@ -208,7 +208,7 @@
 
           <!-- Shipping Address -->
           <div v-if="parsedAddress" class="mb-5 p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs space-y-1">
-            <p class="font-bold text-blue-600 uppercase tracking-wider text-[10px]">Endereço de Entrega</p>
+            <p class="font-bold text-emerald-700 uppercase tracking-wider text-[10px]">Endereço de Entrega</p>
             <p class="text-slate-900 font-semibold">{{ parsedAddress.street }}, nº {{ parsedAddress.number }} {{ parsedAddress.complement ? `(${parsedAddress.complement})` : '' }}</p>
             <p class="text-slate-600">{{ parsedAddress.neighborhood }} &bull; {{ parsedAddress.city }}/{{ parsedAddress.state }} &bull; CEP: {{ parsedAddress.zipcode }}</p>
             <p class="text-[11px] text-slate-400">Frete: {{ selectedOrder.shippingService }} ({{ formatCurrency(selectedOrder.shippingCost) }})</p>
@@ -220,7 +220,7 @@
               <label class="block text-xs font-bold text-slate-700 mb-1">Status do Pagamento</label>
               <select
                 v-model="editForm.paymentStatus"
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               >
                 <option value="pending">Pendente (Aguardando PIX)</option>
                 <option value="paid">Pago (Aprovado)</option>
@@ -232,7 +232,7 @@
               <label class="block text-xs font-bold text-slate-700 mb-1">Status de Envio</label>
               <select
                 v-model="editForm.orderStatus"
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs font-semibold focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               >
                 <option value="pending">Aguardando Pagamento</option>
                 <option value="processing">Em Separação no Estoque</option>
@@ -248,7 +248,7 @@
                 v-model="editForm.trackingCode"
                 type="text"
                 placeholder="Ex: BR123456789BR"
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-xs uppercase focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono text-xs uppercase focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               />
             </div>
 
@@ -263,7 +263,7 @@
               <button
                 type="submit"
                 :disabled="updating"
-                class="px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs shadow-md shadow-blue-600/20 transition disabled:opacity-50"
+                class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition disabled:opacity-50"
               >
                 {{ updating ? 'Salvando...' : 'Salvar Alterações' }}
               </button>

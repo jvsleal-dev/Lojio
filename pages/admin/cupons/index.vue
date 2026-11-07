@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+  <div class="flex min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-600 selection:text-white">
     <AdminSidebar :tenant="tenant" />
 
     <main class="flex-1 p-6 md:p-8 overflow-y-auto space-y-6">
@@ -7,8 +7,8 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
           <div class="flex items-center space-x-2.5">
-            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
               </svg>
             </div>
@@ -21,7 +21,7 @@
 
         <button
           @click="openModal = true"
-          class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition hover:scale-105 active:scale-95 shrink-0"
+          class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition hover:scale-105 active:scale-95 shrink-0"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
@@ -47,8 +47,8 @@
         </div>
 
         <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm">
-          <p class="text-xs text-blue-600 font-bold uppercase tracking-wider">Vezes Utilizados</p>
-          <p class="text-2xl font-black text-blue-600 mt-1">
+          <p class="text-xs text-emerald-600 font-bold uppercase tracking-wider">Vezes Utilizados</p>
+          <p class="text-2xl font-black text-emerald-600 mt-1">
             {{ coupons.reduce((sum, c) => sum + (c.usedCount || 0), 0) }}
           </p>
           <p class="text-xs text-slate-400 mt-1">Resgates realizados por clientes</p>
@@ -57,14 +57,14 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="flex items-center justify-center py-20 text-slate-500">
-        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mr-3"></div>
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600 mr-3"></div>
         Carregando cupons...
       </div>
 
       <!-- Empty State -->
       <div v-else-if="coupons.length === 0" class="p-12 text-center rounded-2xl bg-white border border-slate-200 shadow-sm">
-        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
           </svg>
         </div>
@@ -74,7 +74,7 @@
         </p>
         <button
           @click="openModal = true"
-          class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition hover:scale-105 active:scale-95"
+          class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition hover:scale-105 active:scale-95"
         >
           Criar Primeiro Cupom
         </button>
@@ -98,7 +98,7 @@
             <tr v-for="coupon in coupons" :key="coupon.id" class="hover:bg-slate-50/80 transition">
               <td class="p-4 pl-6">
                 <div class="flex items-center space-x-2">
-                  <span class="px-2.5 py-1 rounded-md bg-blue-50 font-mono font-bold text-blue-700 border border-blue-200 text-xs">
+                  <span class="px-2.5 py-1 rounded-md bg-emerald-50 font-mono font-bold text-emerald-700 border border-emerald-200 text-xs">
                     {{ coupon.code }}
                   </span>
                   <button
@@ -136,7 +136,7 @@
                   </div>
                   <div v-if="coupon.maxUses" class="w-24 h-1.5 rounded-full bg-slate-100 overflow-hidden">
                     <div
-                      class="h-full bg-blue-600 rounded-full"
+                      class="h-full bg-emerald-600 rounded-full"
                       :style="{ width: `${Math.min(100, (coupon.usedCount / coupon.maxUses) * 100)}%` }"
                     ></div>
                   </div>
@@ -200,7 +200,7 @@
                 type="text"
                 required
                 placeholder="Ex: PROMO10, FRETEGRATIS"
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono uppercase focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-mono uppercase focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 transition"
               />
             </div>
 
@@ -211,7 +211,7 @@
                 </label>
                 <select
                   v-model="form.discountType"
-                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 transition"
                 >
                   <option value="PERCENTAGE">Porcentagem (%)</option>
                   <option value="FIXED">Valor Fixo (R$)</option>
@@ -229,7 +229,7 @@
                   min="0.1"
                   required
                   :placeholder="form.discountType === 'PERCENTAGE' ? 'Ex: 15 (para 15%)' : 'Ex: 20.00 (para R$ 20)'"
-                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 transition"
                 />
               </div>
             </div>
@@ -244,7 +244,7 @@
                   type="number"
                   step="0.01"
                   placeholder="Ex: 100.00 (Opcional)"
-                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 transition"
                 />
               </div>
 
@@ -256,7 +256,7 @@
                   v-model.number="form.maxUses"
                   type="number"
                   placeholder="Ex: 50 (Opcional)"
-                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                  class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 transition"
                 />
               </div>
             </div>
@@ -268,7 +268,7 @@
               <input
                 v-model="form.expiresAt"
                 type="date"
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 transition"
               />
             </div>
 
@@ -287,7 +287,7 @@
               <button
                 type="submit"
                 :disabled="saving"
-                class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition disabled:opacity-50"
+                class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition disabled:opacity-50"
               >
                 {{ saving ? 'Salvando...' : 'Criar Cupom' }}
               </button>

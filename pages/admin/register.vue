@@ -1,15 +1,15 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-900 selection:bg-blue-600 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-900 selection:bg-emerald-600 selection:text-white">
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
       <!-- Logo Lojio -->
       <NuxtLink to="/?tenant=none" class="inline-flex items-center space-x-2.5 mb-6 group">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center text-white shadow-xl shadow-blue-500/25 group-hover:scale-105 transition-transform">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-700 via-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-xl shadow-emerald-600/25 group-hover:scale-105 transition-transform">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
           </svg>
         </div>
         <span class="font-extrabold text-3xl tracking-tight text-slate-900 flex items-center">
-          loj<span class="text-blue-600">io</span>
+          loj<span class="text-emerald-600">io</span>
         </span>
       </NuxtLink>
 
@@ -31,14 +31,14 @@
             </svg>
             <span>14 dias grátis</span>
           </span>
-          <span class="px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span class="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
             </svg>
             <span>Sem cartão de crédito</span>
           </span>
-          <span class="px-3 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-700 text-xs font-semibold flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span class="px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-xs font-semibold flex items-center gap-1.5">
+            <svg class="w-3.5 h-3.5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
             Ativação instantânea
@@ -62,7 +62,7 @@
               type="text"
               required
               placeholder="Ex: Carlos Silva"
-              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
+              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
             />
           </div>
 
@@ -76,7 +76,7 @@
               type="text"
               required
               placeholder="Ex: Streetwear Club"
-              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
+              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
             />
           </div>
 
@@ -90,13 +90,13 @@
                 type="text"
                 required
                 placeholder="streetwearclub"
-                class="flex-1 px-4 py-3 rounded-l-2xl bg-slate-50 border border-r-0 border-slate-200 text-slate-900 text-sm font-mono placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
+                class="flex-1 px-4 py-3 rounded-l-2xl bg-slate-50 border border-r-0 border-slate-200 text-slate-900 text-sm font-mono placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               />
               <span class="px-3.5 py-3 bg-slate-100 border border-l-0 border-slate-200 rounded-r-2xl text-slate-500 text-xs font-mono select-none">
                 .lojio.com.br
               </span>
             </div>
-            <p v-if="subdomain" class="text-[11px] text-blue-600 font-semibold mt-1">
+            <p v-if="subdomain" class="text-[11px] text-emerald-600 font-semibold mt-1">
               Sua vitrine será: <strong>{{ subdomain }}.lojio.com.br</strong>
             </p>
           </div>
@@ -110,7 +110,7 @@
               type="email"
               required
               placeholder="carlos@email.com"
-              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
+              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
             />
           </div>
 
@@ -124,14 +124,14 @@
               required
               minlength="6"
               placeholder="Mínimo de 6 caracteres"
-              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-blue-600 transition"
+              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
             />
           </div>
 
           <button
             type="submit"
             :disabled="loading"
-            class="w-full py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-600 shadow-lg shadow-blue-600/30 transition hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 mt-2"
+            class="w-full py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 shadow-lg shadow-emerald-600/30 transition hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 mt-2"
           >
             {{ loading ? 'Criando sua loja na Lojio...' : 'Criar Minha Loja Grátis' }}
           </button>
@@ -139,7 +139,7 @@
 
         <div class="mt-6 pt-5 border-t border-slate-100 text-center text-xs text-slate-500">
           Já tem uma loja cadastrada?
-          <NuxtLink to="/admin/login" class="font-bold text-blue-600 hover:underline ml-1">
+          <NuxtLink to="/admin/login" class="font-bold text-emerald-600 hover:underline ml-1">
             Fazer Login
           </NuxtLink>
         </div>

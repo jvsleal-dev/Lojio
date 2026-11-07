@@ -317,7 +317,7 @@ const copyPix = () => {
               <span v-if="createdOrder?.order?.paymentMethod === 'pix'" :class="createdOrder?.order?.paymentStatus === 'paid' ? 'text-emerald-600 font-bold' : 'text-amber-600 font-bold'">
                 {{ createdOrder?.order?.paymentStatus === 'paid' ? 'Pagamento aprovado via Pix' : 'Aguardando pagamento via Pix' }}
               </span>
-              <span v-else-if="createdOrder?.order?.paymentMethod === 'credit_card'" class="text-blue-600 font-bold">
+              <span v-else-if="createdOrder?.order?.paymentMethod === 'credit_card'" class="text-emerald-600 font-bold">
                 Pagamento aprovado no Cartão de Crédito
               </span>
               <span v-else class="text-emerald-600 font-bold">
@@ -381,7 +381,7 @@ const copyPix = () => {
                 type="text"
                 readonly
                 :value="createdOrder?.payment?.qrCode || ''"
-                class="w-full bg-white border border-slate-200 text-xs px-3 py-2.5 rounded-xl text-slate-600 font-mono text-center select-all focus:ring-2 focus:ring-blue-500"
+                class="w-full bg-white border border-slate-200 text-xs px-3 py-2.5 rounded-xl text-slate-600 font-mono text-center select-all focus:ring-2 focus:ring-emerald-500"
               />
               <button
                 @click="copyPix"
@@ -397,7 +397,7 @@ const copyPix = () => {
               </button>
             </div>
             <p class="text-[11px] text-slate-500 flex items-center justify-center gap-1.5 pt-1">
-              <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
               </svg>
               <span>Abra o app do seu banco, escolha Pix e leia o QR Code ou cole o código acima.</span>
@@ -444,7 +444,7 @@ const copyPix = () => {
           <!-- Step 1: Personal Info -->
           <section class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-4">
             <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">1</span>
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center">1</span>
               <span>Dados Pessoais</span>
             </h3>
 
@@ -455,7 +455,7 @@ const copyPix = () => {
                   v-model="form.customerName"
                   type="text"
                   placeholder="Nome e Sobrenome"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
               <div>
@@ -464,7 +464,7 @@ const copyPix = () => {
                   v-model="form.customerEmail"
                   type="email"
                   placeholder="seu@email.com"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
               <div>
@@ -473,7 +473,7 @@ const copyPix = () => {
                   v-model="form.customerPhone"
                   type="text"
                   placeholder="(11) 99999-8888"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
               <div class="sm:col-span-2">
@@ -482,7 +482,7 @@ const copyPix = () => {
                   v-model="form.customerDocument"
                   type="text"
                   placeholder="000.000.000-00"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
             </div>
@@ -491,7 +491,7 @@ const copyPix = () => {
           <!-- Step 2: Shipping Address -->
           <section class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-4">
             <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">2</span>
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center">2</span>
               <span>Endereço de Entrega</span>
             </h3>
 
@@ -505,9 +505,9 @@ const copyPix = () => {
                     type="text"
                     placeholder="00000-000"
                     maxlength="9"
-                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                   />
-                  <span v-if="cepLoading" class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-blue-600 font-bold">
+                  <span v-if="cepLoading" class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] text-emerald-600 font-bold">
                     Buscando...
                   </span>
                 </div>
@@ -518,7 +518,7 @@ const copyPix = () => {
                   v-model="form.shippingAddress.street"
                   type="text"
                   placeholder="Avenida Paulista"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
               <div>
@@ -527,7 +527,7 @@ const copyPix = () => {
                   v-model="form.shippingAddress.number"
                   type="text"
                   placeholder="1000"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
               <div class="sm:col-span-2">
@@ -536,7 +536,7 @@ const copyPix = () => {
                   v-model="form.shippingAddress.complement"
                   type="text"
                   placeholder="Apto 42, Bloco B"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
               <div>
@@ -544,7 +544,7 @@ const copyPix = () => {
                 <input
                   v-model="form.shippingAddress.neighborhood"
                   type="text"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 outline-none"
                 />
               </div>
               <div>
@@ -552,7 +552,7 @@ const copyPix = () => {
                 <input
                   v-model="form.shippingAddress.city"
                   type="text"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 outline-none"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 outline-none"
                 />
               </div>
               <div>
@@ -562,7 +562,7 @@ const copyPix = () => {
                   type="text"
                   placeholder="SP"
                   maxlength="2"
-                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-blue-500 outline-none uppercase"
+                  class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 focus:bg-white focus:border-emerald-500 outline-none uppercase"
                 />
               </div>
             </div>
@@ -577,7 +577,7 @@ const copyPix = () => {
                   v-for="opt in shippingOptions"
                   :key="opt.id"
                   class="flex items-center justify-between p-3.5 rounded-2xl border cursor-pointer transition-all"
-                  :class="form.shippingService === opt.name ? 'border-blue-600 bg-blue-50/50 ring-2 ring-blue-100' : 'border-slate-200 hover:border-slate-300 bg-white'"
+                  :class="form.shippingService === opt.name ? 'border-emerald-600 bg-emerald-50/50 ring-2 ring-blue-100' : 'border-slate-200 hover:border-slate-300 bg-white'"
                 >
                   <div class="flex items-center gap-3">
                     <input
@@ -585,7 +585,7 @@ const copyPix = () => {
                       :value="opt.name"
                       v-model="form.shippingService"
                       @change="form.shippingCost = opt.price"
-                      class="text-blue-600 focus:ring-blue-500"
+                      class="text-emerald-600 focus:ring-emerald-500"
                     />
                     <div>
                       <p class="font-bold text-xs text-slate-900">{{ opt.name }}</p>
@@ -603,7 +603,7 @@ const copyPix = () => {
           <!-- Step 3: Payment Method -->
           <section class="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/80 shadow-sm space-y-5">
             <h3 class="text-base font-extrabold text-slate-900 flex items-center gap-2">
-              <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">3</span>
+              <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center">3</span>
               <span>Forma de Pagamento & Finalização</span>
             </h3>
 
@@ -627,11 +627,11 @@ const copyPix = () => {
               <!-- Cartão de Crédito -->
               <label
                 class="flex flex-col items-center justify-center p-4 rounded-2xl border cursor-pointer transition-all text-center"
-                :class="form.paymentMethod === 'credit_card' ? 'border-blue-600 bg-blue-50/50 ring-2 ring-blue-100 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'"
+                :class="form.paymentMethod === 'credit_card' ? 'border-emerald-600 bg-emerald-50/50 ring-2 ring-blue-100 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'"
               >
                 <input type="radio" value="credit_card" v-model="form.paymentMethod" class="sr-only" />
-                <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center mb-1.5">
-                  <svg class="w-5 h-5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-1.5">
+                  <svg class="w-5 h-5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                   </svg>
                 </div>
@@ -659,7 +659,7 @@ const copyPix = () => {
             <div v-if="form.paymentMethod === 'credit_card'" class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
               <div class="flex items-center justify-between pb-2 border-b border-slate-200/80">
                 <span class="text-xs font-bold text-slate-800 uppercase tracking-wider">Dados do Cartão</span>
-                <span class="text-xs font-bold text-blue-600 bg-blue-100/60 px-2.5 py-0.5 rounded-full">{{ cardBrand }}</span>
+                <span class="text-xs font-bold text-emerald-600 bg-emerald-100/60 px-2.5 py-0.5 rounded-full">{{ cardBrand }}</span>
               </div>
 
               <div>
@@ -670,7 +670,7 @@ const copyPix = () => {
                   type="text"
                   placeholder="0000 0000 0000 0000"
                   maxlength="19"
-                  class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-mono tracking-wider focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-mono tracking-wider focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
 
@@ -680,7 +680,7 @@ const copyPix = () => {
                   v-model="cardForm.cardHolder"
                   type="text"
                   placeholder="COMO NO CARTÃO"
-                  class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 uppercase focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 uppercase focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 />
               </div>
 
@@ -693,7 +693,7 @@ const copyPix = () => {
                     type="text"
                     placeholder="12/28"
                     maxlength="5"
-                    class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-mono focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                    class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-mono focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                   />
                 </div>
 
@@ -704,7 +704,7 @@ const copyPix = () => {
                     type="password"
                     placeholder="123"
                     maxlength="4"
-                    class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-mono focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                    class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-mono focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                   />
                 </div>
               </div>
@@ -713,7 +713,7 @@ const copyPix = () => {
                 <label class="block text-xs font-bold text-slate-700 mb-1">Parcelamento *</label>
                 <select
                   v-model="cardForm.installments"
-                  class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-semibold focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none"
+                  class="w-full bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs text-slate-900 font-semibold focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
                 >
                   <option v-for="opt in installmentOptions" :key="opt.count" :value="opt.count">
                     {{ opt.label }}
@@ -780,7 +780,7 @@ const copyPix = () => {
                     v-model="couponCodeInput"
                     type="text"
                     placeholder="Possui um cupom?"
-                    class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono uppercase text-slate-900 focus:bg-white focus:border-blue-500 outline-none"
+                    class="flex-1 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs font-mono uppercase text-slate-900 focus:bg-white focus:border-emerald-500 outline-none"
                     @keyup.enter="applyCoupon"
                   />
                   <button
@@ -837,7 +837,7 @@ const copyPix = () => {
               </div>
               <div class="flex justify-between text-base font-extrabold text-slate-900 pt-3 border-t border-slate-200">
                 <span>Total a Pagar</span>
-                <span class="text-blue-600">R$ {{ totalOrder.toFixed(2).replace('.', ',') }}</span>
+                <span class="text-emerald-600">R$ {{ totalOrder.toFixed(2).replace('.', ',') }}</span>
               </div>
             </div>
 
@@ -850,7 +850,7 @@ const copyPix = () => {
               :disabled="loading"
               class="w-full disabled:opacity-50 text-white font-bold py-4 px-6 rounded-2xl text-sm transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
               :style="form.paymentMethod !== 'whatsapp' ? { backgroundColor: store?.accentColor || '#2563eb' } : {}"
-              :class="form.paymentMethod === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#20bd5a] shadow-emerald-500/25' : 'hover:opacity-90 shadow-blue-600/30'"
+              :class="form.paymentMethod === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#20bd5a] shadow-emerald-500/25' : 'hover:opacity-90 shadow-emerald-600/30'"
             >
               <span v-if="loading">Processando Pedido...</span>
               <span v-else-if="form.paymentMethod === 'whatsapp'">Finalizar Pedido no WhatsApp</span>
@@ -870,7 +870,7 @@ const copyPix = () => {
                 <span>{{ store?.themeConfig?.checkoutBadge1 || 'Compra 100% Segura & Criptografada SSL' }}</span>
               </div>
               <div class="flex items-center gap-2 font-medium">
-                <svg class="w-4 h-4 text-blue-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
                 <span>{{ store?.themeConfig?.checkoutBadge2 || 'Garantia de 7 dias para troca ou devolução' }}</span>

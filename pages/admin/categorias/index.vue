@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+  <div class="flex min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-emerald-600 selection:text-white">
     <AdminSidebar :tenant="tenant" />
 
     <main class="flex-1 p-6 md:p-8 overflow-y-auto space-y-6">
@@ -7,8 +7,8 @@
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-slate-200">
         <div>
           <div class="flex items-center space-x-2.5">
-            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
-              <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center">
+              <svg class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
               </svg>
             </div>
@@ -21,7 +21,7 @@
 
         <button
           @click="openModal = true"
-          class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition hover:scale-105 active:scale-95 shrink-0"
+          class="inline-flex items-center space-x-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition hover:scale-105 active:scale-95 shrink-0"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/>
@@ -32,14 +32,14 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="flex items-center justify-center py-20 text-slate-500">
-        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mr-3"></div>
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-600 mr-3"></div>
         Carregando categorias...
       </div>
 
       <!-- Empty State -->
       <div v-else-if="categories.length === 0" class="p-12 text-center rounded-2xl bg-white border border-slate-200 shadow-sm">
-        <div class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center mx-auto mb-4">
-          <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div class="w-16 h-16 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center mx-auto mb-4">
+          <svg class="w-8 h-8 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
           </svg>
         </div>
@@ -49,7 +49,7 @@
         </p>
         <button
           @click="openModal = true"
-          class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition hover:scale-105 active:scale-95"
+          class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition hover:scale-105 active:scale-95"
         >
           Criar Primeira Categoria
         </button>
@@ -60,7 +60,7 @@
         <div
           v-for="cat in categories"
           :key="cat.id"
-          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-300 transition flex items-center justify-between group shadow-sm hover:shadow-md"
+          class="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-emerald-300 transition flex items-center justify-between group shadow-sm hover:shadow-md"
         >
           <div class="flex items-center space-x-4 min-w-0">
             <div class="w-14 h-14 rounded-2xl bg-slate-100 border border-slate-200 flex items-center justify-center overflow-hidden shrink-0">
@@ -76,7 +76,7 @@
             </div>
 
             <div class="min-w-0">
-              <h3 class="font-bold text-slate-900 truncate text-base group-hover:text-blue-600 transition">
+              <h3 class="font-bold text-slate-900 truncate text-base group-hover:text-emerald-700 transition">
                 {{ cat.name }}
               </h3>
               <p class="text-xs text-slate-400 font-mono truncate">
@@ -125,7 +125,7 @@
                 type="text"
                 required
                 placeholder="Ex: Tênis & Sneakers"
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
               />
             </div>
 
@@ -137,7 +137,7 @@
                 v-model="imageUrl"
                 type="url"
                 placeholder="https://images.unsplash.com/..."
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-600 text-xs font-mono transition"
+                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 text-xs font-mono transition"
               />
             </div>
 
@@ -156,7 +156,7 @@
               <button
                 type="submit"
                 :disabled="saving"
-                class="px-6 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-sm shadow-md shadow-blue-600/20 transition disabled:opacity-50"
+                class="px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 transition disabled:opacity-50"
               >
                 {{ saving ? 'Criando...' : 'Criar Categoria' }}
               </button>

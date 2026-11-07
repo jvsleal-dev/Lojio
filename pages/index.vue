@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useCart } from '~/composables/useCart'
+import { getStoreTheme } from '~/lib/store-themes'
 
 const { addItem } = useCart()
 const route = useRoute()
@@ -28,6 +29,7 @@ const { data: productsData } = await useFetch<any>('/api/store/products', {
 })
 
 const store = computed<any>(() => storeData.value?.store)
+const storeTheme = computed(() => getStoreTheme(store.value?.themeConfig?.themeId))
 const isPlatform = computed(() => {
   if (['none', 'saas', 'plataforma', 'home'].includes(tenantQuery.value.toLowerCase())) return true
   if (!store.value) return true
@@ -55,7 +57,7 @@ const currentCategoryName = computed(() => {
 })
 
 useHead(() => ({
-  title: store.value ? `${store.value.name} | Loja Oficial` : 'Lojio - Crie sua Loja Virtual Profissional',
+  title: store.value ? `${store.value.name} | Loja online` : 'Lojio - Crie sua loja online',
   meta: [
     {
       name: 'description',
@@ -91,10 +93,17 @@ const quickAddToCart = (product: any) => {
     <!-- When a client tenant is selected, show that Client's Storefront -->
     <div
       v-else
-      class="min-h-screen flex flex-col selection:bg-blue-600 selection:text-white"
+      class="min-h-screen flex flex-col selection:bg-emerald-600 selection:text-white"
       :style="{
-        fontFamily: store?.themeConfig?.fontFamily ? `'${store?.themeConfig?.fontFamily}', sans-serif` : 'inherit',
-        backgroundColor: store?.themeConfig?.bgColor || '#f8fafc'
+        '--store-primary': storeTheme.primaryColor,
+        '--store-accent': storeTheme.accentColor,
+        '--store-bg': storeTheme.bgColor,
+        '--store-container': storeTheme.containerWidth,
+        '--store-section-gap': storeTheme.sectionGap,
+        '--store-card-radius': storeTheme.cardRadius,
+        '--store-button-radius': storeTheme.buttonRadius,
+        fontFamily: `'${store?.themeConfig?.fontFamily || storeTheme.fontFamily}', sans-serif`,
+        backgroundColor: store?.themeConfig?.bgColor || storeTheme.bgColor
       }"
     >
       <!-- Store Suspended Alert -->
@@ -106,7 +115,6 @@ const quickAddToCart = (product: any) => {
         <NuxtLink to="/master" class="underline hover:text-rose-100">Acessar Painel Master</NuxtLink>
       </div>
 
-      <!-- Store Unpublished Draft Bar (If owner is logged in) -->
       <div v-if="store && store.isActive === false && isOwner" class="bg-gradient-to-r from-amber-600 to-amber-700 text-white text-xs font-bold py-2.5 px-4 text-center flex flex-wrap items-center justify-center gap-2 shadow-md">
         <svg class="w-4 h-4 text-amber-200 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
@@ -140,7 +148,7 @@ const quickAddToCart = (product: any) => {
 
         <div class="pt-8 border-t border-slate-200 text-xs text-slate-400">
           Você é o proprietário desta loja?
-          <NuxtLink to="/admin/login" class="font-bold text-blue-600 hover:underline ml-1">
+          <NuxtLink to="/admin/login" class="font-bold text-emerald-600 hover:underline ml-1">
             Fazer login e publicar loja
           </NuxtLink>
         </div>
@@ -155,7 +163,7 @@ const quickAddToCart = (product: any) => {
           :bg="store?.primaryColor || '#0f172a'"
         />
 
-      <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+      <main class="flex flex-col flex-1 w-full mx-auto px-4 sm:px-6 lg:px-8 py-8" :style="{ maxWidth: 'var(--store-container)', gap: 'var(--store-section-gap)' }">
         <!-- Dynamic Hero Banner for Active Store -->
         <section
           v-if="!searchQuery && !currentCategory && store"
@@ -212,7 +220,7 @@ const quickAddToCart = (product: any) => {
             </div>
           </div>
           <div class="flex items-center gap-2.5 py-1">
-            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
               </svg>
@@ -250,7 +258,7 @@ const quickAddToCart = (product: any) => {
         <section v-if="categories.length > 0" class="space-y-4">
           <div class="flex items-center justify-between">
             <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Departamentos</h2>
-            <NuxtLink v-if="currentCategory || searchQuery" to="/" class="text-xs font-bold text-blue-600 hover:underline">
+            <NuxtLink v-if="currentCategory || searchQuery" to="/" class="text-xs font-bold text-emerald-600 hover:underline">
               Limpar Filtros
             </NuxtLink>
           </div>
@@ -303,11 +311,11 @@ const quickAddToCart = (product: any) => {
         </section>
 
         <!-- Active Search Header -->
-        <div v-if="searchQuery" class="bg-blue-50 border border-blue-200 rounded-2xl p-4 flex items-center justify-between">
-          <p class="text-sm font-semibold text-blue-900">
+        <div v-if="searchQuery" class="bg-emerald-50 border border-emerald-200 rounded-2xl p-4 flex items-center justify-between">
+          <p class="text-sm font-semibold text-emerald-900">
             Resultados para: <span class="font-bold">"{{ searchQuery }}"</span>
           </p>
-          <NuxtLink to="/" class="text-xs font-bold text-blue-700 hover:underline">
+          <NuxtLink to="/" class="text-xs font-bold text-emerald-700 hover:underline">
             Remover busca
           </NuxtLink>
         </div>
@@ -362,12 +370,6 @@ const quickAddToCart = (product: any) => {
                   {{ Math.round(((Number(prod.compareAtPrice) - Number(prod.price)) / Number(prod.compareAtPrice)) * 100) }}% OFF
                 </span>
                 <span
-                  v-if="Number(prod.price || 0) >= 150"
-                  class="absolute bottom-3 left-3 bg-emerald-600 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full shadow-xs backdrop-blur-xs flex items-center gap-1"
-                >
-                  <span>Frete Grátis</span>
-                </span>
-                <span
                   v-if="prod.isFeatured"
                   class="absolute top-3 right-3 bg-slate-900/90 backdrop-blur-sm text-white text-[10px] font-bold px-2 py-0.5 rounded-md"
                 >
@@ -378,18 +380,12 @@ const quickAddToCart = (product: any) => {
               <!-- Product Details -->
               <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
                 <div>
-                  <div class="flex items-center justify-between text-[10px] text-slate-400 font-bold mb-1">
+                  <div class="text-[10px] text-slate-400 font-bold mb-1">
                     <span class="uppercase tracking-wider">
                       {{ prod.category?.name || 'Geral' }}
                     </span>
-                    <span class="text-amber-500 font-semibold flex items-center gap-0.5">
-                      <svg class="w-3 h-3 fill-current" viewBox="0 0 20 20">
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
-                      </svg>
-                      <span>4.9</span>
-                    </span>
                   </div>
-                  <NuxtLink :to="`/produto/${prod.slug}`" class="font-extrabold text-xs sm:text-sm text-slate-900 hover:text-blue-600 transition-colors line-clamp-2 leading-snug">
+                  <NuxtLink :to="`/produto/${prod.slug}`" class="font-extrabold text-xs sm:text-sm text-slate-900 hover:text-emerald-600 transition-colors line-clamp-2 leading-snug">
                     {{ prod.name }}
                   </NuxtLink>
                 </div>
@@ -406,10 +402,6 @@ const quickAddToCart = (product: any) => {
                       R$ {{ Number(prod.compareAtPrice).toFixed(2).replace('.', ',') }}
                     </span>
                   </div>
-                  <p v-if="store?.themeConfig?.showInstallments !== false" class="text-[11px] text-emerald-700 font-semibold mt-0.5">
-                    ou até 12x de R$ {{ (Number(prod.price || 0) / 12).toFixed(2).replace('.', ',') }}
-                  </p>
-
                   <button
                     @click="quickAddToCart(prod)"
                     :style="{ backgroundColor: store?.accentColor || '#0f172a' }"

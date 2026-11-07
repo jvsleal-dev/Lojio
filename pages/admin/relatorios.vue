@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-emerald-600 selection:text-white">
     <AdminSidebar />
 
     <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
@@ -15,7 +15,7 @@
           <select
             v-model="range"
             @change="loadReports"
-            class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-blue-600 shadow-xs"
+            class="px-3 py-2 rounded-xl bg-white border border-slate-200 text-slate-700 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-600 shadow-xs"
           >
             <option value="7days">Últimos 7 dias</option>
             <option value="30days">Últimos 30 dias</option>
@@ -38,7 +38,7 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="py-20 text-center">
-        <div class="inline-block animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full mb-3"></div>
+        <div class="inline-block animate-spin w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full mb-3"></div>
         <p class="text-slate-500 text-sm">Calculando dados e relatórios...</p>
       </div>
 
@@ -193,7 +193,7 @@
                 <tr v-for="(prod, idx) in data?.topProducts || []" :key="idx" class="hover:bg-slate-50/80 transition">
                   <td class="py-3.5 px-4">
                     <div class="flex items-center space-x-3">
-                      <span class="w-6 h-6 rounded-full bg-blue-50 text-blue-700 flex items-center justify-center text-xs font-bold border border-blue-200">
+                      <span class="w-6 h-6 rounded-full bg-emerald-50 text-emerald-700 flex items-center justify-center text-xs font-bold border border-emerald-200">
                         {{ idx + 1 }}
                       </span>
                       <span class="font-bold text-slate-900 text-sm">{{ prod.name }}</span>

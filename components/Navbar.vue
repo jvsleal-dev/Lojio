@@ -59,7 +59,7 @@ const handleSearch = () => {
             {{ store?.name ? store.name.charAt(0) : 'L' }}
           </div>
           <div class="flex flex-col">
-            <span class="font-extrabold text-xl text-slate-900 tracking-tight leading-none group-hover:text-blue-600 transition-colors">
+            <span class="font-extrabold text-xl text-slate-900 tracking-tight leading-none group-hover:text-emerald-600 transition-colors">
               {{ store?.name || 'Minha Loja' }}
             </span>
             <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider mt-0.5">
@@ -75,7 +75,7 @@ const handleSearch = () => {
               v-model="searchQuery"
               type="text"
               placeholder="Buscar produtos, coleções, novidades..."
-              class="w-full bg-slate-50 hover:bg-white focus:bg-white text-sm text-slate-800 placeholder-slate-400 pl-11 pr-4 py-2.5 rounded-full border border-slate-200 focus:border-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-600/20 transition-all shadow-xs"
+              class="w-full bg-slate-50 hover:bg-white focus:bg-white text-sm text-slate-800 placeholder-slate-400 pl-11 pr-4 py-2.5 rounded-full border border-slate-200 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/20 transition-all shadow-xs"
             />
             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -112,7 +112,7 @@ const handleSearch = () => {
       <nav v-if="categories && categories.length > 0" class="hidden lg:flex items-center gap-8 py-3 border-t border-slate-100 overflow-x-auto text-sm">
         <NuxtLink
           :to="getCategoryLink()"
-          class="font-semibold text-slate-700 hover:text-blue-600 transition-colors whitespace-nowrap"
+          class="font-semibold text-slate-700 hover:text-emerald-600 transition-colors whitespace-nowrap"
         >
           Todos os Produtos
         </NuxtLink>
@@ -120,7 +120,7 @@ const handleSearch = () => {
           v-for="cat in categories"
           :key="cat.id"
           :to="getCategoryLink(cat.slug)"
-          class="font-medium text-slate-600 hover:text-blue-600 transition-colors whitespace-nowrap"
+          class="font-medium text-slate-600 hover:text-emerald-600 transition-colors whitespace-nowrap"
         >
           {{ cat.name }}
           <span v-if="cat.productsCount" class="text-xs text-slate-400 ml-1">({{ cat.productsCount }})</span>

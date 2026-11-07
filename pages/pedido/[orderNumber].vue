@@ -50,11 +50,11 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="min-h-screen bg-slate-50 flex flex-col selection:bg-blue-600 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex flex-col selection:bg-emerald-600 selection:text-white">
     <!-- Header (Hidden on print) -->
     <header class="bg-white border-b border-slate-200 py-4 print:hidden">
       <div class="max-w-4xl mx-auto px-4 flex items-center justify-between">
-        <NuxtLink :to="tenantQuery ? `/?tenant=${tenantQuery}` : '/'" class="font-extrabold text-lg text-slate-900 tracking-tight flex items-center gap-1.5 hover:text-blue-600 transition">
+        <NuxtLink :to="tenantQuery ? `/?tenant=${tenantQuery}` : '/'" class="font-extrabold text-lg text-slate-900 tracking-tight flex items-center gap-1.5 hover:text-emerald-600 transition">
           <svg class="w-4 h-4 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
           </svg>
@@ -98,16 +98,15 @@ onUnmounted(() => {
             <span
               class="px-4 py-2 rounded-full text-xs font-extrabold uppercase tracking-wide inline-flex items-center space-x-1.5"
               :class="{
-                'bg-emerald-100 text-emerald-800': order.paymentMethod === 'whatsapp' || order.paymentStatus === 'paid',
+                'bg-emerald-100 text-emerald-800': order.paymentMethod === 'whatsapp' || order.paymentMethod === 'credit_card' || order.paymentStatus === 'paid',
                 'bg-amber-100 text-amber-800': order.paymentMethod === 'pix' && order.paymentStatus === 'pending',
-                'bg-blue-100 text-blue-800': order.paymentMethod === 'credit_card',
                 'bg-red-100 text-red-800': order.paymentStatus === 'failed',
               }"
             >
               <svg v-if="order.paymentMethod === 'whatsapp'" class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
-              <svg v-else-if="order.paymentMethod === 'credit_card'" class="w-3.5 h-3.5 text-blue-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg v-else-if="order.paymentMethod === 'credit_card'" class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
               </svg>
               <svg v-else class="w-3.5 h-3.5 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -158,18 +157,18 @@ onUnmounted(() => {
         </div>
 
         <!-- Tracking Code Alert if shipped -->
-        <div v-if="order.trackingCode" class="p-4 bg-blue-50 border border-blue-200 rounded-2xl flex items-center justify-between">
+        <div v-if="order.trackingCode" class="p-4 bg-emerald-50 border border-emerald-200 rounded-2xl flex items-center justify-between">
           <div>
-            <p class="text-xs font-bold text-blue-900">Código de Rastreamento dos Correios / Transportadora:</p>
-            <p class="text-base font-mono font-bold text-blue-700 mt-0.5">{{ order.trackingCode }}</p>
+            <p class="text-xs font-bold text-emerald-900">Código de Rastreamento dos Correios / Transportadora:</p>
+            <p class="text-base font-mono font-bold text-emerald-700 mt-0.5">{{ order.trackingCode }}</p>
           </div>
           <a
             :href="`https://rastreamento.correios.com.br/app/index.php?objeto=${order.trackingCode}`"
             target="_blank"
-            class="print:hidden text-xs font-bold text-blue-600 bg-white px-4 py-2 rounded-xl shadow-sm hover:bg-blue-50 transition-colors inline-flex items-center gap-1.5"
+            class="print:hidden text-xs font-bold text-emerald-600 bg-white px-4 py-2 rounded-xl shadow-sm hover:bg-emerald-50 transition-colors inline-flex items-center gap-1.5"
           >
             <span>Rastrear Encomenda</span>
-            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
             </svg>
           </a>
@@ -257,7 +256,7 @@ onUnmounted(() => {
             </div>
             <div class="flex justify-between text-base font-black text-slate-900 pt-3 border-t border-slate-200">
               <span>Total Pago:</span>
-              <span class="text-blue-600">R$ {{ Number(order.total || 0).toFixed(2).replace('.', ',') }}</span>
+              <span class="text-emerald-600">R$ {{ Number(order.total || 0).toFixed(2).replace('.', ',') }}</span>
             </div>
           </div>
         </div>
@@ -266,7 +265,7 @@ onUnmounted(() => {
 
     <div v-else class="flex-1 flex items-center justify-center p-12 text-slate-400">
       <div class="text-center">
-        <div class="animate-spin w-8 h-8 border-4 border-blue-500 border-t-transparent rounded-full mx-auto mb-3"></div>
+        <div class="animate-spin w-8 h-8 border-4 border-emerald-500 border-t-transparent rounded-full mx-auto mb-3"></div>
         <p class="text-sm font-semibold">Carregando dados do pedido...</p>
       </div>
     </div>
