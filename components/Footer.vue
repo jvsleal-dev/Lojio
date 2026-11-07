@@ -42,7 +42,7 @@ defineProps<{
             </div>
             <div>
               <h4 class="font-bold text-sm text-slate-900">Suporte Direto</h4>
-              <p class="text-xs text-slate-500 mt-0.5">Atendimento humano via WhatsApp</p>
+              <p class="text-xs text-slate-500 mt-0.5">Atendimento rápido e personalizado</p>
             </div>
           </div>
         </div>
@@ -61,15 +61,6 @@ defineProps<{
           <p class="text-xs text-slate-500 max-w-sm leading-relaxed">
             {{ store?.description || 'Plataforma oficial de compras online com catálogo exclusivo e entrega garantida.' }}
           </p>
-          <div v-if="store?.contactWhatsapp" class="pt-2">
-            <a
-              :href="`https://wa.me/55${store.contactWhatsapp.replace(/\D/g, '')}`"
-              target="_blank"
-              class="inline-flex items-center gap-2 text-xs font-bold text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-4 py-2 rounded-lg transition-colors"
-            >
-              <span>Falar no WhatsApp: {{ store.contactWhatsapp }}</span>
-            </a>
-          </div>
         </div>
 
         <div>
@@ -77,15 +68,6 @@ defineProps<{
           <ul class="space-y-2 text-xs text-slate-600">
             <li><NuxtLink :to="store?.subdomain ? `/?tenant=${store.subdomain}` : '/'" class="hover:text-blue-600 transition-colors">Catálogo da Loja</NuxtLink></li>
             <li><NuxtLink to="/checkout" class="hover:text-blue-600 transition-colors">Carrinho e Checkout</NuxtLink></li>
-            <li><NuxtLink to="/admin" class="hover:text-blue-600 transition-colors">Área do Lojista</NuxtLink></li>
-            <li>
-              <NuxtLink to="/?tenant=none" class="font-bold text-blue-600 hover:text-blue-800 transition-colors inline-flex items-center gap-1.5">
-                <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
-                <span>Plataforma Lojio (Criar Loja)</span>
-              </NuxtLink>
-            </li>
           </ul>
         </div>
 
