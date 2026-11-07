@@ -1,15 +1,15 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-900 selection:bg-indigo-600 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-900 selection:bg-emerald-600 selection:text-white">
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
       <NuxtLink to="/?tenant=none" class="inline-flex items-center space-x-2.5 mb-6 group">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-xl shadow-indigo-500/25 group-hover:scale-105 transition-transform">
+        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-700 via-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-xl shadow-emerald-600/25 group-hover:scale-105 transition-transform">
           <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
           </svg>
         </div>
         <span class="font-extrabold text-3xl tracking-tight text-slate-900 flex items-center">
-          loj<span class="text-indigo-600">io</span>
-          <span class="text-xs bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded-full ml-2 border border-indigo-200">Master</span>
+          loj<span class="text-emerald-600">io</span>
+          <span class="text-xs bg-emerald-50 text-emerald-800 font-bold px-2 py-0.5 rounded-full ml-2 border border-emerald-200">Master</span>
         </span>
       </NuxtLink>
 
@@ -24,10 +24,10 @@
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
       <div class="bg-white py-8 px-6 sm:px-10 shadow-xl shadow-slate-900/5 rounded-3xl border border-slate-200/80">
         <!-- Quick Fill Helper -->
-        <div class="mb-6 p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-xs">
+        <div class="mb-6 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-100 text-xs">
           <div class="flex items-center justify-between mb-1.5">
-            <span class="font-bold text-indigo-900 flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span class="font-bold text-emerald-900 flex items-center gap-1.5">
+              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
               <span>Acesso Rápido Master</span>
@@ -35,7 +35,7 @@
             <button
               type="button"
               @click="quickFill"
-              class="text-[11px] bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-2.5 py-1 rounded-lg transition shadow-xs"
+              class="text-[11px] bg-emerald-600 hover:bg-emerald-700 text-white font-bold px-2.5 py-1 rounded-lg transition shadow-2xs"
             >
               Preencher
             </button>
@@ -73,24 +73,24 @@
               type="password"
               required
               placeholder="••••••••"
-              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 transition"
+              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
             />
           </div>
 
           <button
             type="submit"
             :disabled="loading"
-            class="w-full py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 shadow-lg shadow-indigo-600/30 transition hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+            class="w-full py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 shadow-lg shadow-emerald-600/30 transition hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
           >
             {{ loading ? 'Autenticando Master...' : 'Entrar no Console Master' }}
           </button>
         </form>
 
         <div class="mt-8 pt-6 border-t border-slate-100 flex justify-between items-center text-xs font-semibold text-slate-500">
-          <NuxtLink to="/admin/login" class="hover:text-blue-600 transition flex items-center gap-1">
+          <NuxtLink to="/admin/login" class="hover:text-emerald-700 transition flex items-center gap-1">
             <span>← Painel do Lojista</span>
           </NuxtLink>
-          <NuxtLink to="/?tenant=none" class="hover:text-indigo-600 transition flex items-center gap-1">
+          <NuxtLink to="/?tenant=none" class="hover:text-emerald-600 transition flex items-center gap-1">
             <span>Início Lojio &rarr;</span>
           </NuxtLink>
         </div>

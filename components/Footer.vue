@@ -8,7 +8,7 @@ defineProps<{
   <footer class="bg-white border-t border-slate-300 mt-20">
     <!-- Benefits Bar -->
     <div class="border-b border-slate-200 py-9 bg-slate-50">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="store-container">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div class="flex items-center gap-4">
             <div class="w-12 h-12 rounded-2xl border border-slate-200 bg-white text-emerald-600 shadow-xs flex items-center justify-center flex-shrink-0">
@@ -29,13 +29,13 @@ defineProps<{
               </svg>
             </div>
             <div>
-              <h4 class="font-bold text-sm text-slate-900">Pagamento 100% Seguro</h4>
-              <p class="text-xs text-slate-500 mt-0.5">PIX dinâmico e proteção total</p>
+              <h4 class="font-bold text-sm text-slate-900">Pagamento processado online</h4>
+              <p class="text-xs text-slate-500 mt-0.5">PIX e cartão, conforme disponibilidade</p>
             </div>
           </div>
 
           <div class="flex items-center gap-4">
-            <div class="w-12 h-12 rounded-2xl border border-slate-200 bg-white text-indigo-600 shadow-xs flex items-center justify-center flex-shrink-0">
+            <div class="w-12 h-12 rounded-2xl border border-slate-200 bg-white text-emerald-700 shadow-xs flex items-center justify-center flex-shrink-0">
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
@@ -50,7 +50,7 @@ defineProps<{
     </div>
 
     <!-- Main Footer Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="store-container py-12">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
         <div class="space-y-4 md:col-span-2">
           <div class="flex items-center gap-2">
@@ -59,7 +59,7 @@ defineProps<{
             </span>
           </div>
           <p class="text-xs text-slate-500 max-w-sm leading-relaxed">
-            {{ store?.description || 'Plataforma oficial de compras online com catálogo exclusivo e entrega garantida.' }}
+            {{ store?.description || 'Conheça o catálogo da loja, escolha seus produtos e acompanhe seu pedido.' }}
           </p>
         </div>
 
@@ -76,7 +76,6 @@ defineProps<{
           <div class="flex flex-wrap gap-2 text-xs text-slate-600">
             <span class="px-2.5 py-1 bg-slate-100 rounded-md font-semibold text-slate-700">PIX</span>
             <span class="px-2.5 py-1 bg-slate-100 rounded-md font-semibold text-slate-700">Cartão de Crédito</span>
-            <span class="px-2.5 py-1 bg-slate-100 rounded-md font-semibold text-slate-700">Boleto</span>
           </div>
         </div>
       </div>

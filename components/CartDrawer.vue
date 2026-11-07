@@ -11,6 +11,10 @@ const { data: storeData } = await useFetch('/api/store/info', {
 })
 const store = computed(() => storeData.value?.store)
 
+const freeShippingGoal = 199
+const remainingForFreeShipping = computed(() => Math.max(0, freeShippingGoal - subtotal.value))
+const freeShippingPercent = computed(() => Math.min(100, Math.round((subtotal.value / freeShippingGoal) * 100)))
+
 const close = () => {
   isOpen.value = false
 }
@@ -57,19 +61,39 @@ const goToCheckout = () => {
           <!-- Header -->
           <div class="p-6 border-b border-slate-100 flex items-center justify-between">
             <div class="flex items-center gap-2">
-              <h2 class="text-lg font-bold text-slate-900">Sua Sacola</h2>
-              <span class="text-xs bg-slate-100 text-slate-700 font-semibold px-2.5 py-0.5 rounded-full">
+              <h2 class="text-lg font-black text-slate-900 tracking-tight">Sua Sacola</h2>
+              <span class="text-xs bg-emerald-50 text-emerald-800 border border-emerald-200/60 font-bold px-2.5 py-0.5 rounded-full tabular-nums">
                 {{ count }} {{ count === 1 ? 'item' : 'itens' }}
               </span>
             </div>
             <button
               @click="close"
               class="p-2 text-slate-400 hover:text-slate-600 rounded-lg hover:bg-slate-100 transition-colors"
+              aria-label="Fechar sacola"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
+          </div>
+
+          <!-- Free Shipping Progress Bar -->
+          <div class="px-6 py-3 bg-emerald-50/60 border-b border-emerald-100/80">
+            <div class="flex items-center justify-between text-xs mb-1.5">
+              <span v-if="remainingForFreeShipping > 0" class="text-slate-700 font-medium">
+                Faltam <strong class="text-emerald-700 font-extrabold tabular-nums">R$ {{ remainingForFreeShipping.toFixed(2).replace('.', ',') }}</strong> para <strong class="text-emerald-800">Frete Grátis</strong>
+              </span>
+              <span v-else class="text-emerald-800 font-black flex items-center gap-1">
+                <span>🎉</span> Parabéns! Você ganhou Frete Grátis!
+              </span>
+              <span class="text-[10px] text-emerald-700 font-bold tabular-nums">{{ freeShippingPercent }}%</span>
+            </div>
+            <div class="h-1.5 w-full bg-emerald-100 rounded-full overflow-hidden">
+              <div
+                class="h-full bg-emerald-600 rounded-full transition-all duration-500"
+                :style="{ width: `${freeShippingPercent}%` }"
+              />
+            </div>
           </div>
 
           <!-- Items List -->
@@ -155,27 +179,28 @@ const goToCheckout = () => {
             <div class="space-y-1.5 text-xs">
               <div class="flex justify-between text-slate-500">
                 <span>Subtotal</span>
-                <span class="font-semibold text-slate-800">
+                <span class="font-bold text-slate-800 tabular-nums">
                   R$ {{ subtotal.toFixed(2).replace('.', ',') }}
                 </span>
               </div>
               <div class="flex justify-between text-slate-500">
                 <span>Frete</span>
-                <span class="text-emerald-600 font-semibold">Calculado no checkout</span>
+                <span v-if="subtotal >= freeShippingGoal" class="text-emerald-700 font-extrabold">GRÁTIS</span>
+                <span v-else class="text-emerald-700 font-semibold">Calculado no checkout</span>
               </div>
-              <div class="flex justify-between text-base font-extrabold text-slate-900 pt-2 border-t border-slate-200">
+              <div class="flex justify-between text-base font-black text-slate-900 pt-2 border-t border-slate-200">
                 <span>Total Estimado</span>
-                <span>R$ {{ subtotal.toFixed(2).replace('.', ',') }}</span>
+                <span class="tabular-nums">R$ {{ subtotal.toFixed(2).replace('.', ',') }}</span>
               </div>
             </div>
 
             <button
               @click="goToCheckout"
-              class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-4 rounded-xl text-sm transition-all shadow-md shadow-blue-500/20 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
+              class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-black py-4 px-4 rounded-xl text-sm transition-all shadow-lg shadow-emerald-600/25 flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] cursor-pointer"
             >
-              <span>Finalizar Compra</span>
+              <span>Finalizar Compra Segura</span>
               <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
               </svg>
             </button>
           </div>

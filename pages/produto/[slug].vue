@@ -129,7 +129,7 @@ const addToCart = (redirectCheckout = false) => {
               :key="img"
               @click="selectedImage = img"
               class="w-20 h-20 rounded-2xl overflow-hidden border-2 transition-all flex-shrink-0"
-              :class="selectedImage === img ? 'border-emerald-600 ring-2 ring-blue-100' : 'border-slate-200 hover:border-slate-300'"
+              :class="selectedImage === img ? 'border-emerald-600 ring-2 ring-emerald-200' : 'border-slate-200 hover:border-slate-300'"
             >
               <img :src="img" :alt="product.name" class="w-full h-full object-cover" />
             </button>
@@ -139,10 +139,10 @@ const addToCart = (redirectCheckout = false) => {
         <!-- Product Purchase Column -->
         <div class="space-y-6">
           <div>
-            <span class="text-xs font-bold text-emerald-600 uppercase tracking-wider block">
+            <span class="text-xs font-extrabold text-emerald-700 uppercase tracking-wider block">
               {{ product.category?.name || 'Catálogo Oficial' }}
             </span>
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight mt-1">
+            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mt-1">
               {{ product.name }}
             </h1>
             <div class="flex items-center gap-3 mt-2">
@@ -153,34 +153,34 @@ const addToCart = (redirectCheckout = false) => {
               </div>
               <span class="text-xs font-semibold text-slate-500">4.9 &bull; 48 avaliações de clientes verificados</span>
             </div>
-            <p v-if="product.sku" class="text-xs text-slate-400 mt-1 font-mono">SKU: {{ product.sku }}</p>
+            <p v-if="product.sku" class="text-xs text-slate-400 mt-1 font-mono tabular-nums">SKU: {{ product.sku }}</p>
           </div>
 
           <!-- Price Display -->
-          <div class="p-4 bg-white rounded-2xl border border-slate-200/80 space-y-1">
+          <div class="p-4 bg-white rounded-2xl border border-slate-200/80 space-y-1 shadow-2xs">
             <div class="flex items-baseline gap-3">
-              <span class="text-3xl font-extrabold text-slate-900">
+              <span class="text-3xl font-black text-slate-900 tabular-nums">
                 R$ {{ (selectedVariant?.price || product.price).toFixed(2).replace('.', ',') }}
               </span>
               <span
                 v-if="product.compareAtPrice && product.compareAtPrice > product.price"
-                class="text-base text-slate-400 line-through font-medium"
+                class="text-base text-slate-400 line-through font-medium tabular-nums"
               >
                 R$ {{ Number(product.compareAtPrice).toFixed(2).replace('.', ',') }}
               </span>
             </div>
-            <p class="text-xs text-emerald-600 font-semibold flex items-center gap-1.5">
-              <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <p class="text-xs text-emerald-800 font-bold flex items-center gap-1.5">
+              <svg class="w-3.5 h-3.5 text-emerald-700 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
               </svg>
-              <span>Em até 12x no cartão ou com 5% de desconto no PIX</span>
+              <span>Em até 12x no cartão ou com 5% de desconto no PIX à vista</span>
             </p>
           </div>
 
           <!-- Variants Selector -->
           <div v-if="product.variants && product.variants.length > 0" class="space-y-3">
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider">
-              Escolha a Variação: <span class="text-slate-900">{{ selectedVariant?.name }}</span>
+              Escolha a Variação: <span class="text-slate-900 font-extrabold">{{ selectedVariant?.name }}</span>
             </label>
             <div class="flex flex-wrap gap-2.5">
               <button
@@ -189,7 +189,7 @@ const addToCart = (redirectCheckout = false) => {
                 @click="selectedVariant = v"
                 class="px-4 py-2.5 rounded-xl text-xs font-bold border transition-all"
                 :class="selectedVariant?.id === v.id
-                  ? 'border-slate-900 bg-slate-900 text-white shadow-md'
+                  ? 'border-emerald-600 bg-emerald-50 text-emerald-900 font-bold shadow-xs'
                   : 'border-slate-200 bg-white text-slate-700 hover:border-slate-400'"
               >
                 {{ v.name }}
@@ -258,7 +258,7 @@ const addToCart = (redirectCheckout = false) => {
                 <span>Troca em 7 dias</span>
               </div>
               <div class="p-2.5 rounded-xl bg-slate-100/70 border border-slate-200/60 flex flex-col items-center gap-1">
-                <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
                 </svg>
                 <span>Rastreio Oficial</span>
@@ -269,7 +269,7 @@ const addToCart = (redirectCheckout = false) => {
           <!-- Shipping Simulator -->
           <div class="pt-6 border-t border-slate-200 space-y-3">
             <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
               </svg>
               <span>Calcular Prazo e Frete</span>
@@ -280,29 +280,29 @@ const addToCart = (redirectCheckout = false) => {
                 type="text"
                 placeholder="Digite seu CEP (ex: 01310-100)"
                 maxlength="9"
-                class="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-medium placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none"
+                class="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-2.5 text-xs font-mono placeholder-slate-400 focus:border-emerald-500 focus:ring-2 focus:ring-emerald-100 outline-none tabular-nums"
               />
               <button
                 @click="handleCalculateShipping"
                 :disabled="shippingLoading"
-                class="bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold px-4 py-2.5 rounded-xl text-xs transition-colors disabled:opacity-50"
+                class="bg-slate-900 hover:bg-slate-800 text-white font-bold px-4 py-2.5 rounded-xl text-xs transition-colors disabled:opacity-50"
               >
                 {{ shippingLoading ? 'Calculando...' : 'Calcular' }}
               </button>
             </div>
-            <p v-if="shippingError" class="text-xs text-red-500">{{ shippingError }}</p>
+            <p v-if="shippingError" class="text-xs text-rose-500 font-medium">{{ shippingError }}</p>
 
             <div v-if="shippingRates.length > 0" class="space-y-2 pt-2">
               <div
                 v-for="rate in shippingRates"
                 :key="rate.id"
-                class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 text-xs"
+                class="flex items-center justify-between p-3 rounded-xl bg-white border border-slate-200 text-xs shadow-2xs"
               >
                 <div>
                   <p class="font-bold text-slate-800">{{ rate.name }}</p>
                   <p class="text-[11px] text-slate-500">Entrega em até {{ rate.deliveryTimeDays }} dias úteis</p>
                 </div>
-                <span class="font-extrabold text-slate-900">
+                <span class="font-black text-slate-900 tabular-nums">
                   R$ {{ rate.price.toFixed(2).replace('.', ',') }}
                 </span>
               </div>
@@ -323,17 +323,17 @@ const addToCart = (redirectCheckout = false) => {
       <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-4 py-3 z-30 flex items-center justify-between gap-3 shadow-2xl">
         <div>
           <span class="text-[10px] text-slate-400 font-bold uppercase block leading-none">Preço à vista</span>
-          <span class="text-base font-black text-slate-900 tracking-tight">
+          <span class="text-base font-black text-slate-900 tracking-tight tabular-nums">
             R$ {{ Number(selectedVariant?.price || product.price || 0).toFixed(2).replace('.', ',') }}
           </span>
         </div>
         <button
           @click="addToCart(true)"
-          class="flex-1 bg-slate-900 hover:bg-slate-800 text-white font-extrabold py-3 px-5 rounded-xl text-xs transition-transform active:scale-95 shadow-md flex items-center justify-center gap-1.5 cursor-pointer"
+          class="flex-1 bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 px-5 rounded-xl text-xs transition-transform active:scale-95 shadow-lg shadow-emerald-600/30 flex items-center justify-center gap-1.5 cursor-pointer"
         >
           <span>Comprar Agora</span>
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
           </svg>
         </button>
       </div>

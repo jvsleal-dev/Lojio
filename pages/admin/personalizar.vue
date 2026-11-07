@@ -90,6 +90,40 @@
         </div>
       </section>
 
+      <!-- Store template library -->
+      <section class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2">
+          <div>
+            <h2 class="text-sm font-extrabold text-slate-900">Escolha o modelo da loja</h2>
+            <p class="text-xs text-slate-500 mt-1">O modelo define a estrutura. O tema define cores, fontes e acabamento.</p>
+          </div>
+          <span class="text-[11px] font-semibold text-emerald-700">{{ getStoreTemplate(form.themeConfig.templateId).name }}</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <button
+            v-for="template in STORE_TEMPLATES"
+            :key="template.id"
+            type="button"
+            @click="applyTemplate(template)"
+            class="text-left p-4 rounded-2xl border transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-600 focus-visible:ring-offset-2"
+            :class="form.themeConfig.templateId === template.id ? 'border-emerald-600 bg-emerald-50/60' : 'border-slate-200 bg-slate-50 hover:border-slate-300'"
+          >
+            <div class="flex items-end gap-1 h-20 rounded-xl bg-white border border-slate-200 p-2">
+              <span class="h-full w-1/4 rounded-sm bg-slate-900/80"></span>
+              <span v-for="item in template.id === 'standard' ? 4 : 3" :key="item" class="h-3/4 flex-1 rounded-sm bg-emerald-200 border border-emerald-300"></span>
+            </div>
+            <div class="mt-3 flex items-start justify-between gap-3">
+              <div>
+                <p class="text-xs font-bold text-slate-900">{{ template.name }}</p>
+                <p class="text-[11px] text-slate-500 mt-0.5">{{ template.description }}</p>
+              </div>
+              <span v-if="form.themeConfig.templateId === template.id" class="text-[10px] font-bold text-emerald-700">Ativo</span>
+            </div>
+          </button>
+        </div>
+      </section>
+
       <!-- Toast Feedback -->
       <div v-if="successMsg" class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-bold flex items-center justify-between shadow-sm">
         <span class="flex items-center gap-2">
@@ -266,7 +300,7 @@
                 <div class="flex items-center justify-between">
                   <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Barra de Avisos do Topo</h2>
                   <label class="flex items-center space-x-2 cursor-pointer text-xs font-bold text-slate-700">
-                    <input type="checkbox" v-model="form.showAnnouncement" class="rounded border-slate-300 text-emerald-600 focus:ring-blue-500" />
+                    <input type="checkbox" v-model="form.showAnnouncement" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500" />
                     <span>Exibir na Loja</span>
                   </label>
                 </div>
@@ -487,7 +521,7 @@
                       <p class="text-xs font-bold text-slate-900">Exibir Selo de Desconto (% OFF)</p>
                       <p class="text-[11px] text-slate-500">Mostra a tag vermelha de porcentagem economizada quando houver preço comparativo.</p>
                     </div>
-                    <input type="checkbox" v-model="form.themeConfig.showDiscountBadge" class="rounded border-slate-300 text-emerald-600 focus:ring-blue-500" />
+                    <input type="checkbox" v-model="form.themeConfig.showDiscountBadge" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500" />
                   </label>
 
                   <label class="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200 cursor-pointer">
@@ -495,7 +529,7 @@
                       <p class="text-xs font-bold text-slate-900">Exibir Parcelamento sem Juros</p>
                       <p class="text-[11px] text-slate-500">Exibe "ou até 3x de R$ ... sem juros" logo abaixo do preço à vista.</p>
                     </div>
-                    <input type="checkbox" v-model="form.themeConfig.showInstallments" class="rounded border-slate-300 text-emerald-600 focus:ring-blue-500" />
+                    <input type="checkbox" v-model="form.themeConfig.showInstallments" class="rounded border-slate-300 text-emerald-600 focus:ring-emerald-500" />
                   </label>
                 </div>
               </div>
@@ -651,7 +685,7 @@
                 <div
                   v-else
                   class="w-7 h-7 rounded-lg flex items-center justify-center font-black text-white text-xs shadow-xs"
-                  :style="{ backgroundColor: form.accentColor || '#2563eb' }"
+                  :style="{ backgroundColor: form.accentColor || '#059669' }"
                 >
                   {{ form.name ? form.name.slice(0, 2).toUpperCase() : 'LJ' }}
                 </div>
@@ -665,7 +699,7 @@
                 <button
                   type="button"
                   class="px-3 py-1 rounded-full text-[10px] font-bold text-white shadow-xs"
-                  :style="{ backgroundColor: form.accentColor || '#2563eb' }"
+                  :style="{ backgroundColor: form.accentColor || '#059669' }"
                 >
                   Sacola (0)
                 </button>
@@ -690,7 +724,7 @@
                 <button
                   type="button"
                   class="px-3 py-1.5 rounded-full text-[10px] font-extrabold text-white shadow-xs"
-                  :style="{ backgroundColor: form.accentColor || '#2563eb' }"
+                  :style="{ backgroundColor: form.accentColor || '#059669' }"
                 >
                   {{ form.themeConfig.bannerButtonText || 'Explorar Produtos' }} &rarr;
                 </button>
@@ -742,7 +776,7 @@
                   <button
                     type="button"
                     class="w-full py-2 rounded-xl text-[10px] font-extrabold text-white shadow-xs transition hover:opacity-90"
-                    :style="{ backgroundColor: form.accentColor || '#2563eb' }"
+                    :style="{ backgroundColor: form.accentColor || '#059669' }"
                   >
                     {{ form.themeConfig.cardButtonText || 'Adicionar à Sacola' }}
                   </button>
@@ -766,7 +800,7 @@
                     <span class="truncate">{{ form.themeConfig.checkoutBadge2 || 'Garantia de 7 dias para troca ou devolução' }}</span>
                   </p>
                   <p class="flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-3.5 h-3.5 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
                     <span class="truncate">{{ form.themeConfig.checkoutBadge3 || 'Envio Rápido e Rastreável pelos Correios' }}</span>
@@ -783,6 +817,7 @@
 
 <script setup lang="ts">
 import { STORE_THEMES, getStoreTheme, type StoreTheme } from '~/lib/store-themes'
+import { STORE_TEMPLATES, getStoreTemplate, type StoreTemplate } from '~/lib/store-templates'
 
 definePageMeta({
   middleware: 'admin',
@@ -805,17 +840,17 @@ const tabs = [
 ]
 
 const colorPresets = [
-  { name: 'Nuvemshop Classic', primary: '#0f172a', accent: '#2563eb', bg: '#f8fafc' },
+  { name: 'Verde Oficial Lojio', primary: '#064e3b', accent: '#059669', bg: '#f8fafc' },
   { name: 'Minimalista Black', primary: '#09090b', accent: '#18181b', bg: '#ffffff' },
-  { name: 'Emerald Luxury', primary: '#064e3b', accent: '#059669', bg: '#f8fafc' },
-  { name: 'Streetwear Neon', primary: '#1e1b4b', accent: '#7c3aed', bg: '#090d16' },
-  { name: 'Sunset Laranja', primary: '#431407', accent: '#ea580c', bg: '#fffaf5' },
+  { name: 'Emerald Luxury', primary: '#022c22', accent: '#10b981', bg: '#f8fafc' },
+  { name: 'Florestal Dark', primary: '#064e3b', accent: '#34d399', bg: '#021c14' },
+  { name: 'Sunset Terracota', primary: '#431407', accent: '#ea580c', bg: '#fffaf5' },
   { name: 'Café & Grão', primary: '#27170e', accent: '#b45309', bg: '#fdfbf7' },
 ]
 
 const fontOptions = [
+  { id: 'Plus Jakarta Sans', name: 'Plus Jakarta', style: 'Amigável e contemporânea (padrão oficial)' },
   { id: 'Inter', name: 'Inter', style: 'Moderna e clean (padrão tech)' },
-  { id: 'Plus Jakarta Sans', name: 'Plus Jakarta', style: 'Amigável e contemporânea (Nuvemshop)' },
   { id: 'Poppins', name: 'Poppins', style: 'Geométrica e alta conversão' },
   { id: 'Outfit', name: 'Outfit', style: 'E-commerce premium e streetwear' },
   { id: 'Playfair Display', name: 'Playfair Display', style: 'Elegante e clássica (moda e luxo)' },
@@ -828,8 +863,8 @@ const form = reactive({
   description: '',
   logoUrl: '',
   bannerUrl: '',
-  primaryColor: '#0f172a',
-  accentColor: '#2563eb',
+  primaryColor: '#064e3b',
+  accentColor: '#059669',
   announcementBar: '',
   showAnnouncement: true,
   contactWhatsapp: '',
@@ -840,7 +875,8 @@ const form = reactive({
   isActive: true,
   themeConfig: {
     themeId: 'classic',
-    fontFamily: 'Inter',
+    templateId: 'standard',
+    fontFamily: 'Plus Jakarta Sans',
     bgColor: '#f8fafc',
     tagline: '',
     bannerButtonText: 'Explorar Produtos',
@@ -873,6 +909,10 @@ const applyTheme = (theme: StoreTheme) => {
   form.themeConfig.cardRadius = theme.cardRadius === '4px' ? 'rounded' : 'rounded-xl'
 }
 
+const applyTemplate = (template: StoreTemplate) => {
+  form.themeConfig.templateId = template.id
+}
+
 const loadStore = async () => {
   loading.value = true
   try {
@@ -883,8 +923,8 @@ const loadStore = async () => {
     form.description = t.description || ''
     form.logoUrl = t.logoUrl || ''
     form.bannerUrl = t.bannerUrl || ''
-    form.primaryColor = t.primaryColor || '#0f172a'
-    form.accentColor = t.accentColor || '#2563eb'
+    form.primaryColor = t.primaryColor || '#064e3b'
+    form.accentColor = t.accentColor || '#059669'
     form.announcementBar = t.announcementBar || ''
     form.showAnnouncement = t.showAnnouncement ?? true
     form.contactWhatsapp = t.contactWhatsapp || ''

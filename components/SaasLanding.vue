@@ -1,18 +1,18 @@
 <template>
-  <div class="landing min-h-screen bg-[#070b14] text-slate-100 font-sans selection:bg-blue-600 selection:text-white">
+  <div class="landing min-h-screen bg-[#070b14] text-slate-100 font-sans selection:bg-emerald-600 selection:text-white">
     <!-- Top Bar / Floating Capsule Navbar (Image 1 & 2) -->
     <header class="fixed top-4 inset-x-0 z-50 px-4 sm:px-6 lg:px-8">
       <div class="max-w-7xl mx-auto">
         <nav class="flex items-center justify-between px-5 py-3 rounded-full bg-slate-900/90 backdrop-blur-xl border border-slate-700/60 shadow-2xl shadow-black/50">
           <!-- Logo Brand (Nuvemshop style with cloud + spark) -->
           <NuxtLink to="/?tenant=none" class="flex items-center space-x-2.5 group">
-            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">
+            <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-emerald-700 via-emerald-600 to-teal-400 flex items-center justify-center text-white font-black text-lg shadow-lg shadow-emerald-500/30 group-hover:scale-105 transition-transform">
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
               </svg>
             </div>
             <span class="font-extrabold text-2xl tracking-tight text-white flex items-center">
-              loj<span class="text-blue-500">io</span>
+              loj<span class="text-emerald-500">io</span>
             </span>
           </NuxtLink>
 
@@ -41,14 +41,14 @@
             <!-- White Pill Button: Acessar meu painel (Exact Nuvemshop Hero Image 1) -->
             <NuxtLink
               to="/admin/login"
-              class="px-5 py-2 rounded-full text-xs sm:text-sm font-extrabold text-[#002b66] bg-white hover:bg-slate-100 shadow-md transition hover:scale-105"
+              class="px-5 py-2 rounded-full text-xs sm:text-sm font-extrabold text-[#064e3b] bg-white hover:bg-slate-100 shadow-md transition hover:scale-105"
             >
               Acessar meu painel
             </NuxtLink>
 
             <button
               @click="openModal = true"
-              class="hidden md:inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-white bg-blue-600 hover:bg-blue-500 shadow-lg shadow-blue-600/30 hover:scale-105 active:scale-95 transition"
+              class="hidden md:inline-flex items-center px-4 py-2 rounded-full text-xs sm:text-sm font-bold text-white bg-emerald-600 hover:bg-emerald-500 shadow-lg shadow-emerald-600/30 hover:scale-105 active:scale-95 transition"
             >
               Criar loja grátis
             </button>
@@ -58,7 +58,7 @@
     </header>
 
     <!-- Hero Section (Reference Image 1 & 5) -->
-    <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-[#030d22] via-[#051336] to-[#070b14]">
+    <section class="relative pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden bg-gradient-to-b from-[#021c14] via-[#04281e] to-[#070b14]">
       <!-- Background Ambient Glow & Photo Overlay (Nuvemshop style) -->
       <div class="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay">
         <img
@@ -67,21 +67,21 @@
           class="w-full h-full object-cover"
         />
       </div>
-      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-blue-600/25 via-indigo-600/15 to-transparent blur-3xl pointer-events-none -z-10"></div>
-      <div class="absolute -top-40 right-10 w-96 h-96 bg-purple-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
+      <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[600px] bg-gradient-to-b from-emerald-600/25 via-teal-600/15 to-transparent blur-3xl pointer-events-none -z-10"></div>
+      <div class="absolute -top-40 right-10 w-96 h-96 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none -z-10"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <!-- Left Column: Copy & Inline Onboarding Form -->
           <div class="lg:col-span-7 space-y-6 text-center lg:text-left">
-            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider">
-              <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+            <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
               <span>A plataforma líder para e-commerce no Brasil</span>
             </div>
 
             <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white tracking-tight leading-[1.08]">
               Crie sua loja virtual com a Lojio
-              <span class="block italic font-serif font-normal text-blue-200 text-3xl sm:text-4xl lg:text-5xl mt-2">
+              <span class="block italic font-serif font-normal text-emerald-200 text-3xl sm:text-4xl lg:text-5xl mt-2">
                 a base para sua marca vender mais
               </span>
             </h1>
@@ -92,7 +92,7 @@
 
             <!-- Inline Email Signup Box (Image 1 reference) -->
             <div class="pt-2 max-w-lg mx-auto lg:mx-0">
-              <form @submit.prevent="handleQuickSignup" class="flex flex-col sm:flex-row items-center p-1.5 rounded-full bg-slate-900 border border-slate-700 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-500/30 transition shadow-2xl">
+              <form @submit.prevent="handleQuickSignup" class="flex flex-col sm:flex-row items-center p-1.5 rounded-full bg-slate-900 border border-slate-700 focus-within:border-emerald-500 focus-within:ring-2 focus-within:ring-emerald-500/30 transition shadow-2xl">
                 <input
                   v-model="quickEmail"
                   type="email"
@@ -102,7 +102,7 @@
                 />
                 <button
                   type="submit"
-                  class="w-full sm:w-auto mt-2 sm:mt-0 px-7 py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition hover:scale-105 active:scale-95 shrink-0"
+                  class="w-full sm:w-auto mt-2 sm:mt-0 px-7 py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition hover:scale-105 active:scale-95 shrink-0"
                 >
                   Criar loja grátis
                 </button>
@@ -116,7 +116,7 @@
             <div class="pt-4 flex justify-center lg:justify-start">
               <a
                 href="#planos"
-                class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-blue-500/40 text-xs text-slate-300 transition group"
+                class="inline-flex items-center space-x-2 px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/40 text-xs text-slate-300 transition group"
               >
                 <span>Fatura mais de R$ 50 mil por mês?</span>
                 <span class="text-brand-600 font-bold group-hover:underline">Migre para a Lojio &rarr;</span>
@@ -127,7 +127,7 @@
           <!-- Right Column: Interactive Smartphone Mockup + Order Card (Images 1 & 5) -->
           <div class="lg:col-span-5 relative flex justify-center lg:justify-end">
             <!-- Smartphone Shell Mockup -->
-            <div class="relative w-72 sm:w-80 rounded-[40px] bg-slate-900 p-3.5 border-4 border-slate-800 shadow-2xl shadow-blue-600/20">
+            <div class="relative w-72 sm:w-80 rounded-[40px] bg-slate-900 p-3.5 border-4 border-slate-800 shadow-2xl shadow-emerald-600/20">
               <!-- Speaker & Camera notch -->
               <div class="absolute top-6 left-1/2 -translate-x-1/2 w-24 h-4 bg-slate-950 rounded-full z-20"></div>
 
@@ -162,7 +162,7 @@
                       class="w-full h-16 object-cover rounded-lg mb-1"
                     />
                     <p class="font-bold text-[10px] truncate">Camiseta Oversized</p>
-                    <p class="text-blue-600 font-extrabold text-[11px]">R$ 129,90</p>
+                    <p class="text-emerald-600 font-extrabold text-[11px]">R$ 129,90</p>
                   </div>
                   <div class="bg-slate-50 p-2 rounded-xl border border-slate-100">
                     <img
@@ -170,7 +170,7 @@
                       class="w-full h-16 object-cover rounded-lg mb-1"
                     />
                     <p class="font-bold text-[10px] truncate">Sneaker White</p>
-                    <p class="text-blue-600 font-extrabold text-[11px]">R$ 389,00</p>
+                    <p class="text-emerald-600 font-extrabold text-[11px]">R$ 389,00</p>
                   </div>
                 </div>
 
@@ -178,7 +178,7 @@
                 <div class="px-3">
                   <a
                     href="/?tenant=modaurbana"
-                    class="block text-center w-full py-2 bg-blue-600 text-white font-bold rounded-xl text-[11px] shadow-md hover:bg-blue-500 transition"
+                    class="block text-center w-full py-2 bg-emerald-600 text-white font-bold rounded-xl text-[11px] shadow-md hover:bg-emerald-500 transition"
                   >
                     Ver Loja Demonstração
                   </a>
@@ -230,21 +230,21 @@
           <!-- Moda Urbana -->
           <a
             href="/?tenant=modaurbana"
-            class="p-5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-blue-500/50 transition group flex items-center justify-between shadow-xl"
+            class="p-5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition group flex items-center justify-between shadow-xl"
           >
             <div class="flex items-center space-x-3.5">
-              <div class="w-12 h-12 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-black text-lg border border-blue-500/30">
+              <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center font-black text-lg border border-emerald-500/30">
                 MU
               </div>
               <div>
                 <div class="flex items-center space-x-2">
-                  <h3 class="font-bold text-white group-hover:text-blue-400 transition">Moda Urbana</h3>
-                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 font-bold uppercase">Enterprise</span>
+                  <h3 class="font-bold text-white group-hover:text-emerald-400 transition">Moda Urbana</h3>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold uppercase">Enterprise</span>
                 </div>
                 <p class="text-xs text-slate-400">Streetwear & Sneakers &bull; modaurbana.localhost</p>
               </div>
             </div>
-            <span class="text-xs font-bold text-blue-400 group-hover:translate-x-1 transition-transform">&rarr;</span>
+            <span class="text-xs font-bold text-emerald-400 group-hover:translate-x-1 transition-transform">&rarr;</span>
           </a>
 
           <!-- TechZone -->
@@ -294,7 +294,7 @@
     <section id="recursos" class="py-20 md:py-28 relative">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-          <span class="text-xs font-bold uppercase tracking-wider text-blue-400">Tecnologia de Ponta</span>
+          <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">Tecnologia de Ponta</span>
           <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
             A estrutura completa para sua marca escalar
           </h2>
@@ -305,7 +305,7 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           <!-- Feature Card 1: AI & Efficiency (Image 3 Left Reference) -->
-          <div class="p-8 rounded-3xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between hover:border-blue-500/40 transition">
+          <div class="p-8 rounded-3xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition">
             <div class="space-y-4">
               <!-- Mockup UI inside Card -->
               <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 mb-6">
@@ -329,7 +329,7 @@
                 </div>
               </div>
 
-              <span class="text-xs font-extrabold uppercase tracking-wider text-blue-400">Eficiência</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Eficiência</span>
               <h3 class="text-2xl font-bold text-white">IA como diferencial competitivo</h3>
               <p class="text-slate-400 text-sm leading-relaxed">
                 Recupere +80 horas de trabalho por mês: nosso assistente com Inteligência Artificial sugere descrições automáticas para produtos e aponta oportunidades práticas para aumentar o ticket médio.
@@ -338,19 +338,19 @@
           </div>
 
           <!-- Feature Card 2: Autonomy & Customization (Image 3 Right Reference) -->
-          <div class="p-8 rounded-3xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between hover:border-blue-500/40 transition">
+          <div class="p-8 rounded-3xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition">
             <div class="space-y-4">
               <!-- Visual Banners Mockup -->
               <div class="grid grid-cols-2 gap-3 mb-6">
-                <div class="h-28 rounded-2xl bg-gradient-to-tr from-blue-900/40 to-slate-800 border border-slate-700/60 p-3 flex flex-col justify-end">
+                <div class="h-28 rounded-2xl bg-gradient-to-tr from-emerald-950/70 to-slate-800 border border-slate-700/60 p-3 flex flex-col justify-end">
                   <span class="text-white font-bold text-xs">Banners Personalizados</span>
                 </div>
-                <div class="h-28 rounded-2xl bg-gradient-to-tr from-purple-900/40 to-slate-800 border border-slate-700/60 p-3 flex flex-col justify-end">
+                <div class="h-28 rounded-2xl bg-gradient-to-tr from-teal-950/70 to-slate-800 border border-slate-700/60 p-3 flex flex-col justify-end">
                   <span class="text-white font-bold text-xs">Cores & Tipografia</span>
                 </div>
               </div>
 
-              <span class="text-xs font-extrabold uppercase tracking-wider text-blue-400">Personalização</span>
+              <span class="text-xs font-extrabold uppercase tracking-wider text-emerald-400">Personalização</span>
               <h3 class="text-2xl font-bold text-white">Autonomia total sobre vitrine e campanhas</h3>
               <p class="text-slate-400 text-sm leading-relaxed">
                 Altere a identidade da sua loja, cores primárias, anúncios no topo e categorias sem abrir chamado e sem fila de espera. Sua loja roda linda, rápida e pronta para converter.
@@ -387,8 +387,8 @@
                   <p class="text-[11px] text-slate-500">QR Code na hora</p>
                 </div>
                 <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800">
-                  <div class="w-8 h-8 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center">
-                    <svg class="w-4 h-4 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </svg>
                   </div>
@@ -449,9 +449,9 @@
     </section>
 
     <!-- Pricing Section: Planos para toda a sua jornada (Image 2 Reference) -->
-    <section id="planos" class="py-24 bg-gradient-to-b from-blue-950 via-blue-900 to-slate-950 relative overflow-hidden">
+    <section id="planos" class="py-24 bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 relative overflow-hidden">
       <!-- Glow background -->
-      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-blue-600/30 via-transparent to-transparent pointer-events-none"></div>
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-600/25 via-transparent to-transparent pointer-events-none"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <!-- Section Header -->
@@ -459,23 +459,23 @@
           <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
             Planos para toda a sua jornada
           </h2>
-          <p class="text-blue-200 text-base">
+          <p class="text-emerald-200 text-base">
             Comece de graça ou escolha o plano que melhor se encaixa no momento do seu negócio.
           </p>
 
           <!-- Monthly / Annual Toggle Pill (Image 2 reference) -->
-          <div class="inline-flex items-center p-1.5 rounded-full bg-blue-900/60 border border-blue-400/30 backdrop-blur-md">
+          <div class="inline-flex items-center p-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/30 backdrop-blur-md">
             <button
               @click="annual = false"
               class="px-5 py-2 rounded-full text-xs font-bold transition"
-              :class="!annual ? 'bg-white text-blue-900 shadow-md' : 'text-blue-200 hover:text-white'"
+              :class="!annual ? 'bg-white text-emerald-950 shadow-md' : 'text-emerald-200 hover:text-white'"
             >
               Mensal
             </button>
             <button
               @click="annual = true"
               class="px-5 py-2 rounded-full text-xs font-bold transition flex items-center space-x-1"
-              :class="annual ? 'bg-white text-blue-900 shadow-md' : 'text-blue-200 hover:text-white'"
+              :class="annual ? 'bg-white text-emerald-950 shadow-md' : 'text-emerald-200 hover:text-white'"
             >
               <span>Anual</span>
               <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500 text-white font-extrabold">-15%</span>
@@ -486,23 +486,23 @@
         <!-- 5 Plan Cards Grid (Exact structure of Image 2) -->
         <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
           <!-- 1. Começo -->
-          <div class="p-6 rounded-3xl bg-blue-900/40 backdrop-blur-md border border-blue-400/20 flex flex-col justify-between hover:border-blue-400/50 transition">
+          <div class="p-6 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-500/50 transition">
             <div>
-              <p class="text-sm font-bold text-blue-200">Começo</p>
+              <p class="text-sm font-bold text-emerald-200">Começo</p>
               <p class="text-2xl font-black text-white mt-3">Gratuito</p>
 
-              <div class="mt-6 pt-5 border-t border-blue-400/20 space-y-3 text-xs text-blue-100">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-blue-300">Destaque</p>
+              <div class="mt-6 pt-5 border-t border-emerald-500/20 space-y-3 text-xs text-emerald-100">
+                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-300">Destaque</p>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>1 layout profissional</span>
                 </div>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>Pix com aprovação imediata</span>
                 </div>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>Produtos e vendas ilimitadas</span>
                 </div>
               </div>
@@ -510,33 +510,33 @@
 
             <button
               @click="openModalWithPlan('STARTER')"
-              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-blue-900 font-bold text-xs transition border border-white/20"
+              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-emerald-950 font-bold text-xs transition border border-white/20"
             >
               Criar loja grátis
             </button>
           </div>
 
           <!-- 2. Essencial -->
-          <div class="p-6 rounded-3xl bg-blue-900/40 backdrop-blur-md border border-blue-400/20 flex flex-col justify-between hover:border-blue-400/50 transition">
+          <div class="p-6 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-500/50 transition">
             <div>
-              <p class="text-sm font-bold text-blue-200">Essencial</p>
+              <p class="text-sm font-bold text-emerald-200">Essencial</p>
               <div class="mt-3 flex items-baseline space-x-1">
                 <span class="text-2xl font-black text-white">{{ annual ? 'R$ 58' : 'R$ 69' }}</span>
-                <span class="text-xs text-blue-200">/mês</span>
+                <span class="text-xs text-emerald-200">/mês</span>
               </div>
 
-              <div class="mt-6 pt-5 border-t border-blue-400/20 space-y-3 text-xs text-blue-100">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-blue-300">Destaque</p>
+              <div class="mt-6 pt-5 border-t border-emerald-500/20 space-y-3 text-xs text-emerald-100">
+                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-300">Destaque</p>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>+70 layouts profissionais</span>
                 </div>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>30 usos de IA / mês</span>
                 </div>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>Cálculo de frete Correios/Melhor Envio</span>
                 </div>
               </div>
@@ -544,14 +544,14 @@
 
             <button
               @click="openModalWithPlan('STARTER')"
-              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-blue-900 font-bold text-xs transition border border-white/20"
+              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-emerald-950 font-bold text-xs transition border border-white/20"
             >
               Testar 7 dias grátis
             </button>
           </div>
 
           <!-- 3. Impulso (Recomendado - Highlighted Card) -->
-          <div class="p-6 rounded-3xl bg-blue-600/70 backdrop-blur-xl border-2 border-white/40 shadow-2xl shadow-blue-500/40 flex flex-col justify-between relative transform -translate-y-2">
+          <div class="p-6 rounded-3xl bg-emerald-600/80 backdrop-blur-xl border-2 border-white/40 shadow-2xl shadow-emerald-500/40 flex flex-col justify-between relative transform -translate-y-2">
             <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-emerald-500 text-white font-extrabold text-[10px] uppercase tracking-wider shadow">
               Recomendado
             </span>
@@ -559,11 +559,11 @@
               <p class="text-sm font-extrabold text-white">Impulso</p>
               <div class="mt-3 flex items-baseline space-x-1">
                 <span class="text-3xl font-black text-white">{{ annual ? 'R$ 139' : 'R$ 164' }}</span>
-                <span class="text-xs text-blue-100">/mês</span>
+                <span class="text-xs text-emerald-100">/mês</span>
               </div>
 
               <div class="mt-6 pt-5 border-t border-white/20 space-y-3 text-xs text-white">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-blue-200">Destaque</p>
+                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-200">Destaque</p>
                 <div class="flex items-start space-x-2">
                   <svg class="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>150 usos de IA / mês</span>
@@ -581,33 +581,33 @@
 
             <button
               @click="openModalWithPlan('PRO')"
-              class="mt-8 w-full py-3 rounded-full bg-white hover:bg-blue-50 text-blue-900 font-extrabold text-xs shadow-lg transition hover:scale-105"
+              class="mt-8 w-full py-3 rounded-full bg-white hover:bg-emerald-50 text-emerald-950 font-extrabold text-xs shadow-lg transition hover:scale-105"
             >
               Testar 7 dias grátis
             </button>
           </div>
 
           <!-- 4. Escala -->
-          <div class="p-6 rounded-3xl bg-blue-900/40 backdrop-blur-md border border-blue-400/20 flex flex-col justify-between hover:border-blue-400/50 transition">
+          <div class="p-6 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-500/50 transition">
             <div>
-              <p class="text-sm font-bold text-blue-200">Escala</p>
+              <p class="text-sm font-bold text-emerald-200">Escala</p>
               <div class="mt-3 flex items-baseline space-x-1">
                 <span class="text-2xl font-black text-white">{{ annual ? 'R$ 381' : 'R$ 449' }}</span>
-                <span class="text-xs text-blue-200">/mês</span>
+                <span class="text-xs text-emerald-200">/mês</span>
               </div>
 
-              <div class="mt-6 pt-5 border-t border-blue-400/20 space-y-3 text-xs text-blue-100">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-blue-300">Destaque</p>
+              <div class="mt-6 pt-5 border-t border-emerald-500/20 space-y-3 text-xs text-emerald-100">
+                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-300">Destaque</p>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>IA ilimitada</span>
                 </div>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>Controle de equipe multi-usuário</span>
                 </div>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>Estatísticas avançadas de vendas</span>
                 </div>
               </div>
@@ -615,30 +615,30 @@
 
             <button
               @click="openModalWithPlan('ENTERPRISE')"
-              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-blue-900 font-bold text-xs transition border border-white/20"
+              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-emerald-950 font-bold text-xs transition border border-white/20"
             >
               Testar 7 dias grátis
             </button>
           </div>
 
           <!-- 5. Next / Enterprise -->
-          <div class="p-6 rounded-3xl bg-blue-900/40 backdrop-blur-md border border-blue-400/20 flex flex-col justify-between hover:border-blue-400/50 transition">
+          <div class="p-6 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-500/50 transition">
             <div>
-              <p class="text-sm font-bold text-blue-200">Next</p>
+              <p class="text-sm font-bold text-emerald-200">Next</p>
               <p class="text-2xl font-black text-white mt-3">Sob Consulta</p>
 
-              <div class="mt-6 pt-5 border-t border-blue-400/20 space-y-3 text-xs text-blue-100">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-blue-300">Destaque</p>
+              <div class="mt-6 pt-5 border-t border-emerald-500/20 space-y-3 text-xs text-emerald-100">
+                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-300">Destaque</p>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>Gerente de contas dedicado</span>
                 </div>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>Migração assistida sem custo</span>
                 </div>
                 <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-blue-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
                   <span>SLA e infraestrutura dedicada</span>
                 </div>
               </div>
@@ -646,7 +646,7 @@
 
             <button
               @click="openModalWithPlan('ENTERPRISE')"
-              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-blue-900 font-bold text-xs transition border border-white/20"
+              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-emerald-950 font-bold text-xs transition border border-white/20"
             >
               Falar com Vendas
             </button>
@@ -683,39 +683,39 @@
           <!-- Testimonial 1 (Image 4 Left Reference) -->
           <div class="p-8 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
             <div class="space-y-4">
-              <span class="text-3xl text-blue-500 font-serif font-black block">“</span>
+              <span class="text-3xl text-emerald-500 font-serif font-black block">“</span>
               <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
                 Vendo todos os recursos que a plataforma tinha, eu percebi que o poder de venda que um site próprio tem é muito grande. Eu não precisava mais fazer todo o trabalho sozinha no Instagram.
               </p>
               <div class="pt-4 border-t border-slate-800/80">
                 <p class="font-bold text-white text-sm">Aline Junqueira</p>
-                <p class="text-xs text-blue-400 font-semibold uppercase tracking-wider">Fundadora / Bloom Brand</p>
+                <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Fundadora / Bloom Brand</p>
               </div>
             </div>
 
             <div class="mt-6 flex flex-wrap gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-blue-950 text-blue-300 text-[11px] font-semibold border border-blue-800/40">Nuvem Pago</span>
-              <span class="px-2.5 py-1 rounded-lg bg-blue-950 text-blue-300 text-[11px] font-semibold border border-blue-800/40">Nuvem Envio</span>
-              <span class="px-2.5 py-1 rounded-lg bg-blue-950 text-blue-300 text-[11px] font-semibold border border-blue-800/40">Nuvem Marketing</span>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Lojio Pago</span>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Lojio Envio</span>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Lojio Marketing</span>
             </div>
           </div>
 
           <!-- Testimonial 2 (Image 4 Right Reference) -->
           <div class="p-8 rounded-3xl bg-slate-950 border border-slate-800 flex flex-col justify-between">
             <div class="space-y-4">
-              <span class="text-3xl text-blue-500 font-serif font-black block">“</span>
+              <span class="text-3xl text-emerald-500 font-serif font-black block">“</span>
               <p class="text-slate-300 text-sm sm:text-base leading-relaxed">
                 Uma das dificuldades que a gente tinha era a taxa de conversão baixa: menos de 1%. Com a Lojio atingimos um pico de 2,63% e, além disso, aumentamos em 97% nosso número de pedidos no site em um ano.
               </p>
               <div class="pt-4 border-t border-slate-800/80">
                 <p class="font-bold text-white text-sm">Katharina Neves</p>
-                <p class="text-xs text-blue-400 font-semibold uppercase tracking-wider">Mica Chocolates</p>
+                <p class="text-xs text-emerald-400 font-semibold uppercase tracking-wider">Mica Chocolates</p>
               </div>
             </div>
 
             <div class="mt-6 flex flex-wrap gap-2">
               <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">+97% em Vendas</span>
-              <span class="px-2.5 py-1 rounded-lg bg-blue-950 text-blue-300 text-[11px] font-semibold border border-blue-800/40">Checkout Transparente</span>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Checkout Transparente</span>
             </div>
           </div>
         </div>
@@ -747,7 +747,7 @@
         <div class="p-5 rounded-2xl bg-slate-900 border border-slate-800">
           <h3 class="font-bold text-white text-sm mb-2">Como funciona a gestão de múltiplos clientes?</h3>
           <p class="text-xs text-slate-400 leading-relaxed">
-            O Dono da Plataforma possui um painel Master SuperAdmin dedicado (<code class="text-blue-400">/master</code>) para gerenciar todas as lojas cadastradas, verificar o faturamento global (GMV), ativar ou suspender contas e criar novas lojas com 1 clique.
+            O Dono da Plataforma possui um painel Master SuperAdmin dedicado (<code class="text-emerald-400">/master</code>) para gerenciar todas as lojas cadastradas, verificar o faturamento global (GMV), ativar ou suspender contas e criar novas lojas com 1 clique.
           </p>
         </div>
       </div>
@@ -757,7 +757,7 @@
     <footer class="border-t border-slate-800/80 bg-slate-950 py-12 text-slate-400 text-xs">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
         <div class="flex items-center space-x-3">
-          <div class="w-8 h-8 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-xs">
+          <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center text-white shadow-xs">
             <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
@@ -800,7 +800,7 @@
               @input="autoGenerateSubdomain"
               required
               placeholder="Ex: Closet da Maria"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
@@ -811,7 +811,7 @@
                 v-model="newStore.subdomain"
                 required
                 placeholder="closetdamaria"
-                class="flex-1 px-4 py-2.5 rounded-l-xl bg-slate-800 border border-r-0 border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"
+                class="flex-1 px-4 py-2.5 rounded-l-xl bg-slate-800 border border-r-0 border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono"
               />
               <span class="px-3 py-2.5 bg-slate-800/80 border border-l-0 border-slate-700 rounded-r-xl text-slate-400 text-xs font-mono">
                 .lojio.com.br
@@ -826,7 +826,7 @@
               type="email"
               required
               placeholder="maria@email.com"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
@@ -837,7 +837,7 @@
               type="password"
               required
               placeholder="••••••••"
-              class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              class="w-full px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white text-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
             />
           </div>
 
@@ -845,7 +845,7 @@
             <button
               type="submit"
               :disabled="loadingCreate"
-              class="w-full py-3 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-bold text-sm shadow-lg shadow-blue-600/30 transition hover:scale-105 disabled:opacity-50"
+              class="w-full py-3 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-sm shadow-lg shadow-emerald-600/30 transition hover:scale-105 disabled:opacity-50"
             >
               {{ loadingCreate ? 'Criando sua loja...' : 'Criar minha loja agora' }}
             </button>
@@ -998,12 +998,12 @@ const handleCreateStore = async () => {
 }
 
 .landing :deep(.bg-emerald-500),
-.landing :deep(.bg-blue-600),
+.landing :deep(.bg-emerald-600),
 .landing :deep(.bg-indigo-600) {
   background-color: #1f7a52 !important;
 }
 
-.landing :deep(.hover\\:bg-blue-500:hover),
+.landing :deep(.hover\\:bg-emerald-500:hover),
 .landing :deep(.hover\\:bg-indigo-500:hover) {
   background-color: #165b3d !important;
 }

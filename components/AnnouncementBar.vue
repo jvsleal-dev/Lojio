@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { X } from 'lucide-vue-next'
+
 defineProps<{
   text?: string
   bg?: string
@@ -18,12 +20,11 @@ const isVisible = ref(true)
     </div>
     <button
       @click="isVisible = false"
-      class="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white p-1 rounded-lg hover:bg-white/10 transition-colors"
+      type="button"
+      class="absolute right-3 top-1/2 -translate-y-1/2 inline-flex h-8 w-8 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
       aria-label="Fechar aviso"
     >
-      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
+      <X :size="16" aria-hidden="true" />
     </button>
   </div>
 </template>

@@ -24,7 +24,7 @@ const variantClasses = {
   destructive: 'bg-rose-600 text-white hover:bg-rose-700 shadow-sm active:scale-[0.99]',
   outline: 'border border-slate-200 bg-white hover:bg-slate-50 text-slate-800 shadow-xs active:scale-[0.99]',
   ghost: 'hover:bg-slate-100 text-slate-700 active:scale-[0.99]',
-  link: 'text-blue-600 underline-offset-4 hover:underline p-0 h-auto',
+  link: 'text-emerald-700 underline-offset-4 hover:underline p-0 h-auto',
 }
 
 const sizeClasses = {

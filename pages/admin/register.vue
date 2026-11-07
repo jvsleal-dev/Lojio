@@ -1,49 +1,27 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-900 selection:bg-emerald-600 selection:text-white">
+  <div class="min-h-screen bg-[#f7f8f5] flex flex-col justify-center py-10 sm:px-6 lg:px-8 text-slate-900 selection:bg-emerald-600 selection:text-white">
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
-      <!-- Logo Lojio -->
       <NuxtLink to="/?tenant=none" class="inline-flex items-center space-x-2.5 mb-6 group">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-700 via-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-xl shadow-emerald-600/25 group-hover:scale-105 transition-transform">
+        <div class="w-11 h-11 rounded-lg bg-emerald-700 flex items-center justify-center text-white transition-opacity group-hover:opacity-85">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
           </svg>
         </div>
-        <span class="font-extrabold text-3xl tracking-tight text-slate-900 flex items-center">
+        <span class="font-semibold text-3xl tracking-[-0.04em] text-slate-900 flex items-center">
           loj<span class="text-emerald-600">io</span>
         </span>
       </NuxtLink>
 
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+      <h2 class="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-[-0.03em]">
         Crie sua Loja Virtual Grátis
       </h2>
       <p class="mt-2 text-sm text-slate-500 max-w-sm mx-auto">
-        Junte-se a milhares de marcas que vendem todos os dias com a Lojio
+        Configure sua vitrine e comece a organizar os pedidos da sua marca.
       </p>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-      <div class="bg-white py-8 px-6 sm:px-10 shadow-xl shadow-slate-900/5 rounded-3xl border border-slate-200/80">
-        <!-- Benefits Chips -->
-        <div class="mb-6 flex flex-wrap gap-2 justify-center">
-          <span class="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>14 dias grátis</span>
-          </span>
-          <span class="px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-semibold flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-            </svg>
-            <span>Sem cartão de crédito</span>
-          </span>
-          <span class="px-3 py-1 rounded-full bg-teal-50 border border-teal-200 text-teal-700 text-xs font-semibold flex items-center gap-1.5">
-            <svg class="w-3.5 h-3.5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-            Ativação instantânea
-          </span>
-        </div>
+      <div class="bg-white py-8 px-6 sm:px-10 rounded-2xl border border-slate-200">
 
         <form @submit.prevent="handleRegister" class="space-y-4">
           <div v-if="errorMsg" class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold flex items-center gap-2">
@@ -131,7 +109,7 @@
           <button
             type="submit"
             :disabled="loading"
-            class="w-full py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 shadow-lg shadow-emerald-600/30 transition hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50 mt-2"
+            class="w-full py-3.5 px-4 rounded-lg text-white font-semibold text-sm bg-emerald-700 hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 transition-colors disabled:opacity-50 mt-2"
           >
             {{ loading ? 'Criando sua loja na Lojio...' : 'Criar Minha Loja Grátis' }}
           </button>

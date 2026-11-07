@@ -83,7 +83,7 @@
                 <td class="py-4 px-6">
                   <p class="font-bold text-slate-900 text-sm">#{{ order.orderNumber }}</p>
                   <p class="text-slate-400 text-[11px] mt-0.5">{{ formatDate(order.createdAt) }}</p>
-                  <span class="text-[10px] text-blue-600 font-semibold font-mono">{{ order.items?.length || 1 }} itens</span>
+                  <span class="text-[10px] text-emerald-700 font-semibold font-mono">{{ order.items?.length || 1 }} itens</span>
                 </td>
 
                 <!-- Cliente -->
@@ -100,15 +100,14 @@
                     <span
                       class="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-extrabold uppercase"
                       :class="{
-                        'bg-emerald-50 text-emerald-700 border border-emerald-200': order.paymentMethod === 'whatsapp' || order.paymentStatus === 'paid',
-                        'bg-blue-50 text-blue-700 border border-blue-200': order.paymentMethod === 'credit_card',
+                        'bg-emerald-50 text-emerald-700 border border-emerald-200': order.paymentMethod === 'whatsapp' || order.paymentStatus === 'paid' || order.paymentMethod === 'credit_card',
                         'bg-amber-50 text-amber-700 border border-amber-200': order.paymentMethod === 'pix' && order.paymentStatus === 'pending',
                       }"
                     >
                       <svg v-if="order.paymentMethod === 'whatsapp'" class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                       </svg>
-                      <svg v-else-if="order.paymentMethod === 'credit_card'" class="w-3 h-3 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <svg v-else-if="order.paymentMethod === 'credit_card'" class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                       </svg>
                       <svg v-else class="w-3 h-3 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -128,7 +127,7 @@
                   <span
                     class="px-2.5 py-1 rounded-full text-[10px] font-extrabold uppercase tracking-wider"
                     :class="{
-                      'bg-blue-50 text-blue-700 border border-blue-200': order.orderStatus === 'shipped',
+                      'bg-teal-50 text-teal-700 border border-teal-200': order.orderStatus === 'shipped',
                       'bg-emerald-50 text-emerald-700 border border-emerald-200': order.orderStatus === 'delivered',
                       'bg-slate-100 text-slate-700 border border-slate-200': order.orderStatus === 'processing',
                       'bg-amber-50 text-amber-700 border border-amber-200': order.orderStatus === 'pending',
@@ -136,8 +135,8 @@
                   >
                     {{ formatOrderStatus(order.orderStatus) }}
                   </span>
-                  <div v-if="order.trackingCode" class="mt-1 text-[11px] text-blue-600 font-mono flex items-center space-x-1">
-                    <svg class="w-3.5 h-3.5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div v-if="order.trackingCode" class="mt-1 text-[11px] text-teal-700 font-mono flex items-center space-x-1">
+                    <svg class="w-3.5 h-3.5 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                     </svg>
                     <span>{{ order.trackingCode }}</span>

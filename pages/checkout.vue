@@ -468,7 +468,7 @@ const copyPix = () => {
                 />
               </div>
               <div>
-                <label class="block text-xs font-bold text-slate-700 mb-1">Telefone / WhatsApp *</label>
+                <label class="block text-xs font-bold text-slate-700 mb-1">Telefone / Celular *</label>
                 <input
                   v-model="form.customerPhone"
                   type="text"
@@ -577,7 +577,7 @@ const copyPix = () => {
                   v-for="opt in shippingOptions"
                   :key="opt.id"
                   class="flex items-center justify-between p-3.5 rounded-2xl border cursor-pointer transition-all"
-                  :class="form.shippingService === opt.name ? 'border-emerald-600 bg-emerald-50/50 ring-2 ring-blue-100' : 'border-slate-200 hover:border-slate-300 bg-white'"
+                  :class="form.shippingService === opt.name ? 'border-emerald-600 bg-emerald-50/50 ring-2 ring-emerald-100' : 'border-slate-200 hover:border-slate-300 bg-white'"
                 >
                   <div class="flex items-center gap-3">
                     <input
@@ -607,8 +607,8 @@ const copyPix = () => {
               <span>Forma de Pagamento & Finalização</span>
             </h3>
 
-            <!-- 3 Payment Method Pills -->
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <!-- 2 Payment Method Pills -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <!-- PIX -->
               <label
                 class="flex flex-col items-center justify-center p-4 rounded-2xl border cursor-pointer transition-all text-center"
@@ -627,7 +627,7 @@ const copyPix = () => {
               <!-- Cartão de Crédito -->
               <label
                 class="flex flex-col items-center justify-center p-4 rounded-2xl border cursor-pointer transition-all text-center"
-                :class="form.paymentMethod === 'credit_card' ? 'border-emerald-600 bg-emerald-50/50 ring-2 ring-blue-100 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'"
+                :class="form.paymentMethod === 'credit_card' ? 'border-emerald-600 bg-emerald-50/50 ring-2 ring-emerald-100 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'"
               >
                 <input type="radio" value="credit_card" v-model="form.paymentMethod" class="sr-only" />
                 <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center mb-1.5">
@@ -637,21 +637,6 @@ const copyPix = () => {
                 </div>
                 <span class="text-xs font-extrabold text-slate-900">Cartão de Crédito</span>
                 <span class="text-[10px] text-slate-500 font-semibold mt-0.5">Até 12x sem juros</span>
-              </label>
-
-              <!-- WhatsApp -->
-              <label
-                class="flex flex-col items-center justify-center p-4 rounded-2xl border cursor-pointer transition-all text-center"
-                :class="form.paymentMethod === 'whatsapp' ? 'border-[#25D366] bg-emerald-50/50 ring-2 ring-emerald-200 shadow-sm' : 'border-slate-200 bg-white hover:border-slate-300'"
-              >
-                <input type="radio" value="whatsapp" v-model="form.paymentMethod" class="sr-only" />
-                <div class="w-10 h-10 rounded-xl bg-[#25D366]/20 text-[#25D366] flex items-center justify-center mb-1.5">
-                  <svg class="w-5 h-5 text-[#25D366]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                  </svg>
-                </div>
-                <span class="text-xs font-extrabold text-slate-900">Finalizar no WhatsApp</span>
-                <span class="text-[10px] text-emerald-600 font-semibold mt-0.5">Atendimento humano</span>
               </label>
             </div>
 
@@ -722,31 +707,16 @@ const copyPix = () => {
               </div>
             </div>
 
-            <!-- WhatsApp Explanatory Banner -->
-            <div v-else-if="form.paymentMethod === 'whatsapp'" class="p-5 rounded-2xl bg-emerald-50 border border-emerald-200 flex items-start space-x-3.5 text-xs text-emerald-900">
-              <div class="w-8 h-8 rounded-lg bg-[#25D366] text-white flex items-center justify-center shrink-0">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
-                </svg>
-              </div>
-              <div>
-                <strong class="font-bold block text-emerald-950 mb-0.5">Finalize com nosso atendente no WhatsApp</strong>
-                <p class="text-emerald-800 leading-relaxed">
-                  Ao clicar em <strong>Confirmar Pedido</strong>, registraremos seu pedido no sistema da loja e abriremos uma conversa no WhatsApp com todos os produtos, endereço e total prontos para envio.
-                </p>
-              </div>
-            </div>
-
             <!-- PIX Explanatory Banner -->
-            <div v-else class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center space-x-3 text-xs text-slate-700">
+            <div v-else class="p-4 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 flex items-center space-x-3 text-xs text-slate-700">
               <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
                 <svg class="w-4 h-4 text-emerald-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
-                <strong>Aprovação instantânea via PIX</strong>
-                <p class="text-slate-500 text-[11px] mt-0.5">O QR Code e a chave Copia e Cola serão exibidos na próxima tela para você pagar no app do banco.</p>
+                <strong class="text-slate-900">Aprovação instantânea via PIX</strong>
+                <p class="text-slate-500 text-[11px] mt-0.5">O QR Code e a chave Copia e Cola serão exibidos na próxima tela com confirmação automática.</p>
               </div>
             </div>
           </section>
@@ -848,12 +818,10 @@ const copyPix = () => {
             <button
               @click="submitOrder"
               :disabled="loading"
-              class="w-full disabled:opacity-50 text-white font-bold py-4 px-6 rounded-2xl text-sm transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99]"
-              :style="form.paymentMethod !== 'whatsapp' ? { backgroundColor: store?.accentColor || '#2563eb' } : {}"
-              :class="form.paymentMethod === 'whatsapp' ? 'bg-[#25D366] hover:bg-[#20bd5a] shadow-emerald-500/25' : 'hover:opacity-90 shadow-emerald-600/30'"
+              class="w-full disabled:opacity-50 text-white font-bold py-4 px-6 rounded-2xl text-sm transition-all shadow-lg flex items-center justify-center gap-2 hover:scale-[1.01] active:scale-[0.99] hover:opacity-90 shadow-emerald-600/30"
+              :style="{ backgroundColor: store?.accentColor || '#059669' }"
             >
               <span v-if="loading">Processando Pedido...</span>
-              <span v-else-if="form.paymentMethod === 'whatsapp'">Finalizar Pedido no WhatsApp</span>
               <span v-else-if="form.paymentMethod === 'credit_card'">Pagar com Cartão de Crédito</span>
               <span v-else>Confirmar e Pagar via PIX</span>
               <svg v-if="!loading" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -876,7 +844,7 @@ const copyPix = () => {
                 <span>{{ store?.themeConfig?.checkoutBadge2 || 'Garantia de 7 dias para troca ou devolução' }}</span>
               </div>
               <div class="flex items-center gap-2 font-medium">
-                <svg class="w-4 h-4 text-indigo-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-4 h-4 text-emerald-600 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
                 <span>{{ store?.themeConfig?.checkoutBadge3 || 'Envio Rápido e Rastreável pelos Correios' }}</span>

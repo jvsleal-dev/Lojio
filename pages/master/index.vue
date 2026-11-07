@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-indigo-600 selection:text-white">
+  <div class="min-h-screen bg-slate-50 flex text-slate-900 font-sans selection:bg-emerald-600 selection:text-white">
     <MasterSidebar />
 
     <main class="flex-1 overflow-y-auto p-6 md:p-8 space-y-6">
@@ -17,7 +17,7 @@
         <div class="flex items-center space-x-3">
           <NuxtLink
             to="/master/lojas"
-            class="px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-md shadow-indigo-600/20 flex items-center space-x-2 transition hover:scale-105 active:scale-95"
+            class="px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-md shadow-emerald-600/20 flex items-center space-x-2 transition hover:scale-105 active:scale-95"
           >
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
@@ -29,7 +29,7 @@
 
       <!-- Loading State -->
       <div v-if="loading" class="py-20 text-center">
-        <div class="inline-block animate-spin w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full mb-3"></div>
+        <div class="inline-block animate-spin w-8 h-8 border-4 border-emerald-600 border-t-transparent rounded-full mb-3"></div>
         <p class="text-slate-500 text-sm">Carregando métricas da plataforma...</p>
       </div>
 
@@ -58,7 +58,7 @@
           <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition">
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Lojas Cadastradas</span>
-              <div class="w-8 h-8 rounded-lg bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center">
+              <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
                 </svg>
@@ -124,13 +124,13 @@
               <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-slate-200 text-slate-700">R$ 99/mês</span>
             </div>
 
-            <div class="p-4 rounded-xl bg-indigo-50/60 border border-indigo-200 relative overflow-hidden flex items-center justify-between">
+            <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200 relative overflow-hidden flex items-center justify-between">
               <div>
-                <p class="text-xs text-indigo-700 font-bold uppercase">Pro (Mais Popular)</p>
+                <p class="text-xs text-emerald-800 font-bold uppercase">Pro (Mais Popular)</p>
                 <p class="text-xl font-black text-slate-900 mt-0.5">{{ data?.metrics?.plans?.pro || 0 }} lojas</p>
                 <p class="text-[11px] text-slate-500 mt-1">Até R$ 100k/mês</p>
               </div>
-              <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-indigo-600 text-white">R$ 249/mês</span>
+              <span class="px-2.5 py-1 rounded-lg text-xs font-bold bg-emerald-600 text-white">R$ 249/mês</span>
             </div>
 
             <div class="p-4 rounded-xl bg-purple-50/60 border border-purple-200 relative overflow-hidden flex items-center justify-between">
@@ -153,7 +153,7 @@
                 <h2 class="text-base font-bold text-slate-900">Lojas de Clientes Recentes</h2>
                 <p class="text-xs text-slate-500">Últimos clientes adicionados à plataforma</p>
               </div>
-              <NuxtLink to="/master/lojas" class="text-xs font-bold text-indigo-600 hover:text-indigo-700 transition">
+              <NuxtLink to="/master/lojas" class="text-xs font-bold text-emerald-700 hover:text-emerald-800 transition">
                 Ver todas &rarr;
               </NuxtLink>
             </div>
@@ -165,7 +165,7 @@
                 class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-between hover:border-slate-300 transition"
               >
                 <div class="flex items-center space-x-3">
-                  <div class="w-10 h-10 rounded-xl bg-indigo-50 text-indigo-700 font-bold flex items-center justify-center shrink-0 border border-indigo-200">
+                  <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 font-bold flex items-center justify-center shrink-0 border border-emerald-200">
                     {{ store.name.slice(0, 2).toUpperCase() }}
                   </div>
                   <div>
@@ -213,7 +213,7 @@
                 <div>
                   <div class="flex items-center space-x-2">
                     <span class="font-bold text-sm text-slate-900">#{{ order.orderNumber }}</span>
-                    <span class="text-xs text-indigo-600 font-semibold">({{ order.tenant?.name }})</span>
+                    <span class="text-xs text-emerald-700 font-semibold">({{ order.tenant?.name }})</span>
                   </div>
                   <p class="text-xs text-slate-400">{{ order.customerName }} &bull; {{ formatDate(order.createdAt) }}</p>
                 </div>

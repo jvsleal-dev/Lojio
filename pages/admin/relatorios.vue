@@ -66,7 +66,7 @@
           <div class="p-6 rounded-2xl bg-white border border-slate-200/90 shadow-sm hover:shadow-md transition">
             <div class="flex items-center justify-between mb-3">
               <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Total de Pedidos</span>
-              <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center">
+              <div class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 border border-teal-100 flex items-center justify-center">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
                 </svg>
@@ -138,10 +138,10 @@
             </div>
 
             <!-- Cartão -->
-            <div class="p-5 rounded-2xl bg-blue-50/50 border border-blue-200/80 shadow-xs">
+            <div class="p-5 rounded-2xl bg-emerald-50/50 border border-emerald-200/80 shadow-xs">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-xs font-bold text-blue-700 flex items-center space-x-1.5">
-                  <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <span class="text-xs font-bold text-emerald-800 flex items-center space-x-1.5">
+                  <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                   </svg>
                   <span>Cartão de Crédito</span>

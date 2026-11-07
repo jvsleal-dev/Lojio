@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Menu, Search, ShoppingBag, X } from 'lucide-vue-next'
 import { useCart } from '~/composables/useCart'
 
 const props = defineProps<{
@@ -35,16 +36,19 @@ const handleSearch = () => {
 
 <template>
   <header class="sticky top-0 z-40 bg-white border-b border-slate-200 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="store-container">
       <div class="flex items-center justify-between h-20 gap-4">
         <!-- Mobile Menu Trigger -->
         <button
+          type="button"
           @click="mobileMenuOpen = !mobileMenuOpen"
-          class="lg:hidden p-2 text-slate-600 hover:text-slate-900 focus:outline-none"
+          :aria-expanded="mobileMenuOpen"
+          aria-controls="store-mobile-menu"
+          :aria-label="mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'"
+          class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg text-slate-700 transition hover:bg-slate-100 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-700 focus-visible:ring-offset-2"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+          <X v-if="mobileMenuOpen" :size="20" aria-hidden="true" />
+          <Menu v-else :size="20" aria-hidden="true" />
         </button>
 
         <!-- Store Logo / Brand -->
@@ -55,15 +59,15 @@ const handleSearch = () => {
           >
             <img :src="store.logoUrl" :alt="store.name" class="h-full w-full object-cover" />
           </div>
-          <div v-else class="h-10 w-10 rounded-xl bg-slate-900 text-white font-bold flex items-center justify-center text-lg shadow-md group-hover:scale-105 transition-transform">
+          <div v-else class="h-10 w-10 rounded-xl bg-emerald-700 text-white font-extrabold flex items-center justify-center text-lg shadow-sm shadow-emerald-700/20 group-hover:scale-105 transition-transform">
             {{ store?.name ? store.name.charAt(0) : 'L' }}
           </div>
           <div class="flex flex-col">
-            <span class="font-extrabold text-xl text-slate-900 tracking-tight leading-none group-hover:text-emerald-600 transition-colors">
+            <span class="font-black text-xl text-slate-900 tracking-tight leading-none group-hover:text-emerald-700 transition-colors">
               {{ store?.name || 'Minha Loja' }}
             </span>
-            <span class="text-[10px] text-slate-400 font-medium uppercase tracking-wider mt-0.5">
-              Loja Oficial
+            <span class="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mt-0.5">
+              Loja online
             </span>
           </div>
         </NuxtLink>
@@ -71,17 +75,15 @@ const handleSearch = () => {
         <!-- Search Bar -->
         <div class="hidden md:flex flex-1 max-w-md mx-6">
           <form @submit.prevent="handleSearch" class="relative w-full">
+            <label for="store-search" class="sr-only">Buscar produtos</label>
             <input
+              id="store-search"
               v-model="searchQuery"
               type="text"
               placeholder="Buscar produtos, coleções, novidades..."
               class="w-full bg-slate-50 hover:bg-white focus:bg-white text-sm text-slate-800 placeholder-slate-400 pl-11 pr-4 py-2.5 rounded-full border border-slate-200 focus:border-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-600/20 transition-all shadow-xs"
             />
-            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-              </svg>
-            </span>
+            <Search :size="17" aria-hidden="true" class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
           </form>
         </div>
 
@@ -89,18 +91,18 @@ const handleSearch = () => {
         <div class="flex items-center gap-3">
           <!-- Cart Button -->
           <button
+            type="button"
             @click="isOpen = true"
-            :style="{ backgroundColor: store?.accentColor || '#0f172a' }"
-            class="relative flex items-center gap-2 text-white px-4 py-2 rounded-xl text-sm font-semibold transition-transform hover:scale-105 active:scale-95 shadow-md"
-            aria-label="Abrir carrinho"
+            :style="{ backgroundColor: store?.accentColor || '#059669' }"
+            class="relative flex items-center gap-2 text-white px-4 py-2.5 rounded-xl text-sm font-bold transition-transform hover:scale-105 active:scale-95 shadow-md shadow-emerald-600/20"
+            aria-label="Abrir carrinho de compras"
           >
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-            </svg>
+            <ShoppingBag :size="18" aria-hidden="true" />
             <span class="hidden sm:inline">Sacola</span>
             <span
               v-if="count > 0"
-              class="flex items-center justify-center bg-white text-slate-900 text-xs font-black w-5 h-5 rounded-full shadow"
+              aria-live="polite"
+              class="flex items-center justify-center bg-white text-emerald-800 text-xs font-black w-5 h-5 rounded-full shadow-xs tabular-nums"
             >
               {{ count }}
             </span>
@@ -109,7 +111,7 @@ const handleSearch = () => {
       </div>
 
       <!-- Categories Bar -->
-      <nav v-if="categories && categories.length > 0" class="hidden lg:flex items-center gap-8 py-3 border-t border-slate-100 overflow-x-auto text-sm">
+      <nav v-if="categories && categories.length > 0" aria-label="Categorias da loja" class="hidden lg:flex items-center gap-8 py-3 border-t border-slate-100 overflow-x-auto text-sm">
         <NuxtLink
           :to="getCategoryLink()"
           class="font-semibold text-slate-700 hover:text-emerald-600 transition-colors whitespace-nowrap"
@@ -129,10 +131,12 @@ const handleSearch = () => {
     </div>
 
     <!-- Mobile Drawer Nav -->
-    <div v-if="mobileMenuOpen" class="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3">
+    <div v-if="mobileMenuOpen" id="store-mobile-menu" class="lg:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3">
       <div class="py-2">
         <form @submit.prevent="handleSearch" class="relative">
+          <label for="store-mobile-search" class="sr-only">Buscar produtos</label>
           <input
+            id="store-mobile-search"
             v-model="searchQuery"
             type="text"
             placeholder="Buscar produtos..."
@@ -140,7 +144,7 @@ const handleSearch = () => {
           />
         </form>
       </div>
-      <div class="space-y-1">
+      <nav aria-label="Categorias da loja no celular" class="space-y-1">
         <NuxtLink
           :to="getCategoryLink()"
           @click="mobileMenuOpen = false"
@@ -157,7 +161,7 @@ const handleSearch = () => {
         >
           {{ cat.name }}
         </NuxtLink>
-      </div>
+      </nav>
     </div>
   </header>
 </template>

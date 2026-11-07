@@ -1,19 +1,18 @@
 <template>
-  <div class="min-h-screen bg-slate-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8 text-slate-900 selection:bg-emerald-600 selection:text-white">
+  <div class="min-h-screen bg-[#f7f8f5] flex flex-col justify-center py-10 sm:px-6 lg:px-8 text-slate-900 selection:bg-emerald-600 selection:text-white">
     <div class="sm:mx-auto sm:w-full sm:max-w-md text-center">
-      <!-- Logo Nuvemshop style -->
       <NuxtLink to="/?tenant=none" class="inline-flex items-center space-x-2.5 mb-6 group">
-        <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-700 via-emerald-600 to-teal-400 flex items-center justify-center text-white shadow-xl shadow-emerald-600/25 group-hover:scale-105 transition-transform">
+        <div class="w-11 h-11 rounded-lg bg-emerald-700 flex items-center justify-center text-white transition-opacity group-hover:opacity-85">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 00-9.78 2.096A4.001 4.001 0 003 15z" />
           </svg>
         </div>
-        <span class="font-extrabold text-3xl tracking-tight text-slate-900 flex items-center">
+        <span class="font-semibold text-3xl tracking-[-0.04em] text-slate-900 flex items-center">
           loj<span class="text-emerald-600">io</span>
         </span>
       </NuxtLink>
 
-      <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+      <h2 class="text-2xl sm:text-3xl font-semibold text-slate-900 tracking-[-0.03em]">
         Painel do Lojista
       </h2>
       <p class="mt-2 text-sm text-slate-500 max-w-sm mx-auto">
@@ -22,42 +21,7 @@
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md px-4">
-      <div class="bg-white py-8 px-6 sm:px-10 shadow-xl shadow-slate-900/5 rounded-3xl border border-slate-200/80">
-        <!-- Quick Fill Helpers -->
-        <div class="mb-6 p-4 rounded-2xl bg-emerald-50/70 border border-emerald-100 text-xs space-y-2.5">
-          <div class="flex items-center justify-between text-emerald-900 font-bold">
-            <span class="flex items-center gap-1.5">
-              <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <span>Acesso Rápido para Teste</span>
-            </span>
-            <span class="text-[10px] text-emerald-600 font-semibold uppercase tracking-wider">Demo</span>
-          </div>
-
-          <div class="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              @click="quickLogin('lojista@demo.com', 'senha123')"
-              class="py-2.5 px-3 rounded-xl bg-white hover:bg-emerald-600 text-slate-700 hover:text-white font-bold text-xs border border-emerald-200/60 shadow-sm transition flex items-center justify-center gap-1.5 group"
-            >
-              <svg class="w-4 h-4 text-emerald-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-              </svg>
-              <span>Moda Urbana</span>
-            </button>
-            <button
-              type="button"
-              @click="quickLogin('tech@demo.com', 'senha123')"
-              class="py-2.5 px-3 rounded-xl bg-white hover:bg-emerald-700 text-slate-700 hover:text-white font-bold text-xs border border-emerald-200/60 shadow-sm transition flex items-center justify-center gap-1.5 group"
-            >
-              <svg class="w-4 h-4 text-emerald-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-              <span>TechZone</span>
-            </button>
-          </div>
-        </div>
+      <div class="bg-white py-8 px-6 sm:px-10 rounded-2xl border border-slate-200">
 
         <form class="space-y-4" @submit.prevent="handleLogin">
           <div v-if="errorMsg" class="p-3.5 rounded-2xl bg-rose-50 border border-rose-200 text-rose-600 text-xs font-semibold flex items-center gap-2">
@@ -68,7 +32,7 @@
           </div>
 
           <div>
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1.5">
+            <label class="block text-sm font-medium text-slate-700 mb-1.5">
               E-mail do Lojista
             </label>
             <input
@@ -76,13 +40,13 @@
               type="email"
               required
               placeholder="lojista@demo.com"
-              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
+              class="w-full px-3.5 py-3 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition"
             />
           </div>
 
           <div>
             <div class="flex items-center justify-between mb-1.5">
-              <label class="block text-xs font-bold uppercase tracking-wider text-slate-700">
+              <label class="block text-sm font-medium text-slate-700">
                 Senha
               </label>
               <button
@@ -98,14 +62,14 @@
               type="password"
               required
               placeholder="••••••••"
-              class="w-full px-4 py-3 rounded-2xl bg-slate-50 border border-slate-200 text-slate-900 text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
+              class="w-full px-3.5 py-3 rounded-lg bg-white border border-slate-300 text-slate-900 text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-emerald-600/20 focus:border-emerald-600 transition"
             />
           </div>
 
           <button
             type="submit"
             :disabled="loading"
-            class="w-full py-3.5 px-4 rounded-2xl text-white font-extrabold text-sm bg-emerald-600 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 shadow-lg shadow-emerald-600/30 transition hover:scale-[1.01] active:scale-[0.99] disabled:opacity-50"
+            class="w-full py-3.5 px-4 rounded-lg text-white font-semibold text-sm bg-emerald-700 hover:bg-emerald-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-emerald-600 transition-colors disabled:opacity-50"
           >
             {{ loading ? 'Autenticando...' : 'Entrar no Painel do Lojista' }}
           </button>
@@ -150,12 +114,6 @@ onMounted(() => {
     router.push('/admin')
   }
 })
-
-const quickLogin = (e: string, p: string) => {
-  email.value = e
-  password.value = p
-  errorMsg.value = ''
-}
 
 const alertPassword = () => {
   alert('Dica de demonstração: a senha padrão de todas as lojas é "senha123".')
