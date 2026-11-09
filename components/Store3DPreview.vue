@@ -19,6 +19,8 @@ let baseMat: THREE.MeshStandardMaterial | null = null
 let roofMat: THREE.MeshStandardMaterial | null = null
 let accentMat: THREE.MeshStandardMaterial | null = null
 
+let resizeHandler: (() => void) | null = null
+
 onMounted(() => {
   if (!canvasRef.value) return
   const container = canvasRef.value.parentElement
@@ -137,15 +139,17 @@ onMounted(() => {
   }
   animate()
 
-  const handleResize = () => {
+  resizeHandler = () => {
     if (!container || !renderer || !camera) return
     const newW = container.clientWidth
     const newH = container.clientHeight
-    camera.aspect = newW / newH
-    camera.updateProjectionMatrix()
-    renderer.setSize(newW, newH)
+    if (newW && newH) {
+      camera.aspect = newW / newH
+      camera.updateProjectionMatrix()
+      renderer.setSize(newW, newH)
+    }
   }
-  window.addEventListener('resize', handleResize)
+  window.addEventListener('resize', resizeHandler)
 })
 
 watch(() => props.themeColor, (newCol) => {
@@ -162,6 +166,7 @@ watch(() => props.accentColor, (newCol) => {
 
 onBeforeUnmount(() => {
   if (frameId) cancelAnimationFrame(frameId)
+  if (resizeHandler) window.removeEventListener('resize', resizeHandler)
   if (renderer) renderer.dispose()
 })
 </script>

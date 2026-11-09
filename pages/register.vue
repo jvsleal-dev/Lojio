@@ -11,3 +11,4 @@ await navigateTo('/admin/register', { replace: true })
     </div>
   </div>
 </template>
+

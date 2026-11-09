@@ -623,11 +623,20 @@ const resetBlocks = () => {
 onMounted(async () => {
   try {
     const res: any = await $fetch('/api/admin/store')
-    if (res?.store) {
-      storeInfo.name = res.store.name || storeInfo.name
-      storeInfo.subdomain = res.store.subdomain || ''
-      storeInfo.primaryColor = res.store.primaryColor || '#059669'
-      storeInfo.accentColor = res.store.accentColor || '#10b981'
+    const tenant = res?.tenant || res?.store
+    if (tenant) {
+      storeInfo.name = tenant.name || storeInfo.name
+      storeInfo.subdomain = tenant.subdomain || ''
+      storeInfo.primaryColor = tenant.primaryColor || '#059669'
+      storeInfo.accentColor = tenant.accentColor || '#10b981'
+
+      // Se já houver blocos salvos no themeConfig, restaura no construtor
+      if (tenant.themeConfig?.builderBlocks && Array.isArray(tenant.themeConfig.builderBlocks)) {
+        blocks.value = tenant.themeConfig.builderBlocks
+        if (blocks.value.length > 0) {
+          selectedBlockId.value = blocks.value[0].id
+        }
+      }
     }
   } catch (e) {
     // defaults
@@ -648,16 +657,32 @@ const showToast = (msg: string, type: 'success' | 'error' = 'success') => {
 const saveLayout = async () => {
   saving.value = true
   try {
+    // Busca as configs atuais para mesclar sem sobrescrever
+    let currentThemeConfig: any = {}
+    try {
+      const getRes: any = await $fetch('/api/admin/store')
+      const t = getRes?.tenant || getRes?.store
+      if (t?.themeConfig) {
+        currentThemeConfig = typeof t.themeConfig === 'string' ? JSON.parse(t.themeConfig) : t.themeConfig
+      }
+    } catch {}
+
+    const updatedThemeConfig = {
+      ...currentThemeConfig,
+      builderBlocks: blocks.value
+    }
+
     await $fetch('/api/admin/store', {
       method: 'PUT',
       body: {
         primaryColor: storeInfo.primaryColor,
-        accentColor: storeInfo.accentColor
+        accentColor: storeInfo.accentColor,
+        themeConfig: updatedThemeConfig
       }
     })
-    showToast('Layout e tema salvos com sucesso na loja!')
+    showToast('Estrutura de blocos e estilo publicados com sucesso!')
   } catch (err) {
-    showToast('Erro ao salvar alterações da loja.', 'error')
+    showToast('Erro ao publicar alterações da loja.', 'error')
   } finally {
     saving.value = false
   }
