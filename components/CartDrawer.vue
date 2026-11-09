@@ -83,8 +83,11 @@ const goToCheckout = () => {
               <span v-if="remainingForFreeShipping > 0" class="text-slate-700 font-medium">
                 Faltam <strong class="text-emerald-700 font-extrabold tabular-nums">R$ {{ remainingForFreeShipping.toFixed(2).replace('.', ',') }}</strong> para <strong class="text-emerald-800">Frete Grátis</strong>
               </span>
-              <span v-else class="text-emerald-800 font-black flex items-center gap-1">
-                <span>🎉</span> Parabéns! Você ganhou Frete Grátis!
+              <span v-else class="text-emerald-800 font-black flex items-center gap-1.5">
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+                <span>Parabéns! Você ganhou Frete Grátis!</span>
               </span>
               <span class="text-[10px] text-emerald-700 font-bold tabular-nums">{{ freeShippingPercent }}%</span>
             </div>

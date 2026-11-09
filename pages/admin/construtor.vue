@@ -19,12 +19,12 @@
             v-model="currentPage"
             class="appearance-none bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl px-3.5 py-1.5 pr-8 text-xs font-bold text-slate-800 focus:outline-none focus:ring-2 focus:ring-emerald-600/30 cursor-pointer transition"
           >
-            <option value="home">🏠 Início</option>
-            <option value="catalog">🏷️ Produtos</option>
-            <option value="contact">📞 Contato</option>
+            <option value="home">Início</option>
+            <option value="catalog">Produtos</option>
+            <option value="contact">Contato</option>
           </select>
           <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
-            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7-7 7-7" /></svg>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" /></svg>
           </div>
         </div>
       </div>
@@ -149,8 +149,11 @@
             type="button"
             class="p-4 rounded-2xl border border-slate-200 bg-slate-50 hover:bg-emerald-50/70 hover:border-emerald-500 flex flex-col items-center text-center transition group cursor-pointer"
           >
-            <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 group-hover:border-emerald-300 flex items-center justify-center mb-2 shadow-2xs">
-              <span class="text-lg">{{ widget.emoji }}</span>
+            <div class="w-10 h-10 rounded-xl bg-white border border-slate-200 group-hover:border-emerald-300 flex items-center justify-center mb-2 shadow-2xs text-slate-700">
+              <svg v-if="widget.type === 'hero'" class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+              <svg v-else-if="widget.type === 'banner'" class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+              <svg v-else-if="widget.type === 'products'" class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+              <svg v-else class="w-5 h-5 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
             </div>
             <span class="text-xs font-bold text-slate-800 group-hover:text-emerald-900">{{ widget.title }}</span>
             <span class="text-[10px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">{{ widget.desc }}</span>
@@ -436,7 +439,9 @@
                 v-else-if="block.type === 'banner'"
                 class="p-4 bg-emerald-50 border-y border-emerald-100 flex items-center justify-center space-x-2 text-xs font-bold text-emerald-950"
               >
-                <span>🏷️</span>
+                <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+                </svg>
                 <span class="px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] uppercase font-black">
                   {{ block.props.badge || 'CUPOM' }}
                 </span>
@@ -762,26 +767,22 @@ const availableWidgets = [
   {
     type: 'hero',
     title: 'Carrossel / Banner Principal',
-    desc: 'Slide grande com imagem, título e botão de ação',
-    emoji: '🖼️'
+    desc: 'Slide grande com imagem, título e botão de ação'
   },
   {
     type: 'banner',
     title: 'Barra de Cupom & Aviso',
-    desc: 'Destaque de cupom de desconto ou frete grátis',
-    emoji: '🏷️'
+    desc: 'Destaque de cupom de desconto ou frete grátis'
   },
   {
     type: 'products',
     title: 'Produtos em Destaque',
-    desc: 'Grade de produtos com fotos, preços e compra PIX',
-    emoji: '🛍️'
+    desc: 'Grade de produtos com fotos, preços e compra PIX'
   },
   {
     type: 'features',
     title: 'Selos de Vantagens',
-    desc: 'Frete rápido, PIX seguro e suporte garantido',
-    emoji: '🛡️'
+    desc: 'Frete rápido, PIX seguro e suporte garantido'
   }
 ]
 
