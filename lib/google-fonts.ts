@@ -67,3 +67,4 @@ export const POPULAR_GOOGLE_FONTS: GoogleFontOption[] = [
   { id: 'JetBrains Mono', name: 'JetBrains Mono', category: 'Monospace' },
   { id: 'Fira Code', name: 'Fira Code', category: 'Monospace' }
 ]
+

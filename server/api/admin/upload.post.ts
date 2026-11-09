@@ -55,3 +55,4 @@ export default defineEventHandler(async (event) => {
     size: fileItem.data.length,
   }
 })
+

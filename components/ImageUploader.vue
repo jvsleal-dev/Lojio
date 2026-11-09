@@ -137,3 +137,4 @@ const uploadFile = async (file: File) => {
   }
 }
 </script>
+

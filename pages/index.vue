@@ -363,49 +363,49 @@ const quickAddToCart = (product: any) => {
         </section>
 
         <!-- Trust Bar / Diferenciais da Loja -->
-        <section v-if="storeTemplate.showTrustBar" class="grid grid-cols-2 md:grid-cols-4 gap-3 py-3.5 border-y border-slate-200/80 bg-white/80 backdrop-blur-xs rounded-2xl px-5 text-xs text-slate-700 shadow-2xs">
-          <div class="flex items-center gap-2.5 py-1">
-            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-100">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+        <section v-if="storeTemplate.showTrustBar" class="grid grid-cols-2 md:grid-cols-4 gap-3 py-4 border border-slate-200/90 bg-white/90 backdrop-blur-xs rounded-2xl px-5 text-xs text-slate-700 shadow-sm">
+          <div class="flex items-center gap-3 py-1">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/25">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
               </svg>
             </div>
             <div>
               <p class="font-extrabold text-slate-900 leading-tight">Pix com Desconto</p>
-              <p class="text-[11px] text-slate-500">Aprovação imediata</p>
+              <p class="text-[11px] text-slate-500 font-medium">Aprovação imediata</p>
             </div>
           </div>
-          <div class="flex items-center gap-2.5 py-1">
-            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-100">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+          <div class="flex items-center gap-3 py-1">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/25">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
               </svg>
             </div>
             <div>
               <p class="font-extrabold text-slate-900 leading-tight">Em até 12x no Cartão</p>
-              <p class="text-[11px] text-slate-500">Parcelamento protegido</p>
+              <p class="text-[11px] text-slate-500 font-medium">Parcelamento protegido</p>
             </div>
           </div>
-          <div class="flex items-center gap-2.5 py-1">
-            <div class="w-8 h-8 rounded-lg bg-teal-50 text-teal-700 flex items-center justify-center shrink-0 border border-teal-100">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+          <div class="flex items-center gap-3 py-1">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-teal-500/25">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
               </svg>
             </div>
             <div>
               <p class="font-extrabold text-slate-900 leading-tight">Envio Rastreável</p>
-              <p class="text-[11px] text-slate-500">Para todo o Brasil</p>
+              <p class="text-[11px] text-slate-500 font-medium">Para todo o Brasil</p>
             </div>
           </div>
-          <div class="flex items-center gap-2.5 py-1">
-            <div class="w-8 h-8 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center shrink-0 border border-emerald-100">
-              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          <div class="flex items-center gap-3 py-1">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-600 text-white flex items-center justify-center shrink-0 shadow-md shadow-emerald-500/25">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
             <div>
               <p class="font-extrabold text-slate-900 leading-tight">Troca Fácil 7 Dias</p>
-              <p class="text-[11px] text-slate-500">Garantida pelo CDC</p>
+              <p class="text-[11px] text-slate-500 font-medium">Garantida pelo CDC</p>
             </div>
           </div>
         </section>

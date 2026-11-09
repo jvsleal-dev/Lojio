@@ -308,21 +308,25 @@
           <div class="p-8 rounded-3xl bg-slate-900/90 border border-slate-800 flex flex-col justify-between hover:border-emerald-500/40 transition">
             <div class="space-y-4">
               <!-- Mockup UI inside Card -->
-              <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 mb-6">
+              <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 mb-6 shadow-inner">
                 <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
                   <div class="flex items-center space-x-2">
-                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
-                    </svg>
-                    <span class="text-emerald-400 font-bold">Lumi IA</span>
+                    <div class="w-6 h-6 rounded-lg bg-gradient-to-br from-emerald-400 to-teal-600 flex items-center justify-center text-white shadow-sm shadow-emerald-500/30">
+                      <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                      </svg>
+                    </div>
+                    <span class="text-white font-extrabold tracking-wide">Lumi IA</span>
                   </div>
-                  <span class="text-slate-500 text-[11px]">Diagnóstico em Tempo Real</span>
+                  <span class="text-slate-400 text-[11px] font-medium bg-slate-900 px-2.5 py-0.5 rounded-full border border-slate-800">Diagnóstico em Tempo Real</span>
                 </div>
-                <div class="mt-3 p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300">
-                  <p class="text-emerald-400 font-semibold mb-1 flex items-center gap-1.5">
-                    <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                    </svg>
+                <div class="mt-3 p-3 rounded-xl bg-slate-900/90 border border-emerald-500/20 text-xs text-slate-300">
+                  <p class="text-emerald-400 font-bold mb-1 flex items-center gap-1.5">
+                    <span class="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                      <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </span>
                     <span>7 produtos otimizados para o Google</span>
                   </p>
                   <p class="text-slate-400 text-[11px]">Títulos e descrições com palavras-chave de alta conversão geradas com sucesso.</p>
@@ -342,11 +346,21 @@
             <div class="space-y-4">
               <!-- Visual Banners Mockup -->
               <div class="grid grid-cols-2 gap-3 mb-6">
-                <div class="h-28 rounded-2xl bg-gradient-to-tr from-emerald-950/70 to-slate-800 border border-slate-700/60 p-3 flex flex-col justify-end">
-                  <span class="text-white font-bold text-xs">Banners Personalizados</span>
+                <div class="h-28 rounded-2xl bg-gradient-to-tr from-emerald-950/80 via-slate-900 to-slate-800 border border-emerald-500/30 p-3 flex flex-col justify-between group hover:border-emerald-400/60 transition shadow-lg shadow-black/40">
+                  <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white flex items-center justify-center shadow-md shadow-emerald-500/30">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                    </svg>
+                  </div>
+                  <span class="text-white font-extrabold text-xs tracking-wide">Banners Personalizados</span>
                 </div>
-                <div class="h-28 rounded-2xl bg-gradient-to-tr from-teal-950/70 to-slate-800 border border-slate-700/60 p-3 flex flex-col justify-end">
-                  <span class="text-white font-bold text-xs">Cores & Tipografia</span>
+                <div class="h-28 rounded-2xl bg-gradient-to-tr from-teal-950/80 via-slate-900 to-slate-800 border border-teal-500/30 p-3 flex flex-col justify-between group hover:border-teal-400/60 transition shadow-lg shadow-black/40">
+                  <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-600 text-white flex items-center justify-center shadow-md shadow-teal-500/30">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M7 21a4 4 0 01-4-4 4 4 0 014-4c.7 0 1.34.18 1.9.5A7.97 7.97 0 0112 12a7.97 7.97 0 013.1 1.5c.56-.32 1.2-.5 1.9-.5a4 4 0 014 4 4 4 0 01-4 4M7 21h10" />
+                    </svg>
+                  </div>
+                  <span class="text-white font-extrabold text-xs tracking-wide">Cores & Tipografia</span>
                 </div>
               </div>
 
@@ -377,32 +391,32 @@
               </p>
 
               <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
-                <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800">
-                  <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-emerald-500/40 transition">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white flex items-center justify-center shadow-md shadow-emerald-500/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
                   </div>
-                  <p class="font-bold text-white text-xs mt-2">PIX Instantâneo</p>
-                  <p class="text-[11px] text-slate-500">QR Code na hora</p>
+                  <p class="font-extrabold text-white text-xs mt-3">PIX Instantâneo</p>
+                  <p class="text-[11px] text-slate-400">QR Code na hora</p>
                 </div>
-                <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800">
-                  <div class="w-8 h-8 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center">
-                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-emerald-500/40 transition">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-700 text-white flex items-center justify-center shadow-md shadow-emerald-500/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                     </svg>
                   </div>
-                  <p class="font-bold text-white text-xs mt-2">Cartão em 12x</p>
-                  <p class="text-[11px] text-slate-500">Checkout transparente</p>
+                  <p class="font-extrabold text-white text-xs mt-3">Cartão em 12x</p>
+                  <p class="text-[11px] text-slate-400">Checkout transparente</p>
                 </div>
-                <div class="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800">
-                  <div class="w-8 h-8 rounded-lg bg-teal-500/10 text-teal-400 flex items-center justify-center">
-                    <svg class="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                <div class="p-4 rounded-2xl bg-slate-950/80 border border-slate-800 hover:border-emerald-500/40 transition">
+                  <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-[#25D366] to-emerald-700 text-white flex items-center justify-center shadow-md shadow-emerald-500/20">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
                   </div>
-                  <p class="font-bold text-white text-xs mt-2">WhatsApp 1-Clique</p>
-                  <p class="text-[11px] text-slate-500">Venda consultiva</p>
+                  <p class="font-extrabold text-white text-xs mt-3">WhatsApp 1-Clique</p>
+                  <p class="text-[11px] text-slate-400">Venda consultiva</p>
                 </div>
               </div>
             </div>
@@ -410,8 +424,8 @@
             <!-- Card Demo Mockup (Image 5 exact style) -->
             <div class="lg:col-span-5 flex justify-center">
               <div class="w-full max-w-sm bg-white text-slate-900 p-6 sm:p-7 rounded-3xl shadow-2xl border border-slate-100 text-center space-y-4">
-                <div class="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <svg class="w-7 h-7 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-emerald-500/30">
+                  <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
                   </svg>
                 </div>
@@ -420,23 +434,23 @@
                   <p class="text-xs text-slate-500 mt-0.5">Pagamento aprovado via Pix</p>
                 </div>
 
-                <div class="flex items-center justify-between p-3 bg-slate-50 rounded-2xl border border-slate-200 text-left text-xs">
-                  <div class="flex items-center space-x-2.5">
-                    <div class="w-10 h-10 rounded-xl bg-slate-100 border border-slate-200 flex items-center justify-center text-slate-600">
-                      <svg class="w-5 h-5 text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-2xl border border-slate-200 text-left text-xs">
+                  <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-slate-800 to-slate-950 text-emerald-400 flex items-center justify-center shadow-sm">
+                      <svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                       </svg>
                     </div>
                     <div>
-                      <p class="font-bold text-slate-900 leading-tight">Pedido #1049</p>
-                      <p class="text-[11px] text-slate-500">2 Itens</p>
+                      <p class="font-extrabold text-slate-900 leading-tight">Pedido #1049</p>
+                      <p class="text-[11px] text-slate-500 font-medium">2 Itens</p>
                     </div>
                   </div>
-                  <span class="font-black text-slate-900 text-sm">R$ 539,70</span>
+                  <span class="font-black text-emerald-600 text-base">R$ 539,70</span>
                 </div>
 
-                <div class="w-full py-3.5 px-4 rounded-2xl bg-[#25D366] text-white font-extrabold text-xs shadow-lg shadow-emerald-500/25 flex items-center justify-center space-x-2">
-                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                <div class="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-[#25D366] to-emerald-600 hover:from-emerald-500 hover:to-teal-600 text-white font-extrabold text-xs shadow-lg shadow-emerald-500/30 flex items-center justify-center space-x-2 transition">
+                  <svg class="w-4 h-4 fill-current shrink-0" viewBox="0 0 24 24">
                     <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
                   </svg>
                   <span>Enviar pedido via WhatsApp</span>
@@ -473,9 +487,9 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
           <!-- 1. Começa grátis -->
           <div class="p-8 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col items-center text-center hover:border-emerald-500/50 transition group">
-            <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mb-6 group-hover:bg-emerald-500/25 transition">
-              <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-600 shadow-lg shadow-emerald-500/30 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform text-white">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
               </svg>
             </div>
             <h3 class="text-xl font-black text-white mb-3">Comece grátis</h3>
@@ -488,13 +502,13 @@
           </div>
 
           <!-- 2. Taxa por venda (destaque central) -->
-          <div class="p-8 rounded-3xl bg-emerald-600/80 backdrop-blur-xl border-2 border-white/30 shadow-2xl shadow-emerald-500/30 flex flex-col items-center text-center relative transform -translate-y-2">
+          <div class="p-8 rounded-3xl bg-emerald-600/90 backdrop-blur-xl border-2 border-white/30 shadow-2xl shadow-emerald-500/40 flex flex-col items-center text-center relative transform -translate-y-2">
             <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white text-emerald-950 font-extrabold text-[10px] uppercase tracking-wider shadow-lg">
               Como funciona
             </span>
-            <div class="w-16 h-16 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center mb-6">
-              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            <div class="w-16 h-16 rounded-2xl bg-white text-emerald-700 shadow-xl shadow-black/20 flex items-center justify-center mb-6">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
               </svg>
             </div>
             <h3 class="text-xl font-black text-white mb-2">Taxa por venda</h3>
@@ -509,9 +523,9 @@
 
           <!-- 3. Sem surpresas -->
           <div class="p-8 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col items-center text-center hover:border-emerald-500/50 transition group">
-            <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mb-6 group-hover:bg-emerald-500/25 transition">
-              <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-teal-400 to-emerald-600 shadow-lg shadow-teal-500/30 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform text-white">
+              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
             </div>
             <h3 class="text-xl font-black text-white mb-3">Sem surpresas</h3>
