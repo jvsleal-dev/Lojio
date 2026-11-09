@@ -77,6 +77,26 @@
         </div>
       </header>
 
+      <!-- Feedback Toast Notification -->
+      <Transition
+        enter-active-class="transform ease-out duration-300 transition"
+        enter-from-class="translate-y-2 opacity-0"
+        enter-to-class="translate-y-0 opacity-100"
+        leave-active-class="transition ease-in duration-200"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="toastMsg"
+          class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl shadow-xl flex items-center space-x-2.5 text-xs font-bold border"
+          :class="toastType === 'success' ? 'bg-emerald-600 text-white border-emerald-500 shadow-emerald-900/30' : 'bg-rose-600 text-white border-rose-500 shadow-rose-900/30'"
+        >
+          <svg v-if="toastType === 'success'" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+          <svg v-else class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          <span>{{ toastMsg }}</span>
+        </div>
+      </Transition>
+
       <!-- Main Studio Body -->
       <div class="flex-1 flex overflow-hidden">
         <!-- Left Sidebar: Elementor Style Widgets / Blocks Palette -->
@@ -614,6 +634,17 @@ onMounted(async () => {
   }
 })
 
+const toastMsg = ref('')
+const toastType = ref<'success' | 'error'>('success')
+
+const showToast = (msg: string, type: 'success' | 'error' = 'success') => {
+  toastMsg.value = msg
+  toastType.value = type
+  setTimeout(() => {
+    toastMsg.value = ''
+  }, 4000)
+}
+
 const saveLayout = async () => {
   saving.value = true
   try {
@@ -624,11 +655,12 @@ const saveLayout = async () => {
         accentColor: storeInfo.accentColor
       }
     })
-    alert('Layout e tema salvos com sucesso!')
+    showToast('Layout e tema salvos com sucesso na loja!')
   } catch (err) {
-    alert('Erro ao salvar alterações.')
+    showToast('Erro ao salvar alterações da loja.', 'error')
   } finally {
     saving.value = false
   }
 }
 </script>
+

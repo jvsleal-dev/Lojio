@@ -29,10 +29,10 @@
           <div class="flex items-center space-x-3">
             <NuxtLink
               to="/master/login"
-              class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-indigo-300 hover:text-white bg-indigo-950/60 hover:bg-indigo-900/60 border border-indigo-500/30 transition"
+              class="hidden sm:inline-flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-bold text-emerald-300 hover:text-white bg-emerald-950/70 hover:bg-emerald-900/80 border border-emerald-500/30 transition"
               title="Painel do Dono da Plataforma"
             >
-              <svg class="w-3.5 h-3.5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg class="w-3.5 h-3.5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               <span>Painel Master</span>
@@ -250,21 +250,21 @@
           <!-- TechZone -->
           <a
             href="/?tenant=techzone"
-            class="p-5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition group flex items-center justify-between shadow-xl"
+            class="p-5 rounded-2xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition group flex items-center justify-between shadow-xl"
           >
             <div class="flex items-center space-x-3.5">
-              <div class="w-12 h-12 rounded-xl bg-purple-600/20 text-purple-400 flex items-center justify-center font-black text-lg border border-purple-500/30">
+              <div class="w-12 h-12 rounded-xl bg-emerald-600/20 text-emerald-400 flex items-center justify-center font-black text-lg border border-emerald-500/30">
                 TZ
               </div>
               <div>
                 <div class="flex items-center space-x-2">
-                  <h3 class="font-bold text-white group-hover:text-purple-400 transition">TechZone Store</h3>
-                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 font-bold uppercase">Pro</span>
+                  <h3 class="font-bold text-white group-hover:text-emerald-400 transition">TechZone Store</h3>
+                  <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold uppercase">Eletrônicos</span>
                 </div>
-                <p class="text-xs text-slate-400">Fones ANC & Teclados &bull; techzone.localhost</p>
+                <p class="text-xs text-slate-400">Fones ANC & Teclados &bull; techzone.lojio.com.br</p>
               </div>
             </div>
-            <span class="text-xs font-bold text-purple-400 group-hover:translate-x-1 transition-transform">&rarr;</span>
+            <span class="text-xs font-bold text-emerald-400 group-hover:translate-x-1 transition-transform">&rarr;</span>
           </a>
 
           <!-- Aroma & Grão Café -->
@@ -311,10 +311,10 @@
               <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800 mb-6">
                 <div class="flex items-center justify-between pb-3 border-b border-slate-800 text-xs">
                   <div class="flex items-center space-x-2">
-                    <svg class="w-4 h-4 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
-                    <span class="text-indigo-400 font-bold">Lumi IA</span>
+                    <span class="text-emerald-400 font-bold">Lumi IA</span>
                   </div>
                   <span class="text-slate-500 text-[11px]">Diagnóstico em Tempo Real</span>
                 </div>
@@ -689,7 +689,7 @@
 
         <div class="flex items-center space-x-6">
           <NuxtLink to="/admin" class="hover:text-white transition">Painel do Lojista</NuxtLink>
-          <NuxtLink to="/master" class="hover:text-white transition font-bold text-indigo-400">Painel Master SuperAdmin</NuxtLink>
+          <NuxtLink to="/master" class="hover:text-white transition font-bold text-emerald-400">Painel Master SuperAdmin</NuxtLink>
           <a href="#lojas" class="hover:text-white transition">Lojas Parceiras</a>
         </div>
 
