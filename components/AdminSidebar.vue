@@ -170,6 +170,17 @@
           </p>
 
           <div class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-600 hover:text-slate-900 text-sm font-medium group">
+            <NuxtLink to="/admin/construtor" class="flex items-center space-x-3 flex-1" active-class="text-emerald-700 font-bold">
+              <!-- Elementor / Blocks Icon -->
+              <svg class="w-4 h-4 shrink-0 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+              </svg>
+              <span>Construtor (Elementor)</span>
+            </NuxtLink>
+            <span class="text-[9px] font-black uppercase tracking-wider px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">3D</span>
+          </div>
+
+          <div class="flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-600 hover:text-slate-900 text-sm font-medium group">
             <NuxtLink to="/admin/personalizar" class="flex items-center space-x-3 flex-1">
               <!-- Storefront Window Icon -->
               <svg class="w-4 h-4 shrink-0 text-current" fill="none" stroke="currentColor" viewBox="0 0 24 24">
