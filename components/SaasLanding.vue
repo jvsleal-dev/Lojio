@@ -616,8 +616,8 @@
             </div>
 
             <div class="mt-6 flex flex-wrap gap-2">
-              <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Lojio Pago</span>
-              <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Lojio Envio</span>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Checkout Transparente</span>
+              <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Cálculo de Frete Correios</span>
               <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-300 text-[11px] font-semibold border border-emerald-800/40">Lojio Marketing</span>
             </div>
           </div>

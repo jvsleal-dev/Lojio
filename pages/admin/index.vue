@@ -133,28 +133,36 @@
             </div>
           </div>
 
-          <!-- Item 3: Personalize sua loja -->
+          <!-- Item 3: Personalize sua loja e crie o layout -->
           <NuxtLink
-            to="/admin/personalizar"
-            class="p-5 flex items-start justify-between hover:bg-slate-50/60 transition group cursor-pointer block"
+            to="/admin/construtor"
+            class="p-5 flex items-start justify-between hover:bg-slate-50/60 transition group cursor-pointer block border-l-4 border-l-emerald-600 bg-emerald-50/20"
           >
             <div class="flex items-start space-x-3.5">
-              <div class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
+              <div class="w-8 h-8 rounded-xl bg-emerald-600 text-white flex items-center justify-center shrink-0 mt-0.5 shadow-sm shadow-emerald-600/30">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
                 </svg>
               </div>
               <div>
-                <p class="font-bold text-slate-800 line-through text-sm leading-tight group-hover:text-emerald-700 transition">
-                  Personalize sua loja
+                <div class="flex items-center space-x-2">
+                  <p class="font-extrabold text-slate-900 text-sm leading-tight group-hover:text-emerald-700 transition">
+                    Criar & Editar Layout da Loja
+                  </p>
+                  <span class="px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider bg-emerald-100 text-emerald-800">Novo</span>
+                </div>
+                <p class="text-xs text-slate-500 mt-1">
+                  Arraste seções, edite carrossel de slides, produtos, banners, cores e tipografia com preview ao vivo.
                 </p>
-                <p class="text-xs text-slate-400 mt-0.5">
-                  Cores, banners, logotipo e identidade visual configurados.
-                </p>
+                <div class="mt-3">
+                  <span class="inline-flex items-center px-3.5 py-1.5 rounded-lg bg-emerald-600 text-white text-xs font-bold shadow-xs hover:bg-emerald-700 transition">
+                    Abrir Editor de Layout &rarr;
+                  </span>
+                </div>
               </div>
             </div>
             <svg class="w-4 h-4 text-slate-400 group-hover:text-slate-600 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
             </svg>
           </NuxtLink>
 
@@ -183,7 +191,7 @@
             </svg>
           </NuxtLink>
 
-          <!-- Item 5: Revisar configurações do Nuvem Envio (Lojio Envio) -->
+          <!-- Item 5: Formas de Envio e Frete -->
           <NuxtLink
             to="/admin/personalizar"
             class="p-5 flex items-start justify-between hover:bg-slate-50/60 transition group cursor-pointer block"
@@ -196,10 +204,10 @@
               </div>
               <div>
                 <p class="font-bold text-slate-900 text-sm leading-tight group-hover:text-emerald-700 transition">
-                  Revisar configurações do Lojio Envio
+                  Configurar Formas de Envio
                 </p>
                 <p class="text-xs text-slate-500 mt-0.5">
-                  Opções de entrega dos Correios, PAC, SEDEX e regras de frete grátis.
+                  Opções de entrega dos Correios, PAC, SEDEX, transportadoras e regras de frete grátis.
                 </p>
               </div>
             </div>
@@ -208,7 +216,7 @@
             </svg>
           </NuxtLink>
 
-          <!-- Item 6: Revisar configurações do Nuvem Pago (Lojio Pago / Mercado Pago) -->
+          <!-- Item 6: Meios de Pagamento (Mercado Pago, Pix, Cartão) -->
           <NuxtLink
             to="/admin/personalizar"
             class="p-5 flex items-start justify-between hover:bg-slate-50/60 transition group cursor-pointer block"
@@ -221,10 +229,10 @@
               </div>
               <div>
                 <p class="font-bold text-slate-900 text-sm leading-tight group-hover:text-emerald-700 transition">
-                  Revisar configurações do Lojio Pago
+                  Configurar Meios de Pagamento
                 </p>
                 <p class="text-xs text-slate-500 mt-0.5">
-                  Mercado Pago com Checkout Transparente, Pix com aprovação imediata e parcelamento em 12x.
+                  Mercado Pago com Checkout Transparente, Pix com aprovação imediata e parcelamento no cartão.
                 </p>
               </div>
             </div>
