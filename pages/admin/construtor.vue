@@ -18,7 +18,7 @@
                 Elementor & Three.js
               </span>
             </div>
-            <p class="text-xs text-slate-500">Arraste e organize blocos com preview em tempo real e modelo 3D</p>
+            <p class="text-xs text-slate-500">Arraste, estilize blocos, escolha logos/banners e visualize em 3D</p>
           </div>
         </div>
 
@@ -101,7 +101,7 @@
       <div class="flex-1 flex overflow-hidden">
         <!-- Left Sidebar: Elementor Style Widgets / Blocks Palette -->
         <aside class="w-80 bg-white border-r border-slate-200 flex flex-col shrink-0 z-10 overflow-y-auto">
-          <!-- Tabs: Elementos vs Configurações -->
+          <!-- Tabs: Elementos, Banners/Logo e Cores -->
           <div class="flex border-b border-slate-200 p-2 gap-1 bg-slate-50/70">
             <button
               @click="activeTab = 'widgets'"
@@ -109,7 +109,15 @@
               :class="activeTab === 'widgets' ? 'bg-white shadow-xs text-emerald-800 font-black' : 'text-slate-600 hover:text-slate-900'"
               class="flex-1 py-2 text-xs rounded-lg transition text-center"
             >
-              Blocos (Elementos)
+              Blocos
+            </button>
+            <button
+              @click="activeTab = 'assets'"
+              type="button"
+              :class="activeTab === 'assets' ? 'bg-white shadow-xs text-emerald-800 font-black' : 'text-slate-600 hover:text-slate-900'"
+              class="flex-1 py-2 text-xs rounded-lg transition text-center"
+            >
+              Logo & Banners
             </button>
             <button
               @click="activeTab = 'design'"
@@ -117,11 +125,11 @@
               :class="activeTab === 'design' ? 'bg-white shadow-xs text-emerald-800 font-black' : 'text-slate-600 hover:text-slate-900'"
               class="flex-1 py-2 text-xs rounded-lg transition text-center"
             >
-              Estilo & Cores
+              Cores & 3D
             </button>
           </div>
 
-          <!-- Tab 1: Elementor Blocks Palette -->
+          <!-- Tab 1: Elementor Blocks Palette & Drag / Reorder -->
           <div v-if="activeTab === 'widgets'" class="p-4 space-y-5">
             <div>
               <p class="text-xs font-black uppercase tracking-wider text-slate-400 mb-2">Clique para adicionar bloco</p>
@@ -140,22 +148,31 @@
               </div>
             </div>
 
-            <!-- Active Page Sections (Elementor Navigator) -->
+            <!-- Active Page Sections with Drag-and-Drop / Move -->
             <div>
               <div class="flex items-center justify-between mb-2">
                 <p class="text-xs font-black uppercase tracking-wider text-slate-400">Estrutura da Loja ({{ blocks.length }})</p>
                 <button @click="resetBlocks" class="text-[10px] text-slate-400 hover:text-rose-600 font-semibold">Restaurar padrão</button>
               </div>
+              <p class="text-[10px] text-slate-400 mb-2">Arraste os blocos para reordenar a vitrine ao vivo.</p>
 
               <div class="space-y-2">
                 <div
                   v-for="(block, index) in blocks"
                   :key="block.id"
+                  draggable="true"
+                  @dragstart="onDragStart(index)"
+                  @dragover.prevent="onDragOver(index)"
+                  @drop="onDrop(index)"
                   @click="selectedBlockId = block.id"
-                  class="p-3 rounded-xl border transition cursor-pointer flex items-center justify-between"
-                  :class="selectedBlockId === block.id ? 'border-emerald-600 bg-emerald-50/70 shadow-xs' : 'border-slate-200 bg-white hover:border-slate-300'"
+                  class="p-3 rounded-xl border transition cursor-grab active:cursor-grabbing flex items-center justify-between"
+                  :class="[
+                    selectedBlockId === block.id ? 'border-emerald-600 bg-emerald-50/70 shadow-xs' : 'border-slate-200 bg-white hover:border-slate-300',
+                    dragOverIndex === index ? 'ring-2 ring-emerald-500 bg-emerald-50' : ''
+                  ]"
                 >
                   <div class="flex items-center space-x-2.5 min-w-0">
+                    <span class="text-slate-400 cursor-grab text-xs">⋮⋮</span>
                     <span class="w-6 h-6 rounded-lg bg-slate-100 text-slate-700 font-bold text-xs flex items-center justify-center shrink-0">
                       {{ index + 1 }}
                     </span>
@@ -169,7 +186,7 @@
                     <button
                       @click.stop="moveBlock(index, -1)"
                       :disabled="index === 0"
-                      class="p-1 hover:bg-slate-200/70 rounded disabled:opacity-20 text-slate-600"
+                      class="p-1 hover:bg-slate-200/70 rounded disabled:opacity-20 text-slate-600 text-xs"
                       title="Mover acima"
                     >
                       ▲
@@ -177,14 +194,14 @@
                     <button
                       @click.stop="moveBlock(index, 1)"
                       :disabled="index === blocks.length - 1"
-                      class="p-1 hover:bg-slate-200/70 rounded disabled:opacity-20 text-slate-600"
+                      class="p-1 hover:bg-slate-200/70 rounded disabled:opacity-20 text-slate-600 text-xs"
                       title="Mover abaixo"
                     >
                       ▼
                     </button>
                     <button
                       @click.stop="removeBlock(block.id)"
-                      class="p-1 hover:bg-rose-100 hover:text-rose-600 rounded text-slate-400"
+                      class="p-1 hover:bg-rose-100 hover:text-rose-600 rounded text-slate-400 text-xs"
                       title="Excluir bloco"
                     >
                       ✕
@@ -196,54 +213,156 @@
 
             <!-- Block Settings Drawer / Inspector -->
             <div v-if="selectedBlock" class="p-4 rounded-2xl bg-slate-100 border border-slate-200/90 space-y-3">
-              <p class="text-xs font-black text-slate-800 uppercase tracking-wider">Editar: {{ selectedBlock.title }}</p>
-
-              <div v-if="selectedBlock.type === 'hero'">
-                <label class="block text-[11px] font-bold text-slate-600 mb-1">Título Principal</label>
-                <input v-model="selectedBlock.props.title" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
-                <label class="block text-[11px] font-bold text-slate-600 mt-2 mb-1">Subtítulo</label>
-                <input v-model="selectedBlock.props.subtitle" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
-                <label class="block text-[11px] font-bold text-slate-600 mt-2 mb-1">Texto do Botão CTA</label>
-                <input v-model="selectedBlock.props.buttonText" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+              <div class="flex items-center justify-between">
+                <p class="text-xs font-black text-slate-800 uppercase tracking-wider">Estilizar: {{ selectedBlock.title }}</p>
+                <span class="text-[10px] uppercase font-bold px-1.5 py-0.5 rounded bg-emerald-100 text-emerald-800">
+                  {{ selectedBlock.type }}
+                </span>
               </div>
 
-              <div v-else-if="selectedBlock.type === 'banner'">
-                <label class="block text-[11px] font-bold text-slate-600 mb-1">Mensagem de Destaque</label>
-                <input v-model="selectedBlock.props.text" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
-                <label class="block text-[11px] font-bold text-slate-600 mt-2 mb-1">Cupom / Desconto</label>
-                <input v-model="selectedBlock.props.badge" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+              <!-- Estilos Globais do Bloco (Espaçamento e Fundo) -->
+              <div class="grid grid-cols-2 gap-2 pt-1 border-t border-slate-200">
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-600 mb-0.5">Espaçamento Vertical</label>
+                  <select v-model="selectedBlock.props.padding" class="w-full text-xs p-1.5 rounded-lg bg-white border border-slate-300">
+                    <option value="py-8">Compacto</option>
+                    <option value="py-14">Médio (Padrão)</option>
+                    <option value="py-20">Espaçoso</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold text-slate-600 mb-0.5">Alinhamento</label>
+                  <select v-model="selectedBlock.props.align" class="w-full text-xs p-1.5 rounded-lg bg-white border border-slate-300">
+                    <option value="text-center">Centralizado</option>
+                    <option value="text-left">À Esquerda</option>
+                  </select>
+                </div>
               </div>
 
-              <div v-else-if="selectedBlock.type === 'products'">
-                <label class="block text-[11px] font-bold text-slate-600 mb-1">Título da Seção</label>
-                <input v-model="selectedBlock.props.title" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
-                <label class="block text-[11px] font-bold text-slate-600 mt-2 mb-1">Colunas no Desktop</label>
-                <select v-model="selectedBlock.props.columns" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300">
-                  <option :value="2">2 Colunas</option>
-                  <option :value="3">3 Colunas</option>
-                  <option :value="4">4 Colunas</option>
-                </select>
+              <!-- Configurações específicas por Bloco -->
+              <div v-if="selectedBlock.type === 'hero'" class="space-y-2">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Título Principal</label>
+                  <input v-model="selectedBlock.props.title" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Subtítulo</label>
+                  <input v-model="selectedBlock.props.subtitle" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Texto do Botão CTA</label>
+                  <input v-model="selectedBlock.props.buttonText" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Imagem de Fundo do Banner (URL)</label>
+                  <input v-model="selectedBlock.props.bgImage" placeholder="https://..." class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
               </div>
 
-              <div v-else-if="selectedBlock.type === 'testimonials'">
-                <label class="block text-[11px] font-bold text-slate-600 mb-1">Depoimento</label>
-                <textarea v-model="selectedBlock.props.quote" rows="2" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300"></textarea>
-                <label class="block text-[11px] font-bold text-slate-600 mt-2 mb-1">Autor</label>
-                <input v-model="selectedBlock.props.author" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+              <div v-else-if="selectedBlock.type === 'banner'" class="space-y-2">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Mensagem de Destaque</label>
+                  <input v-model="selectedBlock.props.text" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Cupom / Desconto</label>
+                  <input v-model="selectedBlock.props.badge" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Ícone de Destaque</label>
+                  <select v-model="selectedBlock.props.iconType" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300">
+                    <option value="sparkles">✨ Sparkles / Brilho</option>
+                    <option value="tag">🏷️ Tag de Oferta</option>
+                    <option value="truck">🚚 Frete Grátis</option>
+                    <option value="shield">🛡️ Garantia</option>
+                  </select>
+                </div>
               </div>
 
-              <div v-else-if="selectedBlock.type === 'features'">
-                <label class="block text-[11px] font-bold text-slate-600 mb-1">Item 1 (Frete)</label>
-                <input v-model="selectedBlock.props.feature1" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
-                <label class="block text-[11px] font-bold text-slate-600 mt-2 mb-1">Item 2 (PIX)</label>
-                <input v-model="selectedBlock.props.feature2" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
-                <label class="block text-[11px] font-bold text-slate-600 mt-2 mb-1">Item 3 (Segurança)</label>
-                <input v-model="selectedBlock.props.feature3" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+              <div v-else-if="selectedBlock.type === 'products'" class="space-y-2">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Título da Seção</label>
+                  <input v-model="selectedBlock.props.title" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Colunas no Desktop</label>
+                  <select v-model="selectedBlock.props.columns" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300">
+                    <option :value="2">2 Colunas</option>
+                    <option :value="3">3 Colunas</option>
+                    <option :value="4">4 Colunas</option>
+                  </select>
+                </div>
+              </div>
+
+              <div v-else-if="selectedBlock.type === 'testimonials'" class="space-y-2">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Depoimento</label>
+                  <textarea v-model="selectedBlock.props.quote" rows="2" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300"></textarea>
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Autor</label>
+                  <input v-model="selectedBlock.props.author" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+              </div>
+
+              <div v-else-if="selectedBlock.type === 'features'" class="space-y-2">
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Item 1 (Frete)</label>
+                  <input v-model="selectedBlock.props.feature1" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Item 2 (PIX)</label>
+                  <input v-model="selectedBlock.props.feature2" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
+                <div>
+                  <label class="block text-[11px] font-bold text-slate-600 mb-1">Item 3 (Segurança)</label>
+                  <input v-model="selectedBlock.props.feature3" class="w-full text-xs p-2 rounded-lg bg-white border border-slate-300" />
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Tab 2: Theme & Colors (Paleta verde esmeralda) -->
+          <!-- Tab 2: Logo & Banners Management -->
+          <div v-if="activeTab === 'assets'" class="p-4 space-y-4">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Nome da Loja</label>
+              <input v-model="storeInfo.name" type="text" class="w-full text-xs p-2.5 rounded-lg bg-slate-50 border border-slate-300" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Logo da Marca (URL)</label>
+              <input v-model="storeInfo.logoUrl" placeholder="https://exemplo.com/logo.png" class="w-full text-xs p-2.5 rounded-lg bg-slate-50 border border-slate-300" />
+              <div v-if="storeInfo.logoUrl" class="mt-2 p-2 bg-slate-100 rounded-lg flex items-center justify-center h-16 border border-slate-200">
+                <img :src="storeInfo.logoUrl" alt="Logo Preview" class="max-h-full max-w-full object-contain" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Banner Principal da Loja (URL)</label>
+              <input v-model="storeInfo.bannerUrl" placeholder="https://exemplo.com/banner.jpg" class="w-full text-xs p-2.5 rounded-lg bg-slate-50 border border-slate-300" />
+              <div class="mt-2 space-y-1">
+                <p class="text-[10px] font-bold text-slate-400">Sugestões de banners rápidos:</p>
+                <div class="grid grid-cols-2 gap-1.5">
+                  <button
+                    v-for="(sug, idx) in bannerSuggestions"
+                    :key="idx"
+                    type="button"
+                    @click="storeInfo.bannerUrl = sug.url"
+                    class="text-[10px] text-left p-1.5 rounded bg-slate-100 hover:bg-emerald-50 border border-slate-200 truncate"
+                  >
+                    {{ sug.title }}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-bold text-slate-700 mb-1">Barra de Avisos (Topo)</label>
+              <input v-model="storeInfo.announcementBar" placeholder="Frete grátis para todo o Brasil..." class="w-full text-xs p-2.5 rounded-lg bg-slate-50 border border-slate-300" />
+            </div>
+          </div>
+
+          <!-- Tab 3: Theme & Colors (Paleta verde esmeralda e Three.js) -->
           <div v-if="activeTab === 'design'" class="p-4 space-y-4">
             <div>
               <label class="block text-xs font-bold text-slate-700 mb-1">Cor Primária (Identidade Verde)</label>
@@ -303,11 +422,24 @@
             :class="previewDevice === 'mobile' ? 'w-[390px] min-h-[740px] rounded-[40px] border-8 border-slate-900 shadow-2xl overflow-hidden' : 'w-full max-w-5xl rounded-2xl shadow-xl border border-slate-300'"
             class="bg-white transition-all duration-300"
           >
+            <!-- Announcement Bar -->
+            <div
+              v-if="storeInfo.announcementBar"
+              class="py-1.5 px-4 text-center text-xs font-bold text-white transition-colors"
+              :style="{ backgroundColor: storeInfo.primaryColor || '#059669' }"
+            >
+              {{ storeInfo.announcementBar }}
+            </div>
+
             <!-- Simulated Store Header -->
             <div class="px-6 py-4 border-b border-slate-100 flex items-center justify-between bg-white sticky top-0 z-10">
-              <div class="flex items-center space-x-2">
+              <div class="flex items-center space-x-2.5">
+                <div v-if="storeInfo.logoUrl" class="w-8 h-8 rounded-lg overflow-hidden border border-slate-200">
+                  <img :src="storeInfo.logoUrl" alt="Logo" class="w-full h-full object-cover" />
+                </div>
                 <div
-                  class="w-7 h-7 rounded-lg text-white font-extrabold flex items-center justify-center text-xs shadow-xs"
+                  v-else
+                  class="w-8 h-8 rounded-lg text-white font-extrabold flex items-center justify-center text-xs shadow-xs"
                   :style="{ backgroundColor: storeInfo.primaryColor || '#059669' }"
                 >
                   {{ storeInfo.name?.charAt(0) || 'L' }}
@@ -343,9 +475,16 @@
                 <!-- 1. HERO WIDGET -->
                 <div
                   v-if="block.type === 'hero'"
-                  class="py-14 px-6 text-center text-white relative overflow-hidden"
+                  :class="[block.props.padding || 'py-14', block.props.align || 'text-center']"
+                  class="px-6 text-white relative overflow-hidden"
                   :style="{ backgroundColor: storeInfo.primaryColor || '#059669' }"
                 >
+                  <img
+                    v-if="block.props.bgImage || storeInfo.bannerUrl"
+                    :src="block.props.bgImage || storeInfo.bannerUrl"
+                    alt="Banner Background"
+                    class="absolute inset-0 w-full h-full object-cover opacity-30 mix-blend-overlay pointer-events-none"
+                  />
                   <div class="max-w-xl mx-auto space-y-3 relative z-10">
                     <span class="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold backdrop-blur-xs">
                       Coleção Especial 2026
@@ -371,8 +510,12 @@
                 <!-- 2. BANNER DESTAQUE WIDGET -->
                 <div
                   v-else-if="block.type === 'banner'"
-                  class="p-4 bg-emerald-50 border-y border-emerald-100 text-center flex items-center justify-center space-x-2 text-xs font-bold text-emerald-900"
+                  class="p-4 bg-emerald-50 border-y border-emerald-100 flex items-center justify-center space-x-2 text-xs font-bold text-emerald-900"
                 >
+                  <span class="text-base" v-if="block.props.iconType === 'sparkles'">✨</span>
+                  <span class="text-base" v-else-if="block.props.iconType === 'truck'">🚚</span>
+                  <span class="text-base" v-else-if="block.props.iconType === 'shield'">🛡️</span>
+                  <span class="text-base" v-else>🏷️</span>
                   <span class="px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] uppercase font-black">
                     {{ block.props.badge || 'OFERTA' }}
                   </span>
@@ -456,16 +599,48 @@ import {
 } from 'lucide-vue-next'
 
 const previewDevice = ref<'desktop' | 'mobile' | '3d'>('desktop')
-const activeTab = ref<'widgets' | 'design'>('widgets')
+const activeTab = ref<'widgets' | 'assets' | 'design'>('widgets')
 const selectedBlockId = ref<string>('hero-1')
 const saving = ref(false)
+
+const dragSourceIndex = ref<number | null>(null)
+const dragOverIndex = ref<number | null>(null)
+
+const onDragStart = (idx: number) => {
+  dragSourceIndex.value = idx
+}
+
+const onDragOver = (idx: number) => {
+  dragOverIndex.value = idx
+}
+
+const onDrop = (targetIdx: number) => {
+  if (dragSourceIndex.value === null) return
+  const src = dragSourceIndex.value
+  if (src !== targetIdx) {
+    const item = blocks.value.splice(src, 1)[0]
+    blocks.value.splice(targetIdx, 0, item)
+  }
+  dragSourceIndex.value = null
+  dragOverIndex.value = null
+}
 
 const storeInfo = reactive({
   name: 'Minha Loja Oficial',
   subdomain: '',
+  logoUrl: '',
+  bannerUrl: '',
+  announcementBar: '',
   primaryColor: '#059669',
   accentColor: '#10b981'
 })
+
+const bannerSuggestions = [
+  { title: 'Moda & Estilo', url: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=1200' },
+  { title: 'Tecnologia & Gadgets', url: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=1200' },
+  { title: 'Café & Alimentos', url: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1200' },
+  { title: 'Cosméticos & Beleza', url: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=1200' },
+]
 
 // Elementor Widgets Catalog
 const availableWidgets = [
@@ -510,7 +685,10 @@ const blocks = ref<any[]>([
     props: {
       title: 'Coleção Exclusiva 2026',
       subtitle: 'Tendências e lançamentos com até 20% OFF no PIX',
-      buttonText: 'Explorar Produtos'
+      buttonText: 'Explorar Produtos',
+      padding: 'py-14',
+      align: 'text-center',
+      bgImage: ''
     }
   },
   {
@@ -519,7 +697,8 @@ const blocks = ref<any[]>([
     title: 'Barra de Cupom',
     props: {
       badge: 'CUPOM 10% OFF',
-      text: 'Utilize o cupom BEMVINDO no checkout!'
+      text: 'Utilize o cupom BEMVINDO no checkout!',
+      iconType: 'sparkles'
     }
   },
   {
@@ -561,9 +740,9 @@ const addWidget = (type: string) => {
   let defaultProps = {}
 
   if (type === 'hero') {
-    defaultProps = { title: 'Novo Destaque', subtitle: 'Subtítulo do bloco', buttonText: 'Conferir' }
+    defaultProps = { title: 'Novo Destaque', subtitle: 'Subtítulo do bloco', buttonText: 'Conferir', padding: 'py-14', align: 'text-center', bgImage: '' }
   } else if (type === 'banner') {
-    defaultProps = { badge: 'NOVIDADE', text: 'Frete grátis para todo o Brasil' }
+    defaultProps = { badge: 'NOVIDADE', text: 'Frete grátis para todo o Brasil', iconType: 'truck' }
   } else if (type === 'products') {
     defaultProps = { title: 'Lançamentos', columns: 3 }
   } else if (type === 'features') {
@@ -605,7 +784,9 @@ const resetBlocks = () => {
       props: {
         title: 'Coleção Exclusiva 2026',
         subtitle: 'Tendências e lançamentos com até 20% OFF no PIX',
-        buttonText: 'Explorar Produtos'
+        buttonText: 'Explorar Produtos',
+        padding: 'py-14',
+        align: 'text-center'
       }
     },
     {
@@ -620,13 +801,25 @@ const resetBlocks = () => {
   ]
 }
 
+const { fetchWithAuth, initAuth, isAuthenticated } = useAuth()
+const router = useRouter()
+
 onMounted(async () => {
+  initAuth()
+  if (!isAuthenticated.value) {
+    router.push('/admin/login')
+    return
+  }
+
   try {
-    const res: any = await $fetch('/api/admin/store')
+    const res: any = await fetchWithAuth('/api/admin/store')
     const tenant = res?.tenant || res?.store
     if (tenant) {
       storeInfo.name = tenant.name || storeInfo.name
       storeInfo.subdomain = tenant.subdomain || ''
+      storeInfo.logoUrl = tenant.logoUrl || ''
+      storeInfo.bannerUrl = tenant.bannerUrl || ''
+      storeInfo.announcementBar = tenant.announcementBar || ''
       storeInfo.primaryColor = tenant.primaryColor || '#059669'
       storeInfo.accentColor = tenant.accentColor || '#10b981'
 
@@ -657,10 +850,9 @@ const showToast = (msg: string, type: 'success' | 'error' = 'success') => {
 const saveLayout = async () => {
   saving.value = true
   try {
-    // Busca as configs atuais para mesclar sem sobrescrever
     let currentThemeConfig: any = {}
     try {
-      const getRes: any = await $fetch('/api/admin/store')
+      const getRes: any = await fetchWithAuth('/api/admin/store')
       const t = getRes?.tenant || getRes?.store
       if (t?.themeConfig) {
         currentThemeConfig = typeof t.themeConfig === 'string' ? JSON.parse(t.themeConfig) : t.themeConfig
@@ -672,20 +864,23 @@ const saveLayout = async () => {
       builderBlocks: blocks.value
     }
 
-    await $fetch('/api/admin/store', {
+    await fetchWithAuth('/api/admin/store', {
       method: 'PUT',
       body: {
+        name: storeInfo.name,
+        logoUrl: storeInfo.logoUrl,
+        bannerUrl: storeInfo.bannerUrl,
+        announcementBar: storeInfo.announcementBar,
         primaryColor: storeInfo.primaryColor,
         accentColor: storeInfo.accentColor,
         themeConfig: updatedThemeConfig
       }
     })
-    showToast('Estrutura de blocos e estilo publicados com sucesso!')
-  } catch (err) {
-    showToast('Erro ao publicar alterações da loja.', 'error')
+    showToast('Loja, blocos, banners e estilo publicados com sucesso!')
+  } catch (err: any) {
+    showToast(err.data?.statusMessage || 'Erro ao publicar alterações da loja.', 'error')
   } finally {
     saving.value = false
   }
 }
 </script>
-
