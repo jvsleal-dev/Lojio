@@ -70,12 +70,13 @@
 
         <!-- Botão Ver Vitrine -->
         <a
-          :href="`/?tenant=${storeInfo.subdomain || ''}`"
+          :href="storeLink"
           target="_blank"
-          class="p-1.5 text-slate-500 hover:text-emerald-700 hover:bg-slate-50 rounded-lg transition"
+          class="inline-flex items-center space-x-1.5 px-3 py-1.5 text-xs font-bold text-slate-700 hover:text-emerald-700 bg-slate-50 hover:bg-slate-100 border border-slate-200 rounded-xl transition shadow-2xs"
           title="Abrir vitrine em nova aba"
         >
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <span>Ver Vitrine</span>
+          <svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
           </svg>
         </a>
@@ -909,8 +910,13 @@ const showToast = (msg: string, type: 'success' | 'error' = 'success') => {
   }, 4000)
 }
 
-const { fetchWithAuth, initAuth, isAuthenticated } = useAuth()
+const { fetchWithAuth, initAuth, isAuthenticated, tenant: authTenant } = useAuth()
 const router = useRouter()
+
+const storeLink = computed(() => {
+  const sub = storeInfo.subdomain || authTenant.value?.subdomain || ''
+  return sub ? `/?tenant=${encodeURIComponent(sub)}` : '/'
+})
 
 onMounted(async () => {
   initAuth()

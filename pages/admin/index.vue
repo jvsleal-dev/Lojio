@@ -257,18 +257,18 @@
             <p class="text-xs text-slate-500">
               Você já pode acessar
               <a
-                :href="`/?tenant=${data?.tenant?.subdomain || 'moda'}`"
+                :href="`/?tenant=${data?.tenant?.subdomain || tenant?.subdomain || 'moda'}`"
                 target="_blank"
                 class="font-mono text-emerald-700 font-semibold hover:underline"
               >
-                {{ data?.tenant?.subdomain || 'loja' }}.lojio.com.br
+                {{ data?.tenant?.subdomain || tenant?.subdomain || 'loja' }}.lojio.com.br
               </a>
             </p>
           </div>
 
           <div class="flex items-center space-x-3 w-full sm:w-auto">
             <a
-              :href="`/?tenant=${data?.tenant?.subdomain || ''}`"
+              :href="`/?tenant=${data?.tenant?.subdomain || tenant?.subdomain || ''}`"
               target="_blank"
               class="px-4 py-2.5 rounded-xl text-xs font-bold text-emerald-700 hover:text-emerald-800 bg-emerald-50 hover:bg-emerald-100 border border-emerald-200 transition inline-flex items-center gap-1.5"
             >

@@ -68,9 +68,22 @@ export default defineEventHandler(async (event) => {
       where: { id: headerId },
     })
   } else if (subdomain) {
+    // 1. Busca exata por subdomínio
     tenant = await prisma.tenant.findUnique({
       where: { subdomain },
     })
+
+    // 2. Fallback: busca case-insensitive por nome da loja ou slug sanitizado se não achar
+    if (!tenant) {
+      tenant = await prisma.tenant.findFirst({
+        where: {
+          OR: [
+            { subdomain: { equals: subdomain, mode: 'insensitive' } },
+            { name: { equals: subdomain, mode: 'insensitive' } },
+          ],
+        },
+      })
+    }
   }
 
   // Only fallback for storefront product detail, order tracking or checkout
