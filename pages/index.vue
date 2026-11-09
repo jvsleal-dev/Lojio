@@ -32,6 +32,7 @@ const { data: productsData, error: productsError, pending: productsPending } = a
 const store = computed<any>(() => storeData.value?.store)
 const storeTheme = computed(() => getStoreTheme(store.value?.themeConfig?.themeId))
 const storeTemplate = computed(() => getStoreTemplate(store.value?.themeConfig?.templateId))
+const builderBlocks = computed<any[]>(() => store.value?.themeConfig?.builderBlocks || [])
 const isPlatform = computed(() => {
   if (!tenantQuery.value) return true
   if (['none', 'saas', 'plataforma', 'home'].includes(tenantQuery.value.toLowerCase())) return true
@@ -198,15 +199,124 @@ const quickAddToCart = (product: any) => {
       <template v-else>
         <!-- Announcement Bar -->
         <AnnouncementBar
-          v-if="store?.showAnnouncement && !isSuspended"
+          v-if="(store?.showAnnouncement || store?.announcementBar) && !isSuspended"
           :text="store?.announcementBar || ''"
           :bg="store?.primaryColor || '#0f172a'"
         />
 
+        <!-- SEÇÕES DINÂMICAS DO CONSTRUTOR DE LOJA (Quando existirem builderBlocks configurados no banco de dados) -->
+        <div v-if="builderBlocks.length > 0 && !searchQuery && !currentCategory" class="divide-y divide-slate-100">
+          <div v-for="block in builderBlocks" :key="block.id">
+            <!-- 1. HERO SLIDE / BANNER -->
+            <section
+              v-if="block.type === 'hero'"
+              :class="[block.props?.padding || 'py-16 md:py-24', block.props?.align === 'text-left' ? 'text-left items-start px-8' : 'text-center']"
+              class="relative overflow-hidden text-white flex items-center justify-center transition-all"
+              :style="{ backgroundColor: block.props?.bgColor || store?.primaryColor || '#0f172a' }"
+            >
+              <img
+                v-if="block.props?.bgImage || store?.bannerUrl"
+                :src="block.props?.bgImage || store?.bannerUrl"
+                :alt="block.props?.title || store?.name"
+                class="absolute inset-0 w-full h-full object-cover opacity-85"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/20" />
+              <div class="relative z-10 max-w-2xl px-6 py-4 space-y-4">
+                <span class="inline-block px-3.5 py-1 rounded-full bg-white/20 text-white text-xs font-bold backdrop-blur-sm">
+                  Destaque Especial
+                </span>
+                <h1
+                  class="text-3xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight"
+                  :style="{ color: block.props?.textColor || '#ffffff' }"
+                >
+                  {{ block.props?.title || store?.name }}
+                </h1>
+                <p
+                  v-if="block.props?.subtitle || store?.description"
+                  class="text-sm sm:text-base font-medium max-w-lg mx-auto"
+                  :style="{ color: block.props?.textColor || '#e2e8f0' }"
+                >
+                  {{ block.props?.subtitle || store?.description }}
+                </p>
+                <div class="pt-2">
+                  <a
+                    href="#catalogo"
+                    class="inline-block px-8 py-3.5 rounded-full text-xs sm:text-sm font-black shadow-lg transition hover:scale-105 active:scale-95"
+                    :style="{
+                      backgroundColor: block.props?.btnColor || store?.accentColor || '#10b981',
+                      color: block.props?.btnTextColor || '#ffffff'
+                    }"
+                  >
+                    {{ block.props?.buttonText || 'Conferir Produtos' }}
+                  </a>
+                </div>
+              </div>
+            </section>
+
+            <!-- 2. BANNER DE CUPOM / AVISO -->
+            <div
+              v-else-if="block.type === 'banner'"
+              class="p-4 bg-emerald-50 border-y border-emerald-100 flex items-center justify-center space-x-2 text-xs sm:text-sm font-bold text-emerald-950"
+            >
+              <span>🏷️</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] uppercase font-black">
+                {{ block.props?.badge || 'CUPOM' }}
+              </span>
+              <span>{{ block.props?.text || 'Aproveite nossas promoções exclusivas com envio para todo o Brasil!' }}</span>
+            </div>
+
+            <!-- 3. VITRINE DE PRODUTOS EM DESTAQUE (Dentro do Construtor) -->
+            <div v-else-if="block.type === 'products'" class="store-container py-10 space-y-6">
+              <div class="flex items-center justify-between">
+                <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">
+                  {{ block.props?.title || 'Produtos em Destaque' }}
+                </h2>
+                <a href="#catalogo" class="text-xs font-bold text-emerald-700 hover:underline">Ver catálogo &rarr;</a>
+              </div>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div
+                  v-for="prod in products.slice(0, 4)"
+                  :key="prod.id"
+                  class="group bg-white border border-slate-200/80 rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden flex flex-col justify-between"
+                >
+                  <NuxtLink :to="`/produto/${prod.slug}`" class="relative aspect-square bg-slate-100 overflow-hidden block">
+                    <img :src="prod.coverImage" :alt="prod.name" class="w-full h-full object-cover group-hover:scale-105 transition" />
+                  </NuxtLink>
+                  <div class="p-3.5 space-y-2">
+                    <p class="text-xs font-bold text-slate-800 line-clamp-1">{{ prod.name }}</p>
+                    <div class="flex items-baseline justify-between">
+                      <span class="text-xs sm:text-sm font-black text-slate-900">R$ {{ Number(prod.price || 0).toFixed(2).replace('.', ',') }}</span>
+                      <span class="text-[10px] text-emerald-600 font-bold">PIX</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. VANTAGENS / FEATURES -->
+            <div v-else-if="block.type === 'features'" class="bg-slate-50 border-y border-slate-200/80 py-8">
+              <div class="store-container grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
+                <div class="p-4 bg-white rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <p class="text-xs sm:text-sm font-bold text-slate-900">{{ block.props?.feature1 || 'Frete Rápido' }}</p>
+                  <p class="text-xs text-slate-500 mt-0.5">Envio para todo o Brasil</p>
+                </div>
+                <div class="p-4 bg-white rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <p class="text-xs sm:text-sm font-bold text-slate-900">{{ block.props?.feature2 || 'PIX com Confirmação Instantânea' }}</p>
+                  <p class="text-xs text-slate-500 mt-0.5">Aprovação imediata</p>
+                </div>
+                <div class="p-4 bg-white rounded-2xl border border-slate-200/80 shadow-2xs">
+                  <p class="text-xs sm:text-sm font-bold text-slate-900">{{ block.props?.feature3 || 'Compra 100% Segura' }}</p>
+                  <p class="text-xs text-slate-500 mt-0.5">Garantia total CDC</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       <main class="store-container flex flex-col flex-1 py-8" :style="{ gap: 'var(--store-section-gap)' }">
-        <!-- Dynamic Hero Banner for Active Store -->
+        <!-- Dynamic Hero Banner Padrão (Usado quando o tema não tem builderBlocks customizados) -->
         <section
-          v-if="!searchQuery && !currentCategory && store"
+          v-if="builderBlocks.length === 0 && !searchQuery && !currentCategory && store"
           class="relative overflow-hidden bg-slate-900 text-white min-h-[380px] md:min-h-[460px] flex items-center shadow-xl shadow-slate-900/10"
           :class="storeTemplate.heroStyle === 'editorial' ? 'rounded-none' : 'rounded-3xl'"
         >
