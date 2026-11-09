@@ -89,9 +89,9 @@
       </div>
 
       <!-- Footer Help Note -->
-      <p class="text-center text-xs text-slate-400 mt-6">
+      <p class="text-center text-xs text-slate-500 mt-6">
         Ainda não tem uma loja virtual?
-        <NuxtLink to="/?tenant=none#planos" class="font-bold text-emerald-600 hover:underline">
+        <NuxtLink to="/admin/register" class="font-bold text-emerald-700 hover:text-emerald-800 hover:underline">
           Criar loja grátis na Lojio
         </NuxtLink>
       </p>
