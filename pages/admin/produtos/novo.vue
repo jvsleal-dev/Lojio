@@ -130,31 +130,22 @@
           </div>
         </div>
 
-        <!-- Images Card -->
+        <!-- Images Card com Upload de Arquivo -->
         <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-5">
           <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-700">Fotos do Produto</h2>
 
-          <div class="flex space-x-2">
-            <input
-              v-model="newImageUrl"
-              type="url"
-              placeholder="Cole a URL da foto (ex: https://images.unsplash.com/...)"
-              class="flex-1 px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
-            />
-            <button
-              type="button"
-              @click="addImage"
-              class="px-5 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs border border-slate-200 transition"
-            >
-              + Adicionar Foto
-            </button>
-          </div>
+          <ImageUploader
+            @update:modelValue="(val) => { if (val) form.images.push(val) }"
+            label="Enviar Arquivo de Foto"
+            hint="Salva direto no servidor da loja"
+            placeholder="Clique para enviar arquivo de imagem do produto (JPG, PNG, WEBP)"
+          />
 
           <div class="flex flex-wrap gap-3 pt-2">
             <div
               v-for="(img, idx) in form.images"
               :key="idx"
-              class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 relative group shadow-xs"
+              class="w-24 h-24 rounded-2xl overflow-hidden border border-slate-200 relative group shadow-xs bg-slate-50"
             >
               <img :src="img" class="w-full h-full object-cover" />
               <button

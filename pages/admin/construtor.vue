@@ -544,17 +544,13 @@
             />
           </div>
 
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Logotipo (URL da Imagem)</label>
-            <input
-              v-model="storeInfo.logoUrl"
-              placeholder="https://..."
-              class="w-full text-xs p-2.5 rounded-xl bg-slate-50 border border-slate-200"
-            />
-            <div v-if="storeInfo.logoUrl" class="mt-2 p-2 rounded-xl bg-slate-50 border border-slate-200 flex items-center justify-center h-16">
-              <img :src="storeInfo.logoUrl" alt="Logo Preview" class="max-h-full max-w-full object-contain" />
-            </div>
-          </div>
+          <!-- Logo & Marca da Loja -->
+          <ImageUploader
+            v-model="storeInfo.logoUrl"
+            label="Logotipo da Loja"
+            hint="Arquivo salvo no servidor"
+            placeholder="Clique para enviar a logo da sua marca"
+          />
         </div>
 
         <!-- Caso 3: Editando Rodapé -->
@@ -590,34 +586,14 @@
             </button>
           </div>
 
-          <!-- 1. Imagem do Bloco (Upload / URL) -->
+          <!-- 1. Imagem do Bloco (Upload de Arquivo) -->
           <div v-if="selectedBlock.type === 'hero' || selectedBlock.type === 'banner'" class="space-y-2">
-            <label class="block text-xs font-bold text-slate-700">Imagem</label>
-            <div class="p-4 rounded-2xl border-2 border-dashed border-slate-200 hover:border-emerald-400 flex flex-col items-center justify-center text-center bg-slate-50/50 space-y-2">
-              <svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-              <input
-                v-model="selectedBlock.props.bgImage"
-                type="text"
-                placeholder="Insira a URL da imagem..."
-                class="w-full text-xs p-2 rounded-xl bg-white border border-slate-200 text-slate-800"
-              />
-            </div>
-
-            <!-- Sugestões Rápidas de Imagem -->
-            <div class="space-y-1 pt-1">
-              <p class="text-[10px] font-bold text-slate-400">Sugestões de Banners:</p>
-              <div class="grid grid-cols-2 gap-1.5">
-                <button
-                  v-for="(sug, idx) in bannerSuggestions"
-                  :key="idx"
-                  type="button"
-                  @click="selectedBlock.props.bgImage = sug.url"
-                  class="text-[10px] text-left p-1.5 rounded-lg bg-slate-50 hover:bg-emerald-50 border border-slate-200 truncate cursor-pointer"
-                >
-                  {{ sug.title }}
-                </button>
-              </div>
-            </div>
+            <ImageUploader
+              v-model="selectedBlock.props.bgImage"
+              label="Imagem do Bloco / Banner"
+              hint="Arquivo no servidor"
+              placeholder="Clique para enviar a foto do seu computador"
+            />
           </div>
 
           <!-- 2. Textos do Bloco -->
@@ -682,9 +658,23 @@
             </div>
           </div>
 
-          <!-- 4. Cores (Cor dos textos, botões e fundo) -->
+          <!-- 4. Cores e Fonte do Bloco -->
           <div class="space-y-3 pt-2 border-t border-slate-100">
-            <label class="block text-xs font-bold text-slate-700">Cores</label>
+            <label class="block text-xs font-bold text-slate-700">Tipografia & Cores</label>
+
+            <!-- Seletor de Google Fonts -->
+            <div>
+              <label class="block text-[11px] font-medium text-slate-600 mb-1">Fonte do Título (Google Fonts)</label>
+              <select
+                v-model="selectedBlock.props.fontFamily"
+                class="w-full text-xs p-2 rounded-xl bg-slate-50 border border-slate-200"
+              >
+                <option value="">Fonte Padrão da Loja</option>
+                <option v-for="f in POPULAR_GOOGLE_FONTS" :key="f.id" :value="f.id">
+                  {{ f.name }} ({{ f.category }})
+                </option>
+              </select>
+            </div>
 
             <div>
               <label class="block text-[11px] font-medium text-slate-600 mb-1">Cor dos textos</label>
@@ -715,6 +705,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted } from 'vue'
+import { POPULAR_GOOGLE_FONTS } from '~/lib/google-fonts'
 
 const currentPage = ref('home')
 const previewDevice = ref<'desktop' | 'mobile' | '3d'>('desktop')

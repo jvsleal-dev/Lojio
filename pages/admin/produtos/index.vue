@@ -258,12 +258,11 @@
             </div>
 
             <div>
-              <label class="block text-xs font-bold text-slate-700 mb-1">URL da Imagem Principal</label>
-              <input
+              <ImageUploader
                 v-model="editForm.imageInput"
-                type="url"
-                placeholder="https://images.unsplash.com/..."
-                class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-emerald-600 transition"
+                label="Imagem do Produto"
+                hint="Arquivo salvo no servidor"
+                placeholder="Clique para enviar arquivo de imagem"
               />
             </div>
 

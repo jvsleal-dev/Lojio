@@ -268,28 +268,27 @@
                 </div>
               </div>
 
-              <!-- Tipografia / Fontes -->
+              <!-- Tipografia / Fontes do Google Fonts -->
               <div class="p-6 sm:p-8 rounded-3xl bg-white border border-slate-200/90 shadow-sm space-y-4">
                 <div class="flex items-center justify-between">
                   <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Tipografia da Loja (Google Fonts)</h2>
-                  <span class="text-[11px] text-emerald-600 font-semibold">{{ form.themeConfig.fontFamily }}</span>
+                  <span class="text-xs text-emerald-700 font-extrabold bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">{{ form.themeConfig.fontFamily }}</span>
                 </div>
+                <p class="text-xs text-slate-500">Selecione entre as melhores fontes do Google Fonts ou busque qualquer uma pelo nome.</p>
 
-                <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                <div class="max-h-72 overflow-y-auto p-1 grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                   <button
-                    v-for="font in fontOptions"
+                    v-for="font in POPULAR_GOOGLE_FONTS"
                     :key="font.id"
                     type="button"
                     @click="form.themeConfig.fontFamily = font.id"
-                    class="p-3.5 rounded-2xl border text-left transition relative overflow-hidden"
-                    :class="form.themeConfig.fontFamily === font.id ? 'bg-emerald-50 border-emerald-600 text-emerald-900' : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'"
+                    class="p-3 rounded-2xl border text-left transition relative overflow-hidden cursor-pointer"
+                    :class="form.themeConfig.fontFamily === font.id ? 'bg-emerald-50 border-emerald-600 text-emerald-900 shadow-2xs' : 'bg-slate-50 border-slate-200 text-slate-700 hover:border-slate-300'"
                   >
-                    <p class="font-bold text-sm text-slate-900" :style="{ fontFamily: font.id }">{{ font.name }}</p>
-                    <p class="text-[10px] text-slate-500 mt-0.5">{{ font.style }}</p>
-                    <span v-if="form.themeConfig.fontFamily === font.id" class="absolute top-2 right-2 text-emerald-600">
-                      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" />
-                      </svg>
+                    <p class="font-bold text-xs text-slate-900 truncate" :style="{ fontFamily: font.id }">{{ font.name }}</p>
+                    <p class="text-[10px] text-slate-400 mt-0.5">{{ font.category }}</p>
+                    <span v-if="form.themeConfig.fontFamily === font.id" class="absolute top-2 right-2 text-emerald-600 font-black text-xs">
+                      ✓
                     </span>
                   </button>
                 </div>
@@ -344,14 +343,13 @@
                 </div>
 
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1.5">URL do Logotipo (PNG / SVG Transparente)</label>
-                  <input
+                  <ImageUploader
                     v-model="form.logoUrl"
-                    type="url"
-                    placeholder="https://.../logo.png"
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
+                    label="Logotipo da Loja (Arquivo Real)"
+                    hint="Salvo no servidor da loja"
+                    placeholder="Clique para enviar arquivo do logo (PNG, JPG, SVG)"
                   />
-                  <p class="text-[11px] text-slate-400 mt-1">Recomendado: imagem retangular ou quadrada de 400x100px.</p>
+                  <p class="text-[11px] text-slate-400 mt-1">Recomendado: imagem retangular ou quadrada com fundo transparente.</p>
                 </div>
               </div>
 
@@ -360,12 +358,11 @@
                 <h2 class="text-xs font-bold uppercase tracking-wider text-emerald-600">Banner Principal (Hero da Vitrine)</h2>
 
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1.5">URL da Imagem de Fundo *</label>
-                  <input
+                  <ImageUploader
                     v-model="form.bannerUrl"
-                    type="url"
-                    placeholder="https://images.unsplash.com/photo-1441986300917-..."
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
+                    label="Imagem do Banner Principal (Arquivo Real)"
+                    hint="Salvo no servidor da loja"
+                    placeholder="Clique para enviar arquivo do banner principal"
                   />
                 </div>
 
@@ -409,12 +406,11 @@
                 </div>
 
                 <div>
-                  <label class="block text-xs font-bold text-slate-700 mb-1.5">URL da Imagem do Banner Secundário</label>
-                  <input
+                  <ImageUploader
                     v-model="form.themeConfig.secondaryBannerUrl"
-                    type="url"
-                    placeholder="https://images.unsplash.com/..."
-                    class="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-xs focus:bg-white focus:ring-2 focus:ring-emerald-600 outline-none transition"
+                    label="Imagem do Banner Promocional (Arquivo Real)"
+                    hint="Salvo no servidor"
+                    placeholder="Clique para enviar arquivo do banner promocional"
                   />
                 </div>
 
@@ -818,6 +814,7 @@
 <script setup lang="ts">
 import { STORE_THEMES, getStoreTheme, type StoreTheme } from '~/lib/store-themes'
 import { STORE_TEMPLATES, getStoreTemplate, type StoreTemplate } from '~/lib/store-templates'
+import { POPULAR_GOOGLE_FONTS } from '~/lib/google-fonts'
 
 definePageMeta({
   middleware: 'admin',
