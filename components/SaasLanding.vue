@@ -20,7 +20,7 @@
           <div class="hidden lg:flex items-center space-x-8 text-sm font-medium text-slate-300">
             <a href="#recursos" class="hover:text-white transition">Recursos</a>
             <a href="#lojas" class="hover:text-white transition">Lojas Parceiras</a>
-            <a href="#planos" class="hover:text-white transition">Planos</a>
+            <a href="#como-funciona" class="hover:text-white transition">Como funciona</a>
             <a href="#depoimentos" class="hover:text-white transition">Depoimentos</a>
             <a href="#faq" class="hover:text-white transition">FAQ</a>
           </div>
@@ -448,209 +448,131 @@
       </div>
     </section>
 
-    <!-- Pricing Section: Planos para toda a sua jornada (Image 2 Reference) -->
-    <section id="planos" class="py-24 bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 relative overflow-hidden">
+    <!-- Seção: Pague só quando vender -->
+    <section id="como-funciona" class="py-24 bg-gradient-to-b from-slate-950 via-emerald-950 to-slate-950 relative overflow-hidden">
       <!-- Glow background -->
       <div class="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-emerald-600/25 via-transparent to-transparent pointer-events-none"></div>
 
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <!-- Section Header -->
-        <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+          <div class="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold uppercase tracking-wider mb-4">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Sem mensalidade. Sem risco.</span>
+          </div>
           <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight">
-            Planos para toda a sua jornada
+            Você paga só quando<br>
+            <span class="text-emerald-400">você vender</span>
           </h2>
-          <p class="text-emerald-200 text-base">
-            Comece de graça ou escolha o plano que melhor se encaixa no momento do seu negócio.
+          <p class="text-emerald-200 text-base max-w-2xl mx-auto leading-relaxed">
+            Nada de assinatura mensal, nada de cobrança fixa. A Lojio lucra quando você lucra — uma pequena taxa sobre cada venda realizada, e só isso.
           </p>
+        </div>
 
-          <!-- Monthly / Annual Toggle Pill (Image 2 reference) -->
-          <div class="inline-flex items-center p-1.5 rounded-full bg-emerald-950/80 border border-emerald-500/30 backdrop-blur-md">
-            <button
-              @click="annual = false"
-              class="px-5 py-2 rounded-full text-xs font-bold transition"
-              :class="!annual ? 'bg-white text-emerald-950 shadow-md' : 'text-emerald-200 hover:text-white'"
-            >
-              Mensal
-            </button>
-            <button
-              @click="annual = true"
-              class="px-5 py-2 rounded-full text-xs font-bold transition flex items-center space-x-1"
-              :class="annual ? 'bg-white text-emerald-950 shadow-md' : 'text-emerald-200 hover:text-white'"
-            >
-              <span>Anual</span>
-              <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500 text-white font-extrabold">-15%</span>
-            </button>
+        <!-- 3 pilares horizontais -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+          <!-- 1. Começa grátis -->
+          <div class="p-8 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col items-center text-center hover:border-emerald-500/50 transition group">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mb-6 group-hover:bg-emerald-500/25 transition">
+              <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-black text-white mb-3">Comece grátis</h3>
+            <p class="text-sm text-emerald-200 leading-relaxed">
+              Crie sua loja, cadastre produtos e configure tudo sem pagar nada. Sua loja fica online imediatamente.
+            </p>
+            <div class="mt-6 px-4 py-2 rounded-full bg-emerald-950 border border-emerald-500/30">
+              <span class="text-xs font-bold text-emerald-300">R$ 0 para começar</span>
+            </div>
+          </div>
+
+          <!-- 2. Taxa por venda (destaque central) -->
+          <div class="p-8 rounded-3xl bg-emerald-600/80 backdrop-blur-xl border-2 border-white/30 shadow-2xl shadow-emerald-500/30 flex flex-col items-center text-center relative transform -translate-y-2">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-white text-emerald-950 font-extrabold text-[10px] uppercase tracking-wider shadow-lg">
+              Como funciona
+            </span>
+            <div class="w-16 h-16 rounded-2xl bg-white/20 border border-white/30 flex items-center justify-center mb-6">
+              <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-black text-white mb-2">Taxa por venda</h3>
+            <div class="my-3">
+              <span class="text-6xl font-black text-white">2,99%</span>
+              <p class="text-emerald-100 text-xs mt-1">por transação realizada</p>
+            </div>
+            <p class="text-sm text-emerald-100 leading-relaxed">
+              Cobrada apenas quando o cliente paga. Sem venda, sem taxa — simples assim.
+            </p>
+          </div>
+
+          <!-- 3. Sem surpresas -->
+          <div class="p-8 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col items-center text-center hover:border-emerald-500/50 transition group">
+            <div class="w-16 h-16 rounded-2xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center mb-6 group-hover:bg-emerald-500/25 transition">
+              <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-black text-white mb-3">Sem surpresas</h3>
+            <p class="text-sm text-emerald-200 leading-relaxed">
+              Nenhuma mensalidade, nenhuma taxa escondida, nenhum contrato. Cancele a qualquer momento — sem burocracia.
+            </p>
+            <div class="mt-6 px-4 py-2 rounded-full bg-emerald-950 border border-emerald-500/30">
+              <span class="text-xs font-bold text-emerald-300">Zero cobranças fixas</span>
+            </div>
           </div>
         </div>
 
-        <!-- 5 Plan Cards Grid (Exact structure of Image 2) -->
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          <!-- 1. Começo -->
-          <div class="p-6 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-500/50 transition">
-            <div>
-              <p class="text-sm font-bold text-emerald-200">Começo</p>
-              <p class="text-2xl font-black text-white mt-3">Gratuito</p>
-
-              <div class="mt-6 pt-5 border-t border-emerald-500/20 space-y-3 text-xs text-emerald-100">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-300">Destaque</p>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>1 layout profissional</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Pix com aprovação imediata</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Produtos e vendas ilimitadas</span>
-                </div>
+        <!-- Comparativo simplificado -->
+        <div class="max-w-2xl mx-auto p-6 rounded-3xl bg-slate-950/60 border border-slate-800/80 backdrop-blur-md">
+          <div class="text-center mb-6">
+            <p class="text-xs font-bold text-slate-400 uppercase tracking-wider">Por que a Lojio é diferente</p>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-3">
+              <p class="text-xs font-bold text-rose-400 uppercase tracking-wider mb-2">Plataformas tradicionais</p>
+              <div class="flex items-center space-x-2 text-xs text-slate-400">
+                <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                <span>Mensalidade fixa todo mês</span>
+              </div>
+              <div class="flex items-center space-x-2 text-xs text-slate-400">
+                <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                <span>Paga mesmo sem vender</span>
+              </div>
+              <div class="flex items-center space-x-2 text-xs text-slate-400">
+                <svg class="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                <span>Contratos e fidelidade</span>
               </div>
             </div>
-
-            <button
-              @click="openModalWithPlan('STARTER')"
-              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-emerald-950 font-bold text-xs transition border border-white/20"
-            >
-              Criar loja grátis
-            </button>
-          </div>
-
-          <!-- 2. Essencial -->
-          <div class="p-6 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-500/50 transition">
-            <div>
-              <p class="text-sm font-bold text-emerald-200">Essencial</p>
-              <div class="mt-3 flex items-baseline space-x-1">
-                <span class="text-2xl font-black text-white">{{ annual ? 'R$ 58' : 'R$ 69' }}</span>
-                <span class="text-xs text-emerald-200">/mês</span>
+            <div class="space-y-3">
+              <p class="text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">Lojio</p>
+              <div class="flex items-center space-x-2 text-xs text-emerald-100">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                <span>Taxa só quando vende</span>
               </div>
-
-              <div class="mt-6 pt-5 border-t border-emerald-500/20 space-y-3 text-xs text-emerald-100">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-300">Destaque</p>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>+70 layouts profissionais</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>30 usos de IA / mês</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Cálculo de frete Correios/Melhor Envio</span>
-                </div>
+              <div class="flex items-center space-x-2 text-xs text-emerald-100">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                <span>Zero mensalidade fixa</span>
+              </div>
+              <div class="flex items-center space-x-2 text-xs text-emerald-100">
+                <svg class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
+                <span>Livre, sem contratos</span>
               </div>
             </div>
-
-            <button
-              @click="openModalWithPlan('STARTER')"
-              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-emerald-950 font-bold text-xs transition border border-white/20"
-            >
-              Testar 7 dias grátis
-            </button>
           </div>
+        </div>
 
-          <!-- 3. Impulso (Recomendado - Highlighted Card) -->
-          <div class="p-6 rounded-3xl bg-emerald-600/80 backdrop-blur-xl border-2 border-white/40 shadow-2xl shadow-emerald-500/40 flex flex-col justify-between relative transform -translate-y-2">
-            <span class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full bg-emerald-500 text-white font-extrabold text-[10px] uppercase tracking-wider shadow">
-              Recomendado
-            </span>
-            <div>
-              <p class="text-sm font-extrabold text-white">Impulso</p>
-              <div class="mt-3 flex items-baseline space-x-1">
-                <span class="text-3xl font-black text-white">{{ annual ? 'R$ 139' : 'R$ 164' }}</span>
-                <span class="text-xs text-emerald-100">/mês</span>
-              </div>
-
-              <div class="mt-6 pt-5 border-t border-white/20 space-y-3 text-xs text-white">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-200">Destaque</p>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>150 usos de IA / mês</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Acesso ao código e CSS</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-300 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Ações em massa e cupons</span>
-                </div>
-              </div>
-            </div>
-
-            <button
-              @click="openModalWithPlan('PRO')"
-              class="mt-8 w-full py-3 rounded-full bg-white hover:bg-emerald-50 text-emerald-950 font-extrabold text-xs shadow-lg transition hover:scale-105"
-            >
-              Testar 7 dias grátis
-            </button>
-          </div>
-
-          <!-- 4. Escala -->
-          <div class="p-6 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-500/50 transition">
-            <div>
-              <p class="text-sm font-bold text-emerald-200">Escala</p>
-              <div class="mt-3 flex items-baseline space-x-1">
-                <span class="text-2xl font-black text-white">{{ annual ? 'R$ 381' : 'R$ 449' }}</span>
-                <span class="text-xs text-emerald-200">/mês</span>
-              </div>
-
-              <div class="mt-6 pt-5 border-t border-emerald-500/20 space-y-3 text-xs text-emerald-100">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-300">Destaque</p>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>IA ilimitada</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Controle de equipe multi-usuário</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Estatísticas avançadas de vendas</span>
-                </div>
-              </div>
-            </div>
-
-            <button
-              @click="openModalWithPlan('ENTERPRISE')"
-              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-emerald-950 font-bold text-xs transition border border-white/20"
-            >
-              Testar 7 dias grátis
-            </button>
-          </div>
-
-          <!-- 5. Next / Enterprise -->
-          <div class="p-6 rounded-3xl bg-emerald-950/40 backdrop-blur-md border border-emerald-500/20 flex flex-col justify-between hover:border-emerald-500/50 transition">
-            <div>
-              <p class="text-sm font-bold text-emerald-200">Next</p>
-              <p class="text-2xl font-black text-white mt-3">Sob Consulta</p>
-
-              <div class="mt-6 pt-5 border-t border-emerald-500/20 space-y-3 text-xs text-emerald-100">
-                <p class="font-bold uppercase tracking-wider text-[10px] text-emerald-300">Destaque</p>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Gerente de contas dedicado</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>Migração assistida sem custo</span>
-                </div>
-                <div class="flex items-start space-x-2">
-                  <svg class="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7" /></svg>
-                  <span>SLA e infraestrutura dedicada</span>
-                </div>
-              </div>
-            </div>
-
-            <button
-              @click="openModalWithPlan('ENTERPRISE')"
-              class="mt-8 w-full py-2.5 rounded-full bg-white/10 hover:bg-white text-white hover:text-emerald-950 font-bold text-xs transition border border-white/20"
-            >
-              Falar com Vendas
-            </button>
-          </div>
+        <!-- CTA Final -->
+        <div class="text-center mt-14">
+          <button
+            @click="openModal = true"
+            class="inline-flex items-center space-x-2 px-10 py-4 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold text-base shadow-2xl shadow-emerald-600/40 hover:scale-105 active:scale-95 transition"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v6m0 0v6m0-6h6m-6 0H6" /></svg>
+            <span>Criar minha loja grátis agora</span>
+          </button>
+          <p class="text-xs text-emerald-400 mt-3 font-semibold">Sem cartão de crédito. Sem mensalidade. Comece em 2 minutos.</p>
         </div>
       </div>
     </section>
@@ -671,10 +593,10 @@
               Criar loja grátis
             </button>
             <a
-              href="#planos"
+              href="#como-funciona"
               class="px-6 py-2.5 rounded-full bg-slate-800 text-slate-200 font-bold text-xs hover:bg-slate-700 border border-slate-700 transition"
             >
-              Falar com Vendas
+              Como funciona
             </a>
           </div>
         </div>
@@ -860,7 +782,6 @@
 </template>
 
 <script setup lang="ts">
-const annual = ref(false)
 const quickEmail = ref('')
 const openModal = ref(false)
 const loadingCreate = ref(false)
