@@ -426,10 +426,14 @@
 
                 <!-- Setas Indicadoras de Slide -->
                 <div class="absolute inset-y-0 left-3 flex items-center pointer-events-none">
-                  <span class="w-8 h-8 rounded-full bg-white/70 shadow-xs flex items-center justify-center text-slate-700 text-xs">←</span>
+                  <span class="w-8 h-8 rounded-full bg-white/80 shadow-sm flex items-center justify-center text-slate-700">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+                  </span>
                 </div>
                 <div class="absolute inset-y-0 right-3 flex items-center pointer-events-none">
-                  <span class="w-8 h-8 rounded-full bg-white/70 shadow-xs flex items-center justify-center text-slate-700 text-xs">→</span>
+                  <span class="w-8 h-8 rounded-full bg-white/80 shadow-sm flex items-center justify-center text-slate-700">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>
+                  </span>
                 </div>
                 <span class="absolute top-3 right-4 text-[11px] font-bold text-slate-400 bg-white/80 px-2 py-0.5 rounded-full">1 / 2</span>
               </div>
@@ -645,7 +649,8 @@
                 :class="selectedBlock.props.align === 'text-left' ? 'bg-emerald-50 text-emerald-800 border-emerald-500 font-bold' : 'bg-slate-50 text-slate-600 border-slate-200'"
                 class="py-2 px-3 rounded-xl border text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
               >
-                <span>⬅ À Esquerda</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h10M4 18h14" /></svg>
+                <span>À Esquerda</span>
               </button>
               <button
                 type="button"
@@ -653,7 +658,8 @@
                 :class="selectedBlock.props.align === 'text-center' || !selectedBlock.props.align ? 'bg-emerald-50 text-emerald-800 border-emerald-500 font-bold' : 'bg-slate-50 text-slate-600 border-slate-200'"
                 class="py-2 px-3 rounded-xl border text-xs flex items-center justify-center gap-1.5 transition cursor-pointer"
               >
-                <span>⬛ Centralizado</span>
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M7 12h10M5 18h14" /></svg>
+                <span>Centralizado</span>
               </button>
             </div>
           </div>

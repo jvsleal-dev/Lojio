@@ -86,9 +86,9 @@ export default defineEventHandler(async (event) => {
     }
   }
 
-  // Only fallback for storefront product detail, order tracking or checkout
+  // Only fallback for storefront product detail, order tracking, cart or checkout
   // NEVER fallback on root landing page or general info queries
-  if (!tenant && (url.pathname.startsWith('/produto/') || url.pathname.startsWith('/checkout') || url.pathname.startsWith('/pedido/'))) {
+  if (!tenant && (url.pathname.startsWith('/produto/') || url.pathname.startsWith('/checkout') || url.pathname.startsWith('/carrinho') || url.pathname.startsWith('/pedido/'))) {
     const cookieSubdomain = getCookie(event, 'selected_tenant')
     if (cookieSubdomain) {
       tenant = await prisma.tenant.findUnique({
